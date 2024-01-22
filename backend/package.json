@@ -1,5 +1,5 @@
 {
-  "name": "Realtime_parking_information_server",
+  "name": "realtime-parking-information-server",
   "version": "0.0.1",
   "description": "0.0.1 version is just create server code for test",
   "main": "index.js",
