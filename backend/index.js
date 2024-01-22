@@ -1,0 +1,67 @@
+const express = require("express");
+
+const pool = require("./DB.js");
+const app = express();
+
+const PORT = 8080;
+
+app.get('/', (req, res)=>{
+  res.send("GET request to homepage")
+})
+
+app.get("/users", async (req, res) => {
+  try {
+    const data = await pool.query("SELECT * FROM users");
+    // console.log(data);
+    return res.json(data[0]);
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
+});
+
+app.get("/user_cars", async (req, res) => {
+  try {
+    const data = await pool.query("SELECT * FROM user_cars");
+    // console.log(data);
+    return res.json(data[0]);
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
+});
+
+app.get("/parking_managers", async (req, res) => {
+  try {
+    const data = await pool.query("SELECT * FROM parking_managers");
+    // console.log(data);
+    return res.json(data[0]);
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
+});
+
+app.get("/parking_lots", async (req, res) => {
+  try {
+    const data = await pool.query("SELECT * FROM parking_lots");
+    // console.log(data);
+    return res.json(data[0]);
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
+});
+
+app.get("/parking_sections", async (req, res) => {
+  try {
+    const data = await pool.query("SELECT * FROM parking_sections");
+    // console.log(data);
+    return res.json(data[0]);
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
+});
+
+app.listen(PORT, () => console.log(`localhose:${PORT} 서버 기동중`));
