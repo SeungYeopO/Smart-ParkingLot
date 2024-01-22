@@ -2,14 +2,17 @@ pipeline {
     agent any
 
     tools {
-        nodejs(nodeJSInstallationName: 'nodejs')
+        nodejs 'nodejs'
     }
 
     stages {
         stage('stage_1') {
             steps {
-                sh 'cd ./backend'
-                sh 'npm start'
+                sh '''
+                    cd ./backend
+                    npm install
+                    CI=false npm start
+                '''
             }
         }
     }
