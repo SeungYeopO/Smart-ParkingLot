@@ -4,8 +4,6 @@ WORKDIR /usr/src/app
 
 #WORKDIR /app
 
-# ADD ./package.json /usr/src/app/package.json
-
 COPY ./package*.json ./
 
 RUN npm install
