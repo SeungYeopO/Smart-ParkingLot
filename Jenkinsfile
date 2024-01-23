@@ -15,7 +15,11 @@ pipeline {
         }
 
         stage('Docker set') {
-            sh "docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts"
+            steps {
+                script {
+                    sh "docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts"
+                }
+            }
         }
 
         stage('Build Docker Image') {
