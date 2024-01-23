@@ -17,8 +17,13 @@ pipeline {
         stage('Build and Run on Host Docker') {
             agent {
                 docker {
-                    image "${DOCKER_IMAGE_NAME}"
+                    image DOCKER_IMAGE_NAME
                     args '-v /var/run/docker.sock:/var/run/docker.sock'
+                }
+            }
+            steps {
+                script {
+                    
                 }
             }
         }
