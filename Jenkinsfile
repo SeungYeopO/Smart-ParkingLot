@@ -14,10 +14,11 @@ pipeline {
             }
         }
 
-        stage('Docker set') {
-            steps {
-                script {
-                    sh "docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts"
+        stage('Build and Run on Host Docker') {
+            agent {
+                docker {
+                    image "${DOCKER_IMAGE_NAME}"
+                    args '-v /var/run/docker.sock:/var/run/docker.sock'
                 }
             }
         }
