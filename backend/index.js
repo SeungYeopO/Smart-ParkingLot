@@ -3,7 +3,7 @@ const express = require("express");
 const pool = require("./DB.js");
 const app = express();
 
-const PORT = 8081;
+const PORT = 3000;
 
 app.get('/', (req, res)=>{
   res.send("GET request to homepage")
