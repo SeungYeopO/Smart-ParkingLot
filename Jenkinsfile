@@ -23,7 +23,7 @@ pipeline {
             }
             steps {
                 script {
-                    
+                    sh 'echo done'
                 }
             }
         }
