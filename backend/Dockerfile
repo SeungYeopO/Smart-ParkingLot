@@ -1,6 +1,8 @@
 FROM node:20
 
-WORKDIR /usr/src/app
+#WORKDIR /usr/src/app
+
+WORKDIR /app
 
 COPY package*.json ./
 
@@ -10,4 +12,4 @@ COPY . .
 
 EXPOSE 8081
 
-CMD ["npm start"]
+CMD ["npm", "start"]
