@@ -30,12 +30,4 @@ pipeline {
             }
         }
     }
-
-    post {
-        success {
-        }
-
-        failure {
-        }
-    }
 }
