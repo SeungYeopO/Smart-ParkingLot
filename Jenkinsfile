@@ -25,6 +25,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
+                    sh "docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts"
                     sh "docker run -d --name ${CONTAINER_NAME} -p 80:3000 ${DOCKER_IMAGE_NAME}"
                 }
             }
