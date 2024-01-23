@@ -1,19 +1,41 @@
 pipeline {
     agent any
 
-    tools {
-        nodejs 'nodejs-20.11.0'
+    environment {
+        DOCKER_IMAGE_NAME = 'ssafyysh/s10p12c102'
+        DOCKERFILE_PATH = './backend/Dockerfile'
+        CONTAINER_NAME = 'snowman'
     }
 
     stages {
-        stage('stage_1') {
+        stage('Checkout') {
             steps {
-                sh '''
-                    cd ./backend
-                    npm install
-                    CI=false npm start
-                '''
+                checkout scm
             }
+        }
+
+        stage('Build Docker Image') {
+            steps {
+                script {
+                    sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
+                }
+            }
+        }
+
+        stage('Run Docker Container') {
+            steps {
+                script {
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 80:3000 ${DOCKER_IMAGE_NAME}"
+                }
+            }
+        }
+    }
+
+    post {
+        success {
+        }
+
+        failure {
         }
     }
 }
