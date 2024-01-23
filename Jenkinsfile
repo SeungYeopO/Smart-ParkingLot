@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = 'ssafyysh/s10p12c102'
-        DOCKERFILE_PATH = './backend/Dockerfile'
+        DOCKERFILE_PATH = './Dockerfile'
         CONTAINER_NAME = 'snowman'
     }
 
@@ -14,23 +14,10 @@ pipeline {
             }
         }
 
-        stage('Build and Run on Host Docker') {
-            agent {
-                docker {
-                    image DOCKER_IMAGE_NAME
-                    args '-v /var/run/docker.sock:/var/run/docker.sock'
-                }
-            }
-            steps {
-                script {
-                    sh 'echo done'
-                }
-            }
-        }
-
         stage('Build Docker Image') {
             steps {
                 script {
+                    sh "cd ./backend"
                     sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
                 }
             }

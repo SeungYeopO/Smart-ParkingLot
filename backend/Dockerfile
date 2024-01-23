@@ -1,14 +1,16 @@
 FROM node:20
 
-#WORKDIR /usr/src/app
+WORKDIR /usr/src/app
 
-WORKDIR /app
+#WORKDIR /app
 
-COPY package*.json ./
+# ADD ./package.json /usr/src/app/package.json
+
+COPY ./package*.json ./
 
 RUN npm install
 
-COPY . .
+COPY . /usr/src/app
 
 EXPOSE 3000
 
