@@ -92,7 +92,7 @@ const ParkingLot = () => {
           key={space.id}
           className="parking-space"
           style={{
-            // position: "absolute",
+            position: "absolute",
             left: `${space.x}px`,
             top: `${space.y}px`,
             width: `${space.width}px`,
