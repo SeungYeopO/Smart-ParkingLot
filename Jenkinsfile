@@ -3,7 +3,7 @@ pipeline {
 
     environment {
         DOCKER_IMAGE_NAME = 'ssafyysh/s10p12c102'
-        DOCKERFILE_PATH = './Dockerfile'
+        DOCKERFILE_PATH = './backend/Dockerfile'
         CONTAINER_NAME = 'snowman'
     }
 
