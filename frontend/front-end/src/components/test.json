@@ -1,0 +1,658 @@
+[
+  {
+    "section_id": 1,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 3,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 4,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 5,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 6,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 7,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 8,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 9,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 10,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 11,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 12,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 13,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 14,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 15,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 16,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 17,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 18,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 19,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 20,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 21,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 22,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 23,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 24,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 25,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 26,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 27,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 28,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 29,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 30,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 31,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 32,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 33,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 34,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 35,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 36,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 37,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 38,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 39,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 40,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 41,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 42,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 43,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 44,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 45,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 46,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 47,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 48,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 49,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 50,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 51,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 52,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 53,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 54,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 55,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 56,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 57,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 58,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 59,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 60,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 61,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 62,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 63,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 64,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 65,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 66,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 67,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 68,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 69,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 70,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 71,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 72,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 73,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 1,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2120001,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2120002,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2120003,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2120004,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2120005,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2120006,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2130001,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2130002,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  },
+  {
+    "section_id": 2140001,
+    "lot_id": 1,
+    "pos_x": null,
+    "pos_y": null,
+    "is_filled": 0,
+    "is_managed": 0
+  }
+]

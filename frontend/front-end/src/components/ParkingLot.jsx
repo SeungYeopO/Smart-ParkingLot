@@ -1,4 +1,19 @@
+import React, { useEffect, useState } from "react";
+
+import parkingData from './test.json';
+
 const ParkingLot = () => {
+  const [parkingStatus, setParkingStatus] = useState({});
+
+  useEffect(() => {
+    // JSON 파일에서 section_id와 is_filled 값을 추출하여 상태로 설정합니다.
+    const statusMap = {};
+    parkingData.forEach(item => {
+      statusMap[item.section_id] = item.is_filled;
+    });
+    setParkingStatus(statusMap);
+  }, []);
+
   const parkingSpaces = [
     { id: 1, x: 137, y: 77, width: 67, height: 30 },
     { id: 2, x: 137, y: 109, width: 67, height: 30 },
@@ -88,18 +103,23 @@ const ParkingLot = () => {
   return (
     <div className="parking-lot">
       {parkingSpaces.map((space) => (
-        <div
-          key={space.id}
-          className="parking-space"
-          style={{
-            // position: "absolute",
-            left: `${space.x}px`,
-            top: `${space.y}px`,
-            width: `${space.width}px`,
-            height: `${space.height}px`,
-            rotate: `${space.rotate}deg`,
-          }}
-        ></div>
+        <div className="parking-space-edge">
+          <div
+            key={space.id}
+            className="parking-space"
+            style={{
+              position: "absolute",
+              left: `${space.x}px`,
+              top: `${space.y}px`,
+              width: `${space.width}px`,
+              height: `${space.height}px`,
+              rotate: `${space.rotate}deg`,
+              backgroundColor: parkingStatus[space.id] === 1 ? 'rgb(2, 24, 45)' : '#66e166',
+            }}
+          >
+            {/* 주차장 위치 번호 <span>{space.id}</span> */}
+          </div>
+        </div>
       ))}
     </div>
   );
