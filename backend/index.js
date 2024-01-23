@@ -1,31 +1,25 @@
-const express = require('express')
-const app = express()
-const port = 3000
-const cors = require("cors");
-const pool = require("./db");
+const express = require('express');
+const http = require('http');
+const socketIo = require('socket.io');
 
-const http = require('http')
-const server = http.createServer(app)
-const { Server } = require('socket.io');
-const io = new Server(server, {
-  cors:{
-    origin: true
-  },
-  pingInterval: 100, //100 ms
-  pingTimeout: 1
+const app = express();
+const server = http.createServer(app);
+const io = socketIo(server);
+
+io.on('connection', (socket) => {
+    console.log('New client connected');
+
+    // 클라이언트로부터 메시지를 받았을 때의 처리
+    socket.on('message', (message) => {
+        console.log('Message received:', message);
+        // 메시지에 대한 응답 또는 처리
+    });
+
+    socket.on('disconnect', () => {
+        console.log('Client disconnected');
+    });
 });
 
-app.use(
-    cors({
-        origin: true
-    })
-);
-
-app.get('/', async (req, res) => {
-  const ret = await pool.query("select * from sensing order by time desc limit 15");
-  res.send(ret[0]); 
-})
-
-server.listen(port, () => {
-  console.log(`Example app listening on port ${port}`)
-})
+server.listen(3001, () => {
+    console.log('WebSocket server listening on port 3000');
+});
