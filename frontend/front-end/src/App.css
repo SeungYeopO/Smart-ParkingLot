@@ -1,0 +1,11 @@
+/* App.css 파일 */
+/* .App {
+  background-image: url('../public/assets/parking.PNG');
+  background-size: cover;
+  width: 1500px;
+  height: 750px;
+} */
+
+.parking-space {
+  border: 2px solid blue;
+}
