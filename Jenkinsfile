@@ -17,7 +17,7 @@ pipeline {
         stage('Docker set') {
             steps {
                 script {
-                    sh "sudo docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts"
+                    sh "docker run -d -p 8080:8080 -v /var/run/docker.sock:/var/run/docker.sock jenkins/jenkins:lts"
                 }
             }
         }
@@ -25,7 +25,7 @@ pipeline {
         stage('Build Docker Image') {
             steps {
                 script {
-                    sh "sudo docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
+                    sh "docker build -t ${DOCKER_IMAGE_NAME} -f ${DOCKERFILE_PATH} ."
                 }
             }
         }
@@ -33,7 +33,7 @@ pipeline {
         stage('Run Docker Container') {
             steps {
                 script {
-                    sh "sudo docker run -d --name ${CONTAINER_NAME} -p 80:3000 ${DOCKER_IMAGE_NAME}"
+                    sh "docker run -d --name ${CONTAINER_NAME} -p 80:3000 ${DOCKER_IMAGE_NAME}"
                 }
             }
         }
