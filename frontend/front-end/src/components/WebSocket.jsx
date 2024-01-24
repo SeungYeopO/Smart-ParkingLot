@@ -1,32 +1,44 @@
-// 프론트엔드 코드 (예: App.js)
-
+// npm install npm install socket.io-client
+// frontend => 클라이언트 소켓
+// react server => localhost3000
 import React, { useState, useEffect } from 'react';
 import io from 'socket.io-client';
 
-const socket = io('http://localhost:3000'); // 백엔드 서버 주소로 변경
+// 통신할 백엔드 서버 주소작성, CORS 정책때문에 뒤에 추가 
+const socket = io('http://localhost:5000', { transports: ['websocket'], withCredentials: true });
 
 function WebSocket() {
   const [message, setMessage] = useState('');
   const [receivedMessage, setReceivedMessage] = useState('');
 
-  // 소켓 연결이 성공하면 실행
+
   useEffect(() => {
     socket.on('connect', () => {
       console.log('Connected to server');
     });
 
-    // 서버로부터 메시지를 받으면 실행
+ 
     socket.on('message', (message) => {
       setReceivedMessage(message);
     });
 
-    // 컴포넌트 언마운트 시 소켓 연결 해제
+
+    // 백엔드 서버의 변경 사항이 생겨서 실시간으로 반영될때 콘솔에
+    // 어떤 변경사항이 있었는지 확인할 수 있는 부분을 추가했음 
+    socket.on('backendMessage', (message) => {
+    
+      console.log('Received message from backend:', message);
+      
+    });
+    
+
+ 
     return () => {
       socket.disconnect();
     };
   }, []);
 
-  // 메시지를 서버로 전송
+
   const sendMessage = () => {
     socket.emit('message', message);
   };
