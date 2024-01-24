@@ -17,3 +17,8 @@
   background-color: red;
   border-radius: 50%;
 }
+
+.card-img-top{
+  width : 60px;
+  height : 250px;
+}
