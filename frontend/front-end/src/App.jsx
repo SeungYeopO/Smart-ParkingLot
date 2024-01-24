@@ -1,12 +1,23 @@
-import React from 'react';
-import './App.css'; // CSS 파일 임포트
-import ParkingLot from './components/ParkingLot';
+import React from "react";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import "./App.css"; // CSS 파일 임포트
+import ParkingMap from "./pages/ParkingMap";
+import DestinationMap from './pages/DestinationMap';
+import DrivingMap from './pages/DrivingMap';
+import AdminMap from "./pages/AdminMap";
 
 const App = () => {
   return (
-    <div className='App'>
-      <ParkingLot />
-    </div>
+    <BrowserRouter>
+      <div className="App">
+        <Routes>
+          <Route path="/adminmap" element={<AdminMap />} />
+          <Route path="/destinationmap" element={<DestinationMap />} />
+          <Route path="/drivingmap" element={<DrivingMap />} />
+          <Route path="/parkingmap" element={<ParkingMap />} />
+        </Routes>
+      </div>
+    </BrowserRouter>
   );
 };
 

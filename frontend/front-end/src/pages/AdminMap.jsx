@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import parkingData from './test.json';
+import parkingData from '../components/test.json';
 
 const AdminMap = () => {
   const [parkingStatus, setParkingStatus] = useState({});
@@ -113,10 +113,10 @@ const AdminMap = () => {
             width: `${space.width}px`,
             height: `${space.height}px`,
             rotate: `${space.rotate}deg`,
-            backgroundColor: parkingStatus[space.id] === 1 ? '#ececec' : '#64c964',
+            backgroundColor: parkingStatus[space.id] === 1 ? 'rgb(2, 24, 45)' : '#66e166',
           }}
         >
-          <span>{space.id}</span>
+          <span style={{color: 'rgb(2, 24, 45)'}}>{space.id}</span>
         </div>
       ))}
     </div>
