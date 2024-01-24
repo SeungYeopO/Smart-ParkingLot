@@ -2,9 +2,11 @@
 .parkingLot {
   /* background-image: url('../public/assets/parking.png'); */
   background-image: url('../public/assets/image.png');
-  background-size: cover;
-  width: 1520px;
-  height: 750px;
+  background-size: cover; /* 이미지가 컨테이너를 가득 채우도록 */
+  background-position: center; /* 이미지가 항상 중앙에 위치하도록 */
+  width: 100%; /* 너비를 최대 100%로 설정 */
+  height: 750px; /* 초기 높이 설정 */
+  max-width: 1520px; /* 최대 너비 제한 */
 }
 
 .parking-space {
@@ -14,3 +16,21 @@
   color: #66e166;
 }
 
+
+/* 화면 크기가 768px 미만일 때 적용될 스타일 */
+@media (max-width: 768px) {
+  .parking-space {
+    /* 주차 공간 크기 줄이기 */
+    transform: scale(0.8);
+    transform-origin: top left;
+  }
+}
+
+/* 화면 크기가 480px 미만일 때 적용될 스타일 */
+@media (max-width: 480px) {
+  .parking-space {
+    /* 주차 공간 더 줄이기 */
+    transform: scale(0.6);
+    transform-origin: top left;
+  }
+}

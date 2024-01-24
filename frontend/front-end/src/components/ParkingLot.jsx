@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 
 import parkingData from './test.json';
 
+
+
 const ParkingLot = () => {
   const [parkingStatus, setParkingStatus] = useState({});
 
