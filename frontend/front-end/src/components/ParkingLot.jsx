@@ -1,20 +1,40 @@
 import React, { useEffect, useState } from "react";
-
-import parkingData from './test.json';
-
-
+import parkingData from "./test.json";
 
 const ParkingLot = () => {
   const [parkingStatus, setParkingStatus] = useState({});
-
+  const backgroundSize = { width: 1520, height: 750 }; // 이미지 크기
   useEffect(() => {
     // JSON 파일에서 section_id와 is_filled 값을 추출하여 상태로 설정합니다.
     const statusMap = {};
-    parkingData.forEach(item => {
+    parkingData.forEach((item) => {
       statusMap[item.section_id] = item.is_filled;
     });
     setParkingStatus(statusMap);
   }, []);
+
+  // 주차공간 % 계산 로직
+  const calculateStyle = (space) => {
+    const xPercent = (space.x / backgroundSize.width) * 100;
+    const yPercent = (space.y / backgroundSize.height) * 100;
+    const widthPercent = (space.width / backgroundSize.width) * 100;
+    const heightPercent = (space.height / backgroundSize.height) * 100;
+
+    return {
+      position: "absolute",
+      left: `${xPercent}%`,
+      top: `${yPercent}%`,
+      width: `${widthPercent}%`,
+      height: `${heightPercent}%`,
+      transform: `rotate(${space.rotate || 0}deg)`,
+      backgroundColor:
+        parkingStatus[space.id] === 1 ? "rgb(2, 24, 45)" : "#66e166",
+      border: "2px solid rgba(55, 158, 159, 0.7)",
+      borderRadius: "5px",
+      boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
+      color: "#66e166",
+    };
+  };
 
   const parkingSpaces = [
     { id: 1, x: 137, y: 77, width: 67, height: 30 },
@@ -105,22 +125,12 @@ const ParkingLot = () => {
   return (
     <div className="parking-lot">
       {parkingSpaces.map((space) => (
-        <div className="parking-space-edge">
-          <div
-            key={space.id}
-            className="parking-space"
-            style={{
-              position: "absolute",
-              left: `${space.x}px`,
-              top: `${space.y}px`,
-              width: `${space.width}px`,
-              height: `${space.height}px`,
-              rotate: `${space.rotate}deg`,
-              backgroundColor: parkingStatus[space.id] === 1 ? 'rgb(2, 24, 45)' : '#66e166',
-            }}
-          >
-            {/* 주차장 위치 번호 <span>{space.id}</span> */}
-          </div>
+        <div
+          key={space.id}
+          className="parking-space"
+          style={calculateStyle(space)}
+        >
+          {/* 주차장 위치 번호 <span>{space.id}</span> */}
         </div>
       ))}
     </div>

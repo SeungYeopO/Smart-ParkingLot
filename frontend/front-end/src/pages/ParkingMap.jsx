@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import ParkingLot from '../components/ParkingLot';
 
 const ParkingMap = () => {
@@ -10,4 +10,4 @@ const ParkingMap = () => {
   );
 };
 
-export default ParkingMap;
+export default ParkingMap; 
