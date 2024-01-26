@@ -75,16 +75,4 @@ app.get("/parking_sections", async (req, res) => {
   }
 });
 
-//api 설계 후 작성하기(/api/~ 방식으로 수정)
-// app.get("/parking_sections", async (req, res) => {
-//   try {
-//     const data = await pool.query("SELECT * FROM parking_sections");
-//     // console.log(data);
-//     return res.json(data[0]);
-//   } catch (error) {
-//     console.log(error);
-//     return res.json(error);
-//   }
-// });
-
 app.listen(PORT, () => console.log(`localhost:${PORT} 서버 기동중`));
