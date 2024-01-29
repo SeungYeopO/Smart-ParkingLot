@@ -4,8 +4,8 @@ pipeline {
     environment {
         DOCKER_FRONT_IMAGE = 'dlek567/frontend'
         DOCKER_BACK_IMAGE = 'dlek567/backend'
-        FRONT_DOCKERFILE_PATH = './frontend/front-end/Dockerfile'
-        BACK_DOCKERFILE_PATH = './backend/Dockerfile'
+        FRONT_DOCKERFILE_PATH = './frontend/front-end/'
+        BACK_DOCKERFILE_PATH = './backend/'
         FRONT_CONTAINER_NAME = 'frontend'
         BACK_CONTAINER_NAME = 'backend'
     }
