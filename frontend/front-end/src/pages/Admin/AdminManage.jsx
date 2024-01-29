@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 
-import parkingData from '../components/test.json';
+import parkingData from "../../components/test.json";
 
 const AdminMap = () => {
   const [parkingStatus, setParkingStatus] = useState({});
@@ -8,7 +8,7 @@ const AdminMap = () => {
   useEffect(() => {
     // JSON 파일에서 section_id와 is_filled 값을 추출하여 상태로 설정합니다.
     const statusMap = {};
-    parkingData.forEach(item => {
+    parkingData.forEach((item) => {
       statusMap[item.section_id] = item.is_filled;
     });
     setParkingStatus(statusMap);
@@ -113,10 +113,11 @@ const AdminMap = () => {
             width: `${space.width}px`,
             height: `${space.height}px`,
             rotate: `${space.rotate}deg`,
-            backgroundColor: parkingStatus[space.id] === 1 ? 'rgb(2, 24, 45)' : '#66e166',
+            backgroundColor:
+              parkingStatus[space.id] === 1 ? "rgb(2, 24, 45)" : "#66e166",
           }}
         >
-          <span style={{color: 'rgb(2, 24, 45)'}}>{space.id}</span>
+          <span style={{ color: "rgb(2, 24, 45)" }}>{space.id}</span>
         </div>
       ))}
     </div>
