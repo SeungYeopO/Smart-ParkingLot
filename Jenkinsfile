@@ -2,9 +2,9 @@ pipeline {
     agent any
 
     environment {
-        DOCKER_IMAGE_NAME = 'ssafyysh/s10p12c102'
+        DOCKER_IMAGE_NAME = 'dlek567/backend'
         DOCKERFILE_PATH = './backend/Dockerfile'
-        CONTAINER_NAME = 'snowman'
+        CONTAINER_NAME = 'backend'
     }
 
     stages {
