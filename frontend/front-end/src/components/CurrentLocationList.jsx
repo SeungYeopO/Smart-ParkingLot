@@ -1,5 +1,5 @@
 import React from 'react';
-
+// 몇층인지 알려주는 컴포넌트
 const CurrentLocationList = () => {
   return (
     <div>
