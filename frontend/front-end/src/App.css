@@ -69,8 +69,16 @@
   테두리를 얇은 회색 선으로 설정 */
   width: 400px;
   margin-bottom: 10px;
+  
 }
 
+/* 사용자 Accounts 페이지 */
+.user-login button {
+  width: 200px;
+}
+.signup-button button{
+  width: 100px;
+}
 
 /* 사용자 페이지 */
 .parkingLot {

@@ -9,6 +9,9 @@ import AdminLogin from "./pages/Admin/AdminLogin";
 import AdminMode from "./pages/Admin/AdminMode";
 import AdminCCTV from "./pages/Admin/AdminCCTV";
 import AdminStatus from "./pages/Admin/AdminStatus";
+import Login from "./pages/User/Accounts/Login";
+import Signup from "./pages/User/Accounts/Signup";
+import Profile from "./pages/User/Accounts/Profile";
 
 const App = () => {
   return (
@@ -23,9 +26,12 @@ const App = () => {
             <Route path="/adminmanage" element={<AdminManage />} />
             <Route path="/adminstatus" element={<AdminStatus />} />
 
+            <Route path="/" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/profile" element={<Profile />} />
             <Route path="/destinationmap" element={<DestinationMap />} />
             <Route path="/drivingmap" element={<DrivingMap />} />
-            <Route path="/" element={<ParkingMap />} />
+            <Route path="/ParkingMap" element={<ParkingMap />} />
           </Routes>
           {/* </div> */}
         </div>

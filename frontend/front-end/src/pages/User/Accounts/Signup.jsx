@@ -1,22 +1,24 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-const Login = () => {
+const Signup = () => {
   // useState를 사용하여 username과 password 상태 관리
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [displayPassword, setDisplayPassword] = useState("");
+  const [carnumber, setCarnumber] = useState("");
   const navigate = useNavigate(); 
 
   // 로그인 처리 함수
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(username, password); // 사용자 이름과 비밀번호를 콘솔에 출력
+    // console.log(username, password); // 사용자 이름과 비밀번호를 콘솔에 출력
   };
 
   // 경로 이동 함수
   const handleSignup = (e) => { // 회원가입 버튼 이벤트 핸들러
     e.preventDefault();
-    navigate('/signup') // 여기로 경로 이동
+    navigate('/') // 여기로 경로 이동
   }
 
   return (
@@ -33,28 +35,37 @@ const Login = () => {
           />
         </div>
         <div className="login-login">
-          <h2 style={{marginBottom: "30px"}}>로그인</h2>
+          <h2 style={{marginBottom: "30px"}}>회원 가입</h2>
           <form onSubmit={handleLogin}>
             <div>
               <input
                 type="text"
                 className="input-no-border"
-                placeholder="Put your Parking Lot's Token number"
+                placeholder="User Id"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}
               />
+              <button className="signup-button" ></button>
             </div>
             <div>
               <input
                 type="password"
                 className="input-no-border"
-                placeholder="Put your password"
+                placeholder="User Password"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}
               />
             </div>
-            <div className="user-login">
-              <button type="submit" style={{marginRight: "10px"}}>Login</button>
+            <div>
+              <input
+                type="text"
+                className="input-no-border"
+                placeholder="차량 번호를 입력해주세요."
+                value={carnumber}
+                onChange={(e) => setCarnumber(e.target.value)}
+              />
+            </div>
+            <div className="user-signup">
               <button type="submit" onClick={handleSignup}>Sign up</button>
             </div>
           </form>
@@ -64,4 +75,4 @@ const Login = () => {
   );
 };
 
-export default Login;
+export default Signup;
