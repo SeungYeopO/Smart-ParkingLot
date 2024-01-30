@@ -75,4 +75,4 @@ app.get("/parking_sections", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`localhost:${PORT} 서버 기동중`));
+app.listen(PORT, () => console.log(`서버 기동중`));
