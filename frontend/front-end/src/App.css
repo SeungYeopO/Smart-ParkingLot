@@ -60,10 +60,6 @@
   border-radius: 7px;
   margin-top: 30px;
 }
-.sign-password ::placeholder {
-  
-}
-
 .input-no-border {
   border-top: none;
   border-right: none;
@@ -72,9 +68,16 @@
   테두리를 얇은 회색 선으로 설정 */
   width: 400px;
   margin-bottom: 10px;
-  
 }
-
+.user-id {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid #ccc; /* 예시로 하단
+  테두리를 얇은 회색 선으로 설정 */
+  width: 320px;
+  margin-bottom: 10px;
+}
 /* 사용자 Accounts 페이지 */
 .user-login button {
   width: 200px;
@@ -82,6 +85,19 @@
 .signup-button button{
   width: 100px;
 }
+.username-message {
+  color: red; /* 메시지 색상, 변경 가능 */
+  margin-top: 10px;
+}
+.password-error {
+  color: red;
+}
+.login-login .signup-button {
+  width: 80px;
+  height: 22px;
+  font-size: 13px;
+}
+
 
 /* 사용자 페이지 */
 .parkingLot {
