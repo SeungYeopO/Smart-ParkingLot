@@ -47,7 +47,7 @@ const Signup = () => {
               />
               <button className="signup-button" ></button>
             </div>
-            <div>
+            <div className="sign-password">
               <input
                 type="password"
                 className="input-no-border"
