@@ -6,6 +6,9 @@
 .App {
   font-family: "BMJUA", sans-serif;
 }
+.sign-password {
+  font-family: sans-serif;
+}
 
 /* 관리자 페이지 */
 
@@ -91,6 +94,7 @@
 }
 .password-error {
   color: red;
+  font-family: ;
 }
 .login-login .signup-button {
   width: 80px;

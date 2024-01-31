@@ -19,13 +19,14 @@ const AdminLogin = () => {
           <h2 style={{ color: "#6373e8" }}>Auto Parking</h2>
           <h6 style={{ color: "white", marginLeft: "150px" }}>for admin</h6>
           <img
+            className="animate__animated animate__bounceOutUp"
             src="./assets/car.png"
             alt="logo"
             style={{ width: "200px", marginTop: "50px" }}
           />
         </div>
         <div className="login-login">
-          <h2 style={{marginBottom: "30px"}}>관리자 계정 인증</h2>
+          <h2 style={{ marginBottom: "30px" }}>관리자 계정 인증</h2>
           <form onSubmit={handleLogin}>
             <div>
               <input

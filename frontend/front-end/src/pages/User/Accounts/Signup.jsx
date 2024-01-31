@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 const Signup = () => {
   const [username, setUsername] = useState("");
@@ -7,6 +7,8 @@ const Signup = () => {
   const [confirmPassword, setConfirmPassword] = useState("");
   const [carnumber, setCarnumber] = useState("");
   const [isUsernameUnique, setIsUsernameUnique] = useState(null);
+  const [isCarnumberUnique, setIsCarnumberUnique] = useState(null);
+  const [carnumberMessage, setCarnumberMessage] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [carType, setCarType] = useState("");
@@ -56,9 +58,18 @@ const Signup = () => {
     }
   };
 
+  // 차량 번호 중복확인 => 이것도 백엔드 들어오면 고려
+
   // 회원가입 처리 함수
   const handleSignup = async (e) => {
     e.preventDefault();
+    if (password !== confirmPassword) {
+      setPasswordError("비밀번호가 일치하지 않습니다.");
+      return; // 비밀번호가 일치하지 않으면 함수 실행을 중지
+    } else {
+      setPasswordError(""); // 비밀번호가 일치하면 오류 메시지를 초기화
+    }
+
     if (!username) {
       setUsernameMessage("User ID를 입력해주세요.");
       return;
@@ -67,11 +78,12 @@ const Signup = () => {
       alert("User ID가 중복되었습니다. 다른 ID를 입력해 주세요.");
       return;
     }
-    if (password !== confirmPassword) {
-      alert("비밀번호가 일치하지 않습니다.");
-      return;
-    }
-    if (password && username && isUsernameUnique) {
+    if (
+      password &&
+      username &&
+      isUsernameUnique &&
+      password === confirmPassword
+    ) {
       navigate("/");
     }
   };
@@ -101,6 +113,7 @@ const Signup = () => {
           <h2 style={{ color: "#6373e8" }}>Auto Parking</h2>
           {/* <h6 style={{ color: "white", marginLeft: "150px" }}>for user</h6> */}
           <img
+            className="animate__animated animate__bounceOutUp"
             src="./assets/car.png"
             alt="logo"
             style={{ width: "200px", marginTop: "50px" }}
@@ -183,6 +196,9 @@ const Signup = () => {
                 Create Account
               </button>
             </div>
+            <p>
+              Already have an account? <Link to="/">Login</Link>
+            </p>
           </form>
         </div>
       </div>
