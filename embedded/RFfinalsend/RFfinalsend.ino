@@ -2,7 +2,7 @@
 #include <nRF24L01.h>
 #include <RF24.h>
 
-RF24 radio(49, 53); // CE, CSN
+RF24 radio(9, 10); // CE, CSN
 
 const byte address[6] = "00001"; // the address the the module
 
@@ -14,7 +14,7 @@ void setup() {
 }
 
 void loop() {
-  const char text[] = "7"; // you can customize this text to your wish
+  const char text[] = "4"; // you can customize this text to your wish
   radio.write(&text, sizeof(text));
   delay(1000);
 }
