@@ -1,6 +1,6 @@
+
 import React from "react";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./App.css"; // CSS 파일 임포트
 import ParkingMap from "./pages/User/ParkingMap";
 import DestinationMap from "./pages/User/DestinationMap";
 import DrivingMap from "./pages/User/DrivingMap";
@@ -12,10 +12,17 @@ import AdminStatus from "./pages/Admin/AdminStatus";
 import Login from "./pages/User/Accounts/Login";
 import Signup from "./pages/User/Accounts/Signup";
 import Profile from "./pages/User/Accounts/Profile";
+import './App.css'; // CSS 파일 임포트
+import ParkingLot from './components/ParkingLot';
+import MyCar from './components/MyCar';
+import WebSocket from './components/WebSocket';
+import DestinationStatus from './components/DestinationStatus';
+import ParkingStatus from './components/ParkingStatus';
+import AdminMap from './pages/AdminMap';
+
 
 const App = () => {
   return (
-    <>
       <BrowserRouter>
         <div className="App">
           {/* <div className="container"> */}
@@ -34,9 +41,10 @@ const App = () => {
             <Route path="/ParkingMap" element={<ParkingMap />} />
           </Routes>
           {/* </div> */}
+          {/* <AdminMap /> */}
         </div>
       </BrowserRouter>
-    </>
+
   );
 };
 

@@ -120,7 +120,7 @@ const ParkingLot = () => {
     { id: 81, x: 1121, y: 430, width: 26, height: 45, rotate: 45 },
     { id: 82, x: 940, y: 580, width: 30, height: 67 },
     { id: 83, x: 972, y: 580, width: 26, height: 45 },
-  ];
+  ]; //1200*600
 
   return (
     <div className="parking-lot">
@@ -132,6 +132,7 @@ const ParkingLot = () => {
         >
           {/* 주차장 위치 번호 <span>{space.id}</span> */}
         </div>
+
       ))}
     </div>
   );
