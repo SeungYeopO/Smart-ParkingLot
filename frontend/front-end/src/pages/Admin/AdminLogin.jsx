@@ -1,14 +1,18 @@
 import React, { useState } from "react";
+import { useNavigate } from 'react-router-dom';
+
 
 const AdminLogin = () => {
   // useState를 사용하여 username과 password 상태 관리
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  let navigate = useNavigate();
 
   // 로그인 처리 함수
   const handleLogin = (e) => {
     e.preventDefault();
     console.log(username, password); // 사용자 이름과 비밀번호를 콘솔에 출력
+    navigate('/adminmode');   //submit 했을 때 mode선택페이지로 이동
   };
 
   return (

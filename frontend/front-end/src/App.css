@@ -146,6 +146,12 @@
   color: white;
 }
 
+.adminmode-bg {
+  /* background-color: black; */
+  /* height : 100vh; */
+
+}
+
 .nav-logo img {
   width: 50px; /* 로고 크기 조정이 필요할 수 있습니다 */
 }
@@ -173,4 +179,130 @@
 
 .user-name {
   font-size: 1.1em;
+}
+
+.letter-function {
+  padding-left: 65px;
+  padding-top : 40px;
+  color : rgb(86, 86, 232);
+  font-size: 28px;
+}
+
+.mode-selection{
+  display: flex;
+
+}
+
+.cctvmode {
+  border: solid 1px blue;
+  width : 280px;
+  height : 280px;
+  margin-left : 100px;
+  font-size: 25px;
+
+  
+}
+.cctvmode p {
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.cctvmode img {
+  width : 240px;
+  height : 240px;
+  margin-left: 10px;
+}
+
+.statusmode {
+  border: solid 1px blue;
+  width : 280px;
+  height : 280px;
+  margin-left : 60px;
+  font-size: 25px;
+}
+
+.statusmode p {
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+
+}
+
+.statusmode img {
+  width : 200px;
+  height : 180px;
+  margin-left: 34px;
+  margin-top : 15px;
+}
+
+.managemode{
+  border: solid 1px blue;
+  width : 280px;
+  height : 280px;
+  margin-left : 60px;
+  font-size: 25px;
+}
+.managemode p {
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.managemode img {
+  width : 210px;
+  height : 180px;
+  margin-top : 25px;
+  margin-left: 29px;
+ 
+}
+
+.logicmode{
+  border: solid 1px blue;
+  width : 280px;
+  height : 280px;
+  margin-left : 60px;
+  font-size: 25px;
+}
+
+.logicmode p {
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.logicmode img {
+  width : 190px;
+  height: 190px;
+  margin-top: 15px;
+  margin-left: 40px;
+}
+
+.memo p {
+  margin-left: 70px;
+  margin-top : 60px;
+  color : rgb(86, 86, 232);
+  font-size : 28px;
+}
+
+.inputMemo {
+  border: 1px solid blue;
+  margin-left : 60px;
+  width : 1400px;
+  height : 160px;
+
+}
+
+.inputMemo p {
+  font-size: 18px;
+}
+.inputMemo1 {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.inputMemo2 {
+  margin-left : 10px;
+}
+.inputMemo3 {
+  margin-left : 40px;
 }
