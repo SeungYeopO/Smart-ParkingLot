@@ -5,6 +5,7 @@ import MyCar from './components/MyCar';
 import WebSocket from './components/WebSocket';
 import DestinationStatus from './components/DestinationStatus';
 import ParkingStatus from './components/ParkingStatus';
+import AdminMap from './pages/AdminMap';
 
 const App = () => {
   return (
@@ -12,7 +13,8 @@ const App = () => {
       {/* <ParkingLot /> */}
      {/* <MyCar /> */}
      {/* <WebSocket /> */}
-     <ParkingStatus />
+     {/* <ParkingStatus /> */}
+     <AdminMap />
     </div>
   );
 };
