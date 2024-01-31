@@ -10,7 +10,16 @@
 .sign-password {
   font-family: sans-serif;
 }
-
+.navbar-brand p{
+  color: #6373e8;
+  text-align: center;
+}
+.navbar-nav img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 30px;
+}
+                                                                         
 /* 관리자 페이지 */
 
 /* 관리자 로그인 페이지 */

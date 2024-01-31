@@ -1,5 +1,7 @@
 
 import React from "react";
+import './App.css'; // CSS 파일 임포트
+import 'bootstrap/dist/css/bootstrap.min.css';
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ParkingMap from "./pages/User/ParkingMap";
 import DestinationMap from "./pages/User/DestinationMap";
@@ -12,20 +14,18 @@ import AdminStatus from "./pages/Admin/AdminStatus";
 import Login from "./pages/User/Accounts/Login";
 import Signup from "./pages/User/Accounts/Signup";
 import Profile from "./pages/User/Accounts/Profile";
-import './App.css'; // CSS 파일 임포트
 import ParkingLot from './components/ParkingLot';
 import MyCar from './components/MyCar';
 import WebSocket from './components/WebSocket';
 import DestinationStatus from './components/DestinationStatus';
 import ParkingStatus from './components/ParkingStatus';
-import AdminMap from './pages/AdminMap';
+
 
 
 const App = () => {
   return (
       <BrowserRouter>
         <div className="App">
-          {/* <div className="container"> */}
           <Routes>
             <Route path="/adminlogin" element={<AdminLogin />} />
             <Route path="/adminmode" element={<AdminMode />} />
@@ -40,8 +40,6 @@ const App = () => {
             <Route path="/drivingmap" element={<DrivingMap />} />
             <Route path="/ParkingMap" element={<ParkingMap />} />
           </Routes>
-          {/* </div> */}
-          {/* <AdminMap /> */}
         </div>
       </BrowserRouter>
 

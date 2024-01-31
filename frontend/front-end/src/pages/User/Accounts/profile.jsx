@@ -1,9 +1,19 @@
-import React from 'react';
+import React from "react";
+import SideNavbar from "../../../components/SideNavbar";
 
 const Profile = () => {
   return (
-    <div>
-      프로필 페이지 입니다
+    <div style={{ display: "flex" }}>
+      {" "}
+      {/* flex 속성 추가 */}
+      <SideNavbar />
+      <div style={{ marginLeft: "20px" }}>
+        {" "}
+        {/* 네비게이션 바와 콘텐츠 사이의 간격 추가 */}
+        <p>
+          gdgdgdgggggggggggggggggggggggggggggsssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssssdasdasdasdasdasdasdasdasdasdasdasdsadasdasasd
+        </p>
+      </div>
     </div>
   );
 };
