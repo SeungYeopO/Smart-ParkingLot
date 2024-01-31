@@ -94,7 +94,7 @@ const Signup = () => {
     setCarType(selectedCarType);
 
     // '장애인' 선택 시 메시지 표시
-    if (selectedCarType === "disabled") {
+    if (selectedCarType === "장애인") {
       setSpecialMessage(
         <span style={{ color: "red" }}>
           비장애인이실 경우 불이익을 받으실 수 있습니다.
@@ -172,11 +172,24 @@ const Signup = () => {
                 className="input-no-border"
                 value={carType}
                 onChange={handleCarTypeChange}
+                style={{ color: carType === '' ? 'gray' : 'black' }}
               >
                 <option value="">차량 종류를 선택해주세요</option>
-                <option value="electric">전기차</option>
-                <option value="compact">경차</option>
-                <option value="disabled">장애인</option>
+                <option value="일반">일반차량</option>
+                <option value="전기차">전기차</option>
+                <option value="경차">경차</option>
+              </select>
+            </div>
+            <div>
+              <select
+                className="input-no-border"
+                value={carType}
+                onChange={handleCarTypeChange}
+                style={{ color: carType === '' ? 'gray' : 'black' }}
+              >
+                <option value="" style={{color: "gray"}}>장애인 차량 여부</option>
+                <option value="비장애인">비장애인</option>
+                <option value="장애인">장애인</option>
               </select>
               {specialMessage && (
                 <p className="special-message">{specialMessage}</p>

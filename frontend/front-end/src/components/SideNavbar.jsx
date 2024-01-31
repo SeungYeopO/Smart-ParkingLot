@@ -14,18 +14,18 @@ const SideNavbar = () => {
         justifyContent: "space-between", // 상단과 하단 내용 사이에 공간 생성
       }}
     >
-      <div>
-        <a className="navbar-brand" href="#">
+      <div className="nav-hover">
+        <a className="navbar-brand" href="/parkingmap">
           <p>Auto<br/>Parking</p>
         </a>
         <div className="navbar-nav">
-          <a className="nav-item nav-link active" href="#">
-            <img src="./assets/Home.png" alt="home" style={{ marginRight: "1px" }} /> {/* 인라인 스타일 적용 */}
+          <a className="nav-item nav-link active" href="/drivingmap">
+            <img src="./assets/Home.png" alt="home" style={{ marginRight: "1px" }} /> 
           </a>
-          <a className="nav-item nav-link" href="#">
+          <a className="nav-item nav-link" href="/help">
             <img src="./assets/Notifications.png" alt="notifications" />
           </a>
-          <a className="nav-item nav-link" href="#">
+          <a className="nav-item nav-link" href="/profile">
             <img src="./assets/Person.png" alt="person" />
           </a>
         </div>
