@@ -17,13 +17,13 @@ int status = WL_IDLE_STATUS;
 char server[] = "192.168.100.131";
 
 unsigned long lastConnectionTime = 0;
-const unsigned long postingInterval = 500L;
+const unsigned long postingInterval = 1000L;
 
 WiFiEspClient client;
 
 const byte address[6] = "00001"; // the address the the module
-String str = "";
 int cnt = 0;
+int DAT[7] = {0};
 
 void setup() {
   Serial.begin(9600);
@@ -53,39 +53,35 @@ void setup() {
 }
 
 void loop() {
-  int flag = 0;
+  int num = 0;
+  char txt[32];
   if (radio.available()) { // 만약 NRF 모듈에서 데이터가 들어오면
     char text[32] = "";
     radio.read(&text, sizeof(text));
-    for(int i = 0; i < sizeof(str); ++i){
-      if(str[i] == text[0]){
-        flag = 1;
-        break;
-      }
-    }
-    if(flag == 0){
-      str += text[0];
-      cnt++;
-    }
-    Serial.println(text);
+    num = atoi(text);
+    DAT[num]++;
+    cnt++;
   }
   // HTTP 요청
   unsigned long currentTime = millis();
 
-  if(cnt == 4){
-    char ch[7] = {0};
-    str.toCharArray(ch, str.length()+1);
-    Serial.println(ch);
+  if(cnt == 10){
+    int max = 0;
+    for(int i = 1; i < 7; ++i){
+      if(max < DAT[i]){
+        max = i;
+      }
+    }
+    txt[0] = max + '0';
+    Serial.println(txt);
     if (currentTime - lastConnectionTime > postingInterval) {
-      if (!httpRequest(ch)) {
+      if (!httpRequest(txt)) {
         Serial.println("HTTP 요청 실패. 재시도 중...");
       } else {
         lastConnectionTime = currentTime;
       }
     }
-    str = "";
     cnt = 0;
-    delay(10);
   }
 }
 
