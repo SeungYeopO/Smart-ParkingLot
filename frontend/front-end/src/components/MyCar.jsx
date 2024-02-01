@@ -90,7 +90,7 @@ const MyCar = () => {
           width : pos.lotType === 2 ? `${pos.s_width * pos.ratio}px` : `${pos.width * pos.ratio}px`,
           height : pos.lotType === 2 ? `${pos.s_height * pos.ratio}px` : `${pos.height * pos.ratio}px`,
           transform : pos.angle === '45' ? `rotate(${pos.angle - 90}deg)`: `rotate(${pos.angle}deg)`,
-          border: '1px solid black',         
+          border: '0.1px solid black',         
 
         }}
         >
