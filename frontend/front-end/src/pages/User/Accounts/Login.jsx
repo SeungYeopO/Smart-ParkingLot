@@ -14,7 +14,7 @@ const Login = () => {
     setAnimate(true);
     setTimeout(() => {
       console.log(username, password);
-      navigate('/parkingmap'); // 로그인 후 이동할 경로
+      navigate('/destinationmap'); // 로그인 후 이동할 경로
       setAnimate(false); // 애니메이션 종료 후 상태 초기화
     }, 2000);
   };
@@ -65,7 +65,7 @@ const Login = () => {
               <button type="submit" style={{ marginRight: "10px" }}>
                 Login
               </button>
-              <button type="submit" onClick={handleSignup}>
+              <button type="button" onClick={handleSignup}>
                 Sign up
               </button>
             </div>

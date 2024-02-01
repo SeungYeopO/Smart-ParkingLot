@@ -48,4 +48,3 @@ const AdminSideNavbar = () => {
   );
 };
 
-export default AdminSideNavbar;

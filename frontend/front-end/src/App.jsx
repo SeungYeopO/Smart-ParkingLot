@@ -1,5 +1,6 @@
-
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "./App.css"; // CSS 파일 임포트
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import ParkingMap from "./pages/User/ParkingMap";
 import DestinationMap from "./pages/User/DestinationMap";
@@ -19,6 +20,7 @@ import MyCar from './components/MyCar';
 import WebSocket from './components/WebSocket';
 import DestinationStatus from './components/DestinationStatus';
 import ParkingStatus from './components/ParkingStatus';
+import Help from "./pages/User/Accounts/Help";
 
 
 
@@ -45,9 +47,8 @@ const App = () => {
           {/* </div> */}
         </div>
       </BrowserRouter>
-      //
+  )};
 
-  );
-};
+
 
 export default App;
