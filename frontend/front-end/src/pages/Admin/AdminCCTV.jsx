@@ -1,9 +1,12 @@
 import React from 'react';
+import AdminSideNavbar from './../../components/AdminSideNavbar';
+import MyCar from '../../components/MyCar';
 
 const AdminCCTV = () => {
   return (
     <div>
-      관리자 CCTV 페이지
+      {/* <AdminSideNavbar /> */}
+      <MyCar />
     </div>
   );
 };

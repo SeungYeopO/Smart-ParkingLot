@@ -6,7 +6,7 @@ const NavBar = () => {
   let navigate = useNavigate();
 
   const gocctvMode = () => {
-    navigate('/addmincctv')
+    navigate('/admincctv')
   };
   const goManageMode = () => {
     navigate('/adminmanage')

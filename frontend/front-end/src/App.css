@@ -122,14 +122,13 @@
   color: #66e166;
 } */
 
-
+.dotsinfo{
+  font-size: small;
+}
 .position-dot {
   position: absolute;
-  width: 10px;
-  height: 10px;
-  background-color: red;
-  border-radius: 50%;
-}
+  display: flex;
+} 
 
 .card-img-top{
   width : 60px;
