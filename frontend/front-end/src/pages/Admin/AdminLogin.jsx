@@ -1,18 +1,21 @@
 import React, { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 
-
 const AdminLogin = () => {
-  // useState를 사용하여 username과 password 상태 관리
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
+  const [animate, setAnimate] = useState(false);
   let navigate = useNavigate();
 
-  // 로그인 처리 함수
   const handleLogin = (e) => {
     e.preventDefault();
-    console.log(username, password); // 사용자 이름과 비밀번호를 콘솔에 출력
-    navigate('/adminmode');   //submit 했을 때 mode선택페이지로 이동
+    setAnimate(true); // 버튼 클릭 시 애니메이션 상태 활성화
+
+    setTimeout(() => {
+      console.log(username, password);
+      navigate('/adminmode');
+      setAnimate(false); // 약 2초 후 애니메이션 상태 비활성화
+    }, 2000);
   };
 
   return (
@@ -23,7 +26,7 @@ const AdminLogin = () => {
           <h2 style={{ color: "#6373e8" }}>Auto Parking</h2>
           <h6 style={{ color: "white", marginLeft: "150px" }}>for admin</h6>
           <img
-            className="animate__animated animate__bounceOutUp"
+            className={`animate__animated ${animate ? "animate__bounceOutUp" : ""}`}
             src="./assets/car.png"
             alt="logo"
             style={{ width: "200px", marginTop: "50px" }}

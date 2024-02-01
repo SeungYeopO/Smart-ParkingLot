@@ -85,7 +85,7 @@ export default MyCar;
 
 
 return nowPosition.map((position, index) => (
-  <div
+  <
     key={index}
     className="position-dot"
     style={{

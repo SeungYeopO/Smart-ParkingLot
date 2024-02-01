@@ -118,6 +118,7 @@ const AdminMap = () => {
           }}
         >
           <span style={{ color: "rgb(2, 24, 45)" }}>{space.id}</span>
+          
         </div>
       ))}
     </div>
