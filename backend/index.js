@@ -32,12 +32,6 @@ app.get("/", (req, res) => {
   res.send("You need to request API");
 });
 
-app.get("/api", (req, res) => {
-  res.send(`
-    You need to request API detail
-  `);
-});
-
 //사용자와 직접 연관되는 API 명세
 app.get("/api/parking_sections/:lot_id", async (req, res) => {
   const lot_id = req.params.lot_id;
