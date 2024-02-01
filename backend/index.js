@@ -1,4 +1,5 @@
 const express = require("express");
+const cors = require("cors");
 
 const pool = require("./DB.js");
 const app = express();
@@ -6,6 +7,7 @@ const app = express();
 const PORT = 3001;
 
 app.use(express.json());
+app.use(cors());
 
 app.get("/", (req, res) => {
   res.send("You need to request API");
