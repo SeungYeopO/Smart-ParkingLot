@@ -104,6 +104,7 @@
 }
 .password-error {
   color: red;
+  color: #191a2b;
   /* font-family: ; */
   /* 수정하기 */
 }
@@ -119,8 +120,7 @@
   background-image: url("../public/assets/image.png");
   background-size: cover;
   height: 750px;
-  max-width: 1520px;
-  
+  max-width: 1550px; 
 }
 
 /* 자바 스크립트로 일단 구현 */
@@ -192,6 +192,9 @@
 }
 
 /* 사용자 프로필 */
+.user-signup {
+  cursor: pointer;
+}
 .line {
   border: 1px solid rgb(204, 204, 204);
   width: 200px;
@@ -267,4 +270,32 @@
   margin-top: 10px;
   width: 200px;
 
+}
+/* 다크모드 색상 */
+/* 배경 : #181818
+주요 컨텐츠 : #242424, #2A2A2A
+텍스트 : #E0E0E0, #FFFFFF */
+
+/* 목적지 페이지 */
+.bottom-navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #242424;
+  color: #E0E0E0;
+  font-size: 30px;
+  position: fixed;
+  bottom: 0;
+  width: 91.5%;
+  height: 80px;
+  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+}
+.bottom-navbar img {
+  width: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.nav-item {
+  text-align: center;
 }

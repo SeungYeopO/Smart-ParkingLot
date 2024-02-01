@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import SideNavbar from "../../../components/SideNavbar";
+import BottomNavbar from "../../../components/BottomNavbar";
 
 const Help = () => {
   // 로그인한 사용자 정보를 상태로 설정 => 데이터 받아오면 user.으로 전부 초기화
@@ -70,6 +71,7 @@ const Help = () => {
           Send
         </button>
       </div>
+      
     </div>
   );
 };

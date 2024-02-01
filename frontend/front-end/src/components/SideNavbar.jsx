@@ -6,7 +6,7 @@ const SideNavbar = () => {
     <nav
       className="navbar navbar-light"
       style={{
-        backgroundColor: "#a1bbf4",
+        backgroundColor: "#191a2b",
         width: "130px",
         height: "100vh",
         display: "flex",
