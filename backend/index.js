@@ -1,10 +1,26 @@
 const express = require("express");
+const {exec} = require("child_process");
 const pool = require("./DB.js");
 const mapLibrary = require("./mapLibrary.js");
 
 const app = express();
 
 const PORT = 3000;
+
+function carToSection() {
+  exec('g++ -o root_finder ./map_data/mapalgorithm.cpp && ./map_data/root_finder', (error, stdout, stderr) => {
+    if(error) {
+      console.error(error);
+      return;
+    }
+    if(stderr){
+      console.error(stderr);
+      return;
+    }
+    console.log(stdout);
+  })
+}
+carToSection();
 
 app.use(express.json())
 
