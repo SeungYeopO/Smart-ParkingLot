@@ -32,17 +32,83 @@ app.get("/api/parking_sections/:lot_id", async (req, res) => {
     return res.json(error);
   }
 });
+// /api/upload_arduino_value
+// app.get("/api/upload_arduino_value", async (req, res) => {
+//   const newText = req.query.text;
+//   const yourId1 = 1;
+//   const now = new Date(); // 현재 날짜 및 시간
+//   const hour = now.getHours();
+//   const minutes = now.getMinutes();
+//   const seconds = now.getSeconds();
+//   try {
+//     const data = await pool.query(
+//       `UPDATE RF_data SET signal_index = '${newText}' WHERE data_id = ${yourId1}`
+//     );
+//     console.log("데이터베이스 값이 업데이트되었습니다.");
+//     return res.json(data[0]);
+//   } catch (error) {
+//     console.log(error);
+//     return res.json(error);
+//   }
+// });
 
-app.get("/api/upload_arduino_value", async (req, res) => {
-  const newValue = req.query.text;
-  try {
-    const data = await pool.query(
-      `INSERT INTO parking_info.RF_data (signal_index) VALUES ('${newValue}')`
-    );
-    return res.json(data[0]);
-  } catch (error) {
-    console.log(error);
-    return res.json(error);
+app.get("/updateDatabase", (req, res) => {
+  // 변수 이름 수정
+  const newText = req.query.text;
+  // 변수 추가
+  const yourId1 = 1;
+  const yourId2 = 2;
+  let is_filled_status1 = 0;
+  let is_filled_status2 = 0;
+
+  if (newText) {
+    // MySQL 데이터베이스 업데이트
+    pool.getConnection((err, connection) => {
+      if (err) {
+        console.error("데이터베이스에 연결하는 중 오류:", err);
+        res.status(500).send("데이터베이스 연결 오류");
+        return;
+      }
+
+      // 새로운 텍스트에 따라 is_filled_status1 설정 (적절한 조건으로 수정 필요)
+      // if (newText === "some_condition_for_status_1") {
+      //   is_filled_status1 = 1;
+      // } else {
+      //   is_filled_status1 = 0;
+      // }
+
+      // // 새로운 텍스트에 따라 is_filled_status2 설정 (적절한 조건으로 수정 필요)
+      // if (newText === "some_condition_for_status_2") {
+      //   is_filled_status2 = 1;
+      // } else {
+      //   is_filled_status2 = 0;
+      // }
+
+      // updateQuery1의 테이블명 및 열 이름을 실제 데이터베이스 구조에 맞게 수정
+      const updateQuery1 = `UPDATE RF_data SET num = '${newText}' WHERE id = ${yourId1}`;
+      const updateQuery2 = `UPDATE example SET num = ${is_filled_status2} WHERE id = ${yourId2}`;
+
+      connection.query(updateQuery1, (error1, results1) => {
+        if (error1) {
+          console.error("데이터베이스 업데이트 중 오류:", error1);
+          res.status(500).send("데이터베이스 업데이트 오류");
+        } else {
+          connection.query(updateQuery2, (error2, results2) => {
+            connection.release(); // 연결 풀에 연결 반환
+
+            if (error2) {
+              console.error("데이터베이스 업데이트 중 오류:", error2);
+              res.status(500).send("데이터베이스 업데이트 오류");
+            } else {
+              console.log("데이터베이스 값이 업데이트되었습니다.");
+              res.send("데이터베이스 업데이트 완료");
+            }
+          });
+        }
+      });
+    });
+  } else {
+    res.status(400).send("유효하지 않은 값");
   }
 });
 
