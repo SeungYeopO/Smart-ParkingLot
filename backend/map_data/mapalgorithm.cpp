@@ -29,9 +29,9 @@ void dfs(int now, int end, vector<bool> visited) {
 
 int main(int argc, char* argv[]) {
 
-	FILE* file = freopen("C:/Users/SSAFY/Desktop/공통 프로젝트/S10P12C102/backend/map_data/map0.txt", "r", stdin);
+	FILE* map_data = freopen("./map0.txt", "r", stdin);
 
-	if (file == nullptr) {
+	if (map_data == nullptr) {
 		fprintf(stderr, "파일을 열 수 없습니다.\n");
 		return 1;
 	}
@@ -60,7 +60,7 @@ int main(int argc, char* argv[]) {
 	int map_vector_size = map0.size();
 	vector<bool> visited(map_vector_size, false);
 
-	int start = 115, end = 1;
+	int start = argv[1], end = argv[2];
 
 	path.push_back(start);
 	dfs(start, end, visited);
@@ -70,6 +70,21 @@ int main(int argc, char* argv[]) {
 	}
 
 	cout << endl;
+
+	FILE* map_json = fopen("./short_path.json", "w");  
+	fprintf(map_json, "[\n");
+
+	for (int i = 0; i < short_path.size(); i++) {
+		int points = short_path[i];
+		if(i!=short_path.size()-1) 
+			fprintf(map_json, "%d,\n", short_path[i]);
+		else
+			fprintf(map_json, "%d\n", short_path[i]);
+	}
+
+	fprintf(map_json, "]\n");
+
+	fclose(map_json); 
 
 	return 0;
 
