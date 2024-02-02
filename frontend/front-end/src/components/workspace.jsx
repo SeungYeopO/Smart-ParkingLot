@@ -1,39 +1,23 @@
 import React from "react";
+import "bootstrap/dist/css/bootstrap.min.css"; // 부트스트랩 CSS 임포트
 
 const AdminSideNavbar = () => {
   return (
-    <div
-      className="nav-sidebar"
+    <nav
+      className="navbar navbar-light"
       style={{
-        backgroundColor: "#273142",     
-        width: "130px",    
-        height: "100vh",    
-        display: "flex",   
+        backgroundColor: "#273142",
+        width: "130px",
+        height: "100vh",
+        position: "fixed",
+        top: 0,
+        left: 0,
+        display: "flex",
         flexDirection: "column", // 컨테이너를 세로 방향으로 설정
         justifyContent: "space-between", // 상단과 하단 내용 사이에 공간 생성
       }}
     >
-        <div>
-         <a className="logo-letter" href="/../pages/Admin/AdminCCTV.jsx">
-            <div className="letter-auto">Auto</div>
-            <div>Parking</div>
-         </a>
-            <div className="mode1-cctv">
-                <a href="">CCTV</a>
-            </div>
-            <div className="mode2-status">
-                <a href="">주차현황</a>
-            </div>
-            <div className="mode3-manage">
-                <a href="">주차관리</a>
-            </div>
-            <div className="mode4-logic">
-                <a href="">로직변경</a>
-            </div>
-        </div>
-
-     
-      {/* <div>
+      <div>
       <a className="logo-letter" href="#">
       <p style={{marginLeft : "2px"}}>Auto <br />Parking</p>
         </a>
@@ -59,8 +43,8 @@ const AdminSideNavbar = () => {
         >
           비활성화
         </a>
-      </div> */}
-    </div>
+      </div>
+    </nav>
   );
 };
 

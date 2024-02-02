@@ -1,142 +1,144 @@
-import React, { useEffect, useState } from "react";
-import parkingData from "./test.json";
+import React, { useState, useEffect } from 'react';
 
 const ParkingLot = () => {
-  const [parkingStatus, setParkingStatus] = useState({});
-  const backgroundSize = { width: 1520, height: 750 }; // 이미지 크기
+  const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
+  const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
+
   useEffect(() => {
-    // JSON 파일에서 section_id와 is_filled 값을 추출하여 상태로 설정합니다.
-    const statusMap = {};
-    parkingData.forEach((item) => {
-      statusMap[item.section_id] = item.is_filled;
-    });
-    setParkingStatus(statusMap);
+    const fetchData = async () => {
+      try {
+        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1');
+        const nowPosition = await response.json();
+        setNowPosition(nowPosition);
+        console.log('데이터 수신 중');
+      } catch (error) {
+        console.error('데이터를 가져오는 중 오류 발생:', error);
+      }
+    };
+
+    fetchData(); // fetchData 함수 호출
   }, []);
 
-  // 주차공간 % 계산 로직
-  const calculateStyle = (space) => {
-    const xPercent = (space.x / backgroundSize.width) * 100;
-    const yPercent = (space.y / backgroundSize.height) * 100;
-    const widthPercent = (space.width / backgroundSize.width) * 100;
-    const heightPercent = (space.height / backgroundSize.height) * 100;
-
-    return {
-      position: "absolute",
-      left: `${xPercent}%`,
-      top: `${yPercent}%`,
-      width: `${widthPercent}%`,
-      height: `${heightPercent}%`,
-      transform: `rotate(${space.rotate || 0}deg)`,
-      backgroundColor:
-        parkingStatus[space.id] === 1 ? "rgb(2, 24, 45)" : "#66e166",
-      border: "2px solid rgba(55, 158, 159, 0.7)",
-      borderRadius: "5px",
-      boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
-      color: "#66e166",
+  useEffect(() => {
+    const updateModifiedPositions = async () => {
+      const modified = await coordinatePos(nowPosition);
+      setModifiedPositions(modified);
+      console.log('modified 배열 업데이트 후:', modified);
     };
+    updateModifiedPositions(); // fetchData가 완료된 후에 modifiedPositions 업데이트
+  }, [nowPosition]);
+  
+ // 칸 중간 좌표에서 왼쪽 상단 좌표로 바꾸는 로직 => 반환값은 바뀐 x,y좌표가 된다
+  const coordinatePos = (positionData) => {
+    
+    const modifiedData = positionData.map((data) => {
+      const pos_x = parseInt(data.pos_x);
+      const pos_y = parseInt(data.pos_y);
+      const lotType = data.type_id;
+      const angle = data.angle;
+      const width = 47.0
+      const height = 21.5
+      const s_width = 33.1
+      const s_height = 18.9
+      const ratio = 1
+      const lotnum = data.data_id
+      var rect_width = 0
+      var rect_height = 0
+      var margin = 0
+      let cPos_x = 0;
+      let cPos_y = 0;
+      var rot = 0;
+
+
+// 좌표값 변환 로직 : 센터에서 왼쪽 상단으로 
+
+      if (lotType === 2) {  
+        if (angle === '0') {       // 각도가 0도일때 
+          cPos_x = (ratio * pos_x) - (s_width * ratio / 2);
+          console.log(`id : ${data.section_id}`)
+          console.log(cPos_x)
+          //console.log(lotType)
+          cPos_y = (ratio * pos_y) - (s_height * ratio /2);
+          rect_width = s_width * ratio;
+          rect_height = s_height * ratio;
+          
+        } else if(angle === '90') {     // 각도 90도 
+          cPos_x =(ratio * pos_x) - (s_height * ratio / 2);
+          cPos_y = (ratio * pos_y) - (s_width * ratio / 2);
+          console.log('angle다름')
+          console.log(`id : ${data.section_id}`)
+          console.log(cPos_x)
+          // margin = s_height * ratio
+          rect_width = s_height * ratio;
+          rect_height = s_width * ratio;
+          
+          
+        }else{   // 각도 45도
+          cPos_x =(ratio * pos_x) - (s_height * ratio / 2);
+          cPos_y = (ratio * pos_y) - (s_width * ratio / 2);
+          // margin = s_height * ratio 
+          rect_width = s_height * ratio;
+          rect_height = s_width * ratio;
+          rot = 1
+          
+        }
+      } else {    //일반차량
+        if (angle === '0') {   //각도 0도
+          cPos_x = (ratio * pos_x) - (width * ratio / 2);
+          cPos_y = (ratio * pos_y) - (height * ratio / 2);
+          rect_width = width * ratio;
+          rect_height = height * ratio;
+
+        } else {   //각도 45도 90도 (일반차는 45도 없음)
+          cPos_x = (ratio * pos_x) - (height * ratio / 2);
+          cPos_y = (ratio * pos_y) - (width * ratio / 2);
+          rect_width = height * ratio;
+          rect_height = width * ratio;
+          // margin = height * ratio
+        }
+      }
+
+      return {rot, rect_width, rect_height, lotnum, cPos_x, cPos_y, lotType, ratio, height, width, s_height, s_width , angle, margin};
+    });
+    console.log('변환')
+    console.log(modifiedData)
+
+    return modifiedData;
   };
 
-  const parkingSpaces = [
-    { id: 1, x: 137, y: 77, width: 67, height: 30 },
-    { id: 2, x: 137, y: 109, width: 67, height: 30 },
-    { id: 3, x: 137, y: 141, width: 67, height: 30 },
-    { id: 4, x: 137, y: 211, width: 67, height: 30 },
-    { id: 5, x: 137, y: 243, width: 67, height: 30 },
-    { id: 6, x: 137, y: 275, width: 67, height: 30 },
-    { id: 7, x: 221, y: 361, width: 67, height: 30 },
-    { id: 8, x: 221, y: 393, width: 67, height: 30 },
-    { id: 9, x: 221, y: 425, width: 67, height: 30 },
-    { id: 10, x: 221, y: 481, width: 67, height: 30 },
-    { id: 11, x: 221, y: 513, width: 67, height: 30 },
-    { id: 12, x: 221, y: 567, width: 67, height: 30 },
-    { id: 13, x: 221, y: 599, width: 67, height: 30 },
-    { id: 14, x: 221, y: 631, width: 67, height: 30 },
-    { id: 15, x: 221, y: 685, width: 67, height: 30 },
-    { id: 16, x: 312, y: 90, width: 45, height: 26 },
-    { id: 17, x: 322, y: 130, width: 30, height: 67 },
-    { id: 18, x: 354, y: 130, width: 30, height: 67 },
-    { id: 19, x: 386, y: 130, width: 30, height: 67 },
-    { id: 20, x: 444, y: 130, width: 30, height: 67 },
-    { id: 21, x: 476, y: 130, width: 30, height: 67 },
-    { id: 22, x: 526, y: 130, width: 30, height: 67 },
-    { id: 23, x: 558, y: 130, width: 30, height: 67 },
-    { id: 24, x: 656, y: 130, width: 30, height: 67 },
-    { id: 25, x: 688, y: 130, width: 30, height: 67 },
-    { id: 26, x: 720, y: 130, width: 30, height: 67 },
-    { id: 27, x: 777, y: 130, width: 30, height: 67 },
-    { id: 28, x: 809, y: 130, width: 30, height: 67 },
-    { id: 29, x: 867, y: 130, width: 30, height: 67 },
-    { id: 30, x: 899, y: 130, width: 30, height: 67 },
-    { id: 31, x: 931, y: 130, width: 30, height: 67 },
-    { id: 32, x: 973, y: 130, width: 30, height: 67 },
-    { id: 33, x: 1060, y: 130, width: 30, height: 67 },
-    { id: 34, x: 1102, y: 130, width: 50, height: 67 },
-    { id: 35, x: 1154, y: 130, width: 30, height: 67 },
-    { id: 36, x: 1196, y: 130, width: 30, height: 67 },
-    { id: 37, x: 1225, y: 204, width: 67, height: 30 },
-    { id: 38, x: 1225, y: 236, width: 67, height: 30 },
-    { id: 39, x: 1247, y: 268, width: 45, height: 26 },
-    { id: 40, x: 462, y: 325, width: 67, height: 30 },
-    { id: 41, x: 427, y: 358, width: 67, height: 30 },
-    { id: 42, x: 427, y: 390, width: 67, height: 30 },
-    { id: 43, x: 427, y: 422, width: 67, height: 30 },
-    { id: 44, x: 496, y: 358, width: 67, height: 30 },
-    { id: 45, x: 496, y: 390, width: 67, height: 30 },
-    { id: 46, x: 496, y: 422, width: 67, height: 30 },
-    { id: 47, x: 427, y: 487, width: 67, height: 30 },
-    { id: 48, x: 427, y: 518, width: 67, height: 30 },
-    { id: 49, x: 427, y: 551, width: 67, height: 30 },
-    { id: 50, x: 427, y: 583, width: 67, height: 30 },
-    { id: 51, x: 496, y: 487, width: 67, height: 30 },
-    { id: 52, x: 496, y: 518, width: 67, height: 30 },
-    { id: 53, x: 496, y: 551, width: 67, height: 30 },
-    { id: 54, x: 496, y: 583, width: 67, height: 30 },
-    { id: 55, x: 716, y: 325, width: 67, height: 30 },
-    { id: 56, x: 680, y: 358, width: 67, height: 30 },
-    { id: 57, x: 680, y: 390, width: 67, height: 30 },
-    { id: 58, x: 680, y: 422, width: 67, height: 30 },
-    { id: 59, x: 750, y: 358, width: 67, height: 30 },
-    { id: 60, x: 750, y: 390, width: 67, height: 30 },
-    { id: 61, x: 750, y: 422, width: 67, height: 30 },
-    { id: 62, x: 680, y: 487, width: 67, height: 30 },
-    { id: 63, x: 680, y: 518, width: 67, height: 30 },
-    { id: 64, x: 680, y: 551, width: 67, height: 30 },
-    { id: 65, x: 680, y: 583, width: 67, height: 30 },
-    { id: 66, x: 750, y: 487, width: 67, height: 30 },
-    { id: 67, x: 750, y: 518, width: 67, height: 30 },
-    { id: 68, x: 750, y: 551, width: 67, height: 30 },
-    { id: 69, x: 750, y: 583, width: 67, height: 30 },
-    { id: 70, x: 947, y: 310, width: 30, height: 67 },
-    { id: 71, x: 947, y: 376, width: 30, height: 67 },
-    { id: 72, x: 979, y: 310, width: 30, height: 67 },
-    { id: 73, x: 979, y: 376, width: 30, height: 67 },
-    { id: 74, x: 1011, y: 310, width: 30, height: 67 },
-    { id: 75, x: 1011, y: 376, width: 30, height: 67 },
-    { id: 76, x: 1043, y: 310, width: 26, height: 45 },
-    { id: 77, x: 1095, y: 310, width: 30, height: 67 },
-    { id: 78, x: 1127, y: 310, width: 30, height: 67 },
-    { id: 79, x: 1197, y: 310, width: 26, height: 45 },
-    { id: 80, x: 1098, y: 410, width: 26, height: 45, rotate: 45 },
-    { id: 81, x: 1121, y: 430, width: 26, height: 45, rotate: 45 },
-    { id: 82, x: 940, y: 580, width: 30, height: 67 },
-    { id: 83, x: 972, y: 580, width: 26, height: 45 },
-  ]; //1200*600
-
+  
+  // 변환된 x,y 좌표로 주차장 칸을 만드는 부분
   return (
-    <div className="parking-lot">
-      {parkingSpaces.map((space) => (
+    <div className="parkinglots-dot">
+      {modifiedPositions.map((pos,index) => (
         <div
-          key={space.id}
-          className="parking-space"
-          style={calculateStyle(space)}
+        key = {index}
+        className='position-dot'
+        style  ={{
+          left : `${pos.cPos_x}px`,
+          top : `${pos.cPos_y}px`,
+           width : `${pos.rect_width}px`,
+           height : `${pos.rect_height}px`,
+          // width : pos.lotType === 2 ? `${pos.s_width * pos.ratio}px` : `${pos.width * pos.ratio}px`,
+          // height : pos.lotType === 2 ? `${pos.s_height * pos.ratio}px` : `${pos.height * pos.ratio}px`,
+          // transformOrigin: 'left top',
+          // transform : pos.rot === 1 ? `rotate(${parseInt(pos.angle)+90}deg)`: 0,
+          transform: pos.rot === 1 ? `rotate(45deg)` : `rotate(0deg)`,
+          border: '0.1px solid black',
+          // marginLeft : pos.margin,
+          // marginBottom : pos.lotType === 2 && pos.angle === '45' ? 100 : 0,
+
+        }}
         >
-          {/* 주차장 위치 번호 <span>{space.id}</span> */}
+          <p>{pos.lotnum}</p>
         </div>
 
+        
       ))}
+      
+
     </div>
   );
 };
+
 export default ParkingLot;
-
-

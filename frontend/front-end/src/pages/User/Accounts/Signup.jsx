@@ -128,13 +128,13 @@ const Signup = () => {
             style={{ width: "200px", marginTop: "50px" }}
           />
         </div>
-        <div className="login-login">
+        <div classeName="login-login">
           <h2 style={{ marginBottom: "30px" }}>회원 가입</h2>
           <form onSubmit={handleSignup}>
             <div>
               <input
                 type="text"
-                className="user-id"
+                className="usr-id"
                 placeholder="User Id"
                 value={username}
                 onChange={(e) => setUsername(e.target.value)}

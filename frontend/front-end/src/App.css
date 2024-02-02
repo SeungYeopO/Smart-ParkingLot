@@ -435,11 +435,79 @@
   text-align: center;
 }
 
-.testposition-dot{
+/*  */
+
+/* .testposition-dot{
   position: absolute;
   display: flex;
   background-color: red;
   width : 3px;
   height: 3px;
   border-radius: 50%;  
+} */
+
+/* AdminSideNavbar css 속성 */
+
+.logo-letter {
+ 
+  color : white;
+  text-decoration-line : none;
 }
+
+.logo-letter div {
+  text-align: center;
+  justify-content: center;
+}
+
+.letter-auto{
+  margin-top: 15px;
+}
+
+.mode1-cctv{
+  margin-top : 50px;
+  margin-left: 40px ;  
+}
+
+.mode1-cctv a {
+  color : white;
+  text-decoration-line : none;
+}
+
+.mode2-status{
+  margin-top : 50px;
+  margin-left : 40px;
+}
+.mode2-status a {
+  color : white;
+  text-decoration-line : none;
+}
+
+.mode3-manage{
+  margin-top : 50px;
+  margin-left : 40px;
+
+}
+.mode3-manage a {
+  color : white;
+  text-decoration: none;
+}
+.mode4-logic {
+  margin-top: 50px;
+  margin-left: 40px;
+}
+.mode4-logic a {
+  color : white;
+  text-decoration:  none ;
+}
+/* AdminSideNavbar css속성 끝! */
+
+/* adminstatus 페이지 css 속성*/
+.floor-status{
+  border : 1px solid darkblue;
+  margin-bottom: 10px;
+}
+.admin-notify {
+  border: 1px solid darkblue;
+
+}
+

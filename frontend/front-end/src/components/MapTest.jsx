@@ -6,7 +6,7 @@ const MapTest = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/parking_sections/1');
+        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1');
         const nowPosition = await response.json();
         setNowPosition(nowPosition);
         console.log('데이터 수신 중');
@@ -19,6 +19,8 @@ const MapTest = () => {
     fetchData(); // fetchData 함수 호출
   }, []);
 
+   const ratio = 1
+
   return (
     <div>
       {/* <h1>좌표 목록</h1> */}
@@ -28,9 +30,9 @@ const MapTest = () => {
             key={index}
             className="testposition-dot"
             style={{
-              left: `${position.pos_x*2}px`,
-              top: `${position.pos_y*2}px`,
-              marginRight : position.angle==='0' ? 0 : 21.5*2
+              left: `${position.pos_x * ratio}px`,
+              top: `${position.pos_y   * ratio }px`,
+              // marginRight : position.angle==='0' ? 0 : 21.5*2
             }}
           ></div>
         ))}

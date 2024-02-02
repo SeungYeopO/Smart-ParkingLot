@@ -1,14 +1,14 @@
 import React from 'react';
-import AdminSideNavbar from './../../components/AdminSideNavbar';
-import MyCar from '../../components/MyCar';
+
 import MapTest from '../../components/MapTest';
+import ParkingLot from '../../components/ParkingLot';
 
 
 const AdminCCTV = () => {
   return (
     <div>
-      {/* <AdminSideNavbar /> */}
-      <MyCar />
+      <p>주차장</p>
+      <ParkingLot />
       <MapTest />
     </div>
   );
