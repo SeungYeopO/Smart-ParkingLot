@@ -7,23 +7,23 @@ const pool = require("./DB.js");
 
 const app = express();
 
-const PORT = 3003;
+const PORT = 3001;
 
-function carToSection(start, end) {
-  exec(`cd ./map_data
-	g++ -o root_finder ./mapalgorithm.cpp
-	./root_finder ${start} ${end}`, (error, stdout, stderr) => {
-    if(error) {
-      console.error(error);
-      return;
-    }
-    if(stderr){
-      console.error(stderr);
-      return;
-    }
-    console.log(stdout);
-  })
-}
+// function carToSection(start, end) {
+//   exec(`cd ./map_data
+// 	g++ -o root_finder ./mapalgorithm.cpp
+// 	./root_finder ${start} ${end}`, (error, stdout, stderr) => {
+//     if(error) {
+//       console.error(error);
+//       return;
+//     }
+//     if(stderr){
+//       console.error(stderr);
+//       return;
+//     }
+//     console.log(stdout);
+//   })
+// }
 
 //carToSection();
 
