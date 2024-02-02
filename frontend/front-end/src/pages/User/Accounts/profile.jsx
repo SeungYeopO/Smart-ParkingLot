@@ -28,10 +28,12 @@ const Profile = () => {
   };
 
   return (
-    <div style={{ display: "flex" }}>
+    <div className="profile-fill" style={{ display: "flex" }}>
       <SideNavbar />
       <div className="line" style={{ display: "flex" }}>
-        <p>Edit Profile</p>
+        <div className="profile-content">
+          <p>Edit Profile</p>
+        </div>
       </div>
       <div className="myprofile" style={{ marginLeft: "20px" }}>
         <h2 style={{ marginBottom: "50px" }}>My Profile</h2>

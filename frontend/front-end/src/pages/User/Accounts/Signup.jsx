@@ -184,7 +184,8 @@ const Signup = () => {
                 style={{ color: carType === "" ? "gray" : "black" }}
               >
                 <option value="">차량 종류를 선택해주세요</option>
-                <option value="일반">일반차량</option>
+                <option value="SUV">SUV</option>
+                <option value="세단">세단</option>
                 <option value="경차">경차</option>
               </select>
             </div>

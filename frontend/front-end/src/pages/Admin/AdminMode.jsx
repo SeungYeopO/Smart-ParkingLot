@@ -1,21 +1,43 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-
 
 const NavBar = () => {
   let navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date()); // 현재 시간 상태
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date()); // 1초마다 현재 시간 업데이트
+    }, 1000);
+
+    return () => {
+      clearInterval(timer); // 컴포넌트 언마운트 시 타이머 정리
+    };
+  }, []);
 
   const gocctvMode = () => {
-    navigate('/admincctv')
+    navigate('/admincctv');
   };
   const goManageMode = () => {
-    navigate('/adminmanage')
+    navigate('/adminmanage');
   };
   const goStatusMode = () => {
-    navigate('/adminstatus')
+    navigate('/adminstatus');
   };
   const goLogicMode = () => {
-    navigate('/adminlogic')
+    navigate('/adminlogic');
+  };
+
+  // 시간을 YYYY.MM.DD HH:mm:ss 형식으로 포맷
+  const formatTime = (time) => {
+    const year = time.getFullYear();
+    const month = time.getMonth() + 1;
+    const date = time.getDate();
+    const hours = time.getHours();
+    const minutes = time.getMinutes();
+    const seconds = time.getSeconds();
+
+    return `${year}.${month.toString().padStart(2, '0')}.${date.toString().padStart(2, '0')} ${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
   };
   return (
     <div>

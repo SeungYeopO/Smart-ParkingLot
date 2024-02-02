@@ -4,6 +4,32 @@
   src: url("../public/font/BMJUA_ttf.ttf");
 }
 
+:root {
+  --background-color-light: #FFFFFF; /* 라이트 모드 배경색 */
+  --text-color-light: #000000; /* 라이트 모드 텍스트색 */
+  
+  --background-color-dark: #181818; /* 다크 모드 배경색 */
+  --text-color-dark: #E0E0E0; /* 다크 모드 텍스트색 */
+}
+
+/* 라이트 모드 스타일 */
+.light-mode {
+  --background-color: var(--background-color-light);
+  --text-color: var(--text-color-light);
+}
+
+/* 다크 모드 스타일 */
+.dark-mode {
+  --background-color: var(--background-color-dark);
+  --text-color: var(--text-color-dark);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+
 .App {
   font-family: "BMJUA", sans-serif;
 }

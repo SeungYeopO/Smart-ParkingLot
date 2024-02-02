@@ -23,7 +23,7 @@ const Help = () => {
   return (
     <div style={{ display: "flex" }}>
       <SideNavbar />
-      <div className="line" style={{ display: "flex" }}>
+      <div className="line" >
         <p>Help</p>
       </div>
       <div className="myprofile" style={{ marginLeft: "20px" }}>
