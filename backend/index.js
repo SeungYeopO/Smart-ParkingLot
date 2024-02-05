@@ -228,12 +228,11 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
 app.get("/api/get_latest_cctv_data", async (req, res) => {
   try {
     // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
-    const selectQuery =
-      "SELECT cctv_json FROM cctv ORDER BY created_at DESC LIMIT 1";
+    const selectQuery = "SELECT cctv_json FROM cctv ORDER BY id DESC LIMIT 1";
 
     // mysql2/promise를 사용하여 비동기 쿼리 수행
     const [results] = await pool.query(selectQuery);
-
+    console.log(results);
     if (results.length > 0) {
       const latestCctvData = results[0].cctv_json;
       res.json({ cctv_json: latestCctvData });
