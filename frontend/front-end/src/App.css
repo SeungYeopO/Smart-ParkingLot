@@ -148,7 +148,11 @@ body {
   height: 750px;
   max-width: 1550px; 
 }
-
+.parkingEdge {
+  border: 1px solid white;
+  width: 100vw;
+  height: 100vh;
+}
 /* 자바 스크립트로 일단 구현 */
 /* .parking-space {
   border: 2px solid rgba(55, 158, 159, 0.7);
