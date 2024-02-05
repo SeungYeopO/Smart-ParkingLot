@@ -19,12 +19,12 @@ const MapTest = () => {
       }
     };
 
-    const interval = setInterval(fetchData, updateInterval); // 일정 간격으로 fetchData를 호출
+    const interval = setInterval(fetchData, updateInterval); // 일정 간격으로 fetchData를 호출한다 -> 실시간으로 받아야해서
 
     return () => clearInterval(interval); // 컴포넌트가 언마운트 될 때 인터벌 정리
-  }, []); // 빈 의존성 배열로 마운트 시 1회 실행 설정
+  }, []); 
 
-  const ratio = 1; // 비율 설정
+  const ratio = 1; 
 
   return (
     <div>
