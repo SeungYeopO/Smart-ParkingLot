@@ -307,19 +307,20 @@ app.get("/api/section_scales/:lot_id", async (req, res) => {
 ///////////////////////////
 
 // 차량 위치 더미 데이터 api
-let carcar = 0;
+let carcar = 1;
 app.get("/api/asdasd", async (req, res) => {
   try {
     const query = `
     SELECT pos_x, pos_y FROM cross_points AS a INNER JOIN car_positions1 As b ON a.data_id = b.point_num WHERE b.entry_car_id = ?
       `;
     const result = await pool.query(query, [carcar]);
-    carcar++;
-    if (carcar == 25) {
-      carcar = 1;
-    }
     console.log(result[0]);
     console.log(carcar);
+    carcar++;
+    if (carcar > 24) {
+      carcar = 1;
+    }
+
     if (result.length > 0) {
       return res.json(result[0]);
     } else {
