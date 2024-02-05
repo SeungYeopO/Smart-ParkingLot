@@ -461,3 +461,156 @@ body {
   text-align: center;
 }
 
+/* 주차장 검색 페이지  */
+/* 빨간색 : #ff4800 */
+/* 노란색 : #ffcc00 */
+/* 초록색 : #4dff00 */
+.searchMap {
+  background-image: url("../public/assets/searchmap.PNG");
+  background-size: cover;
+  height: 735px;
+  max-width: 1550px; 
+}
+.balloonStatus1 {
+  position: relative;
+  width: 120px;
+  bottom: -450px;
+  left: 620px;
+  background-color: #ffcc00;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus2 {
+  position: relative;
+  width: 120px;
+  bottom: -200px;
+  left: 970px;
+  background-color: #4dff00;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus3 {
+  position: relative;
+  width: 120px;
+  top: -30px;
+  left: 650px;
+  background-color: #ffcc00;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus4 {
+  position: relative;
+  width: 120px;
+  bottom: -90px;
+  left: 390px;
+  background-color: #4dff00;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus5 {
+  position: relative;
+  width: 120px;
+  top: -110px;
+  left: 487px;
+  background-color: #ff4800;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus6 {
+  position: relative;
+  width: 120px;
+  top: -70px;
+  left: 1382px;
+  background-color: #ff4800;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus7 {
+  position: relative;
+  width: 120px;
+  top: -20px;
+  left: 1345px;
+  background-color: #ff4800;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus8 {
+  position: relative;
+  width: 120px;
+  top: -210px;
+  left: 1360px;
+  background-color: #ff4800;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus2::after, .balloonStatus4::after{
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #4dff00 transparent;
+  display: block;
+  width: 0;
+}
+.balloonStatus1::after, .balloonStatus3::after{
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #ffcc00 transparent;
+  display: block;
+  width: 0;
+}
+.balloonStatus5::after, .balloonStatus6::after, .balloonStatus7::after, .balloonStatus8::after {
+  content: '';
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #ff4800 transparent;
+  display: block;
+  width: 0;
+}
+
+.balloonContent {
+  font-size: 14px;
+}
+
+/* 호버 스타일을 추가합니다. */
+.balloonStatus2:hover, .balloonStatus4:hover {
+  background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+.balloonStatus1:hover,.balloonStatus3:hover {
+  background-color: #ffdd00; /* 호버 시 배경색 변경 예시 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+.balloonStatus5:hover, .balloonStatus6:hover, .balloonStatus7:hover, .balloonStatus8:hover {
+  background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
