@@ -1,17 +1,17 @@
-import React from 'react';
-import ParkingLot from '../../components/ParkingLot';
-import AdminSideNavbar from '../../components/AdminSideNavbar';
+
+
+import React from "react";
+import SideNavbar from "../../components/SideNavbar";
+
 
 const AdminLogic = () => {
-    return (
-        <div style={{display:'flex'}}>
-            <AdminSideNavbar />
-            <div>
-                로직변경화면입니다.
-            </div>     
-        </div>
-       
-    );
+  return (
+    <div style={{display: "flex"}}>
+      <SideNavbar />
+      로직변경 프리셋 페이지
+    </div>
+  );
+
 };
 
 export default AdminLogic;

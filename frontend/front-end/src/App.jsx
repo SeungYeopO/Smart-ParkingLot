@@ -20,6 +20,7 @@ import WebSocket from './components/WebSocket';
 import DestinationStatus from './components/DestinationStatus';
 import ParkingStatus from './components/ParkingStatus';
 import Help from "./pages/User/Accounts/Help";
+import SearchMap from "./pages/User/SearchMap";
 
 
 
@@ -39,6 +40,8 @@ const App = () => {
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/profile" element={<Profile />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/searchmap" element={<SearchMap />} />
             <Route path="/destinationmap" element={<DestinationMap />} />
             <Route path="/drivingmap" element={<DrivingMap />} />
             <Route path="/ParkingMap" element= {<ParkingMap />} />
