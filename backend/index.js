@@ -225,4 +225,24 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   );
 });
 
+app.get("/api/get_latest_cctv_data", (req, res) => {
+  // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
+  const selectQuery =
+    "SELECT cctv_json FROM cctv ORDER BY created_at DESC LIMIT 1";
+
+  pool.query(selectQuery, (error, results) => {
+    if (error) {
+      console.error("CCTV 데이터 가져오기 오류:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    } else {
+      if (results.length > 0) {
+        const latestCctvData = results[0].cctv_json;
+        res.json({ cctv_json: latestCctvData });
+      } else {
+        res.status(404).json({ error: "No CCTV data found" });
+      }
+    }
+  });
+});
+
 app.listen(PORT, () => console.log(`서버 기동중`));
