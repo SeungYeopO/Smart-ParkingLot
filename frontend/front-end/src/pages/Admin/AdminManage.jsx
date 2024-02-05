@@ -7,7 +7,7 @@ const AdminLogic = () => {
         <div style={{display:'flex'}}>
             <AdminSideNavbar />  
             <div>
-              관리페이지입니다.
+              관리페이지입니다...
             </div>   
         </div>
        
