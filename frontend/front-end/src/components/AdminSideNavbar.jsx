@@ -1,6 +1,12 @@
 import React from "react";
+import {Link} from 'react-router-dom';
 
 const AdminSideNavbar = () => {
+
+  const goToCCTVmode = () => {
+    
+  }
+
   return (
     <div
       className="nav-sidebar"
@@ -14,52 +20,25 @@ const AdminSideNavbar = () => {
       }}
     >
         <div>
-         <a className="logo-letter" href="/../pages/Admin/AdminCCTV.jsx">
-            <div className="letter-auto">Auto</div>
-            <div>Parking</div>
+         <a className="logo-letter" href="/adminmode">
+            < div className="letter-auto">Auto</div>
+              <div>Parking</div>
          </a>
-            <div className="mode1-cctv">
-                <a href="">CCTV</a>
+            <div className="mode1-cctv" onClick={goToCCTVmode}>
+              <Link to="/admincctv">CCTV</Link>
             </div>
+
             <div className="mode2-status">
-                <a href="">주차현황</a>
+              <Link to="/adminstatus">주차현황</Link>      
             </div>
+
             <div className="mode3-manage">
-                <a href="">주차관리</a>
+              <Link to="/adminmanage">주차관리</Link>
             </div>
             <div className="mode4-logic">
-                <a href="">로직변경</a>
+                <Link to="/adminlogic">로직변경</Link>
             </div>
         </div>
-
-     
-      {/* <div>
-      <a className="logo-letter" href="#">
-      <p style={{marginLeft : "2px"}}>Auto <br />Parking</p>
-        </a>
-        <div className="navbar-nav">
-          <a className="nav-item nav-link active" href="#">
-            홈
-          </a>
-          <a className="nav-item nav-link" href="#">
-            특징
-          </a>
-          <a className="nav-item nav-link" href="#">
-            가격
-          </a>
-        </div>
-      </div>
-
-      <div className="navbar-nav">
-        <a
-          className="nav-item nav-link disabled"
-          href="#"
-          tabIndex="-1"
-          aria-disabled="true"
-        >
-          비활성화
-        </a>
-      </div> */}
     </div>
   );
 };

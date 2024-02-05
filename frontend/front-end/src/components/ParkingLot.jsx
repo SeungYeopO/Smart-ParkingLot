@@ -14,7 +14,7 @@ const ParkingLot = () => {
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생:', error);
       }
-    };
+    };   
 
     fetchData(); // fetchData 함수 호출
   }, []);

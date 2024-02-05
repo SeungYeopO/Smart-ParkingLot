@@ -7,11 +7,8 @@ const AdminLogic = () => {
         <div style={{display:'flex'}}>
             <AdminSideNavbar />
             <div>
-            {/* < ParkingLot /> */}
-            </div>
-        
-
-        
+                로직변경화면입니다.
+            </div>     
         </div>
        
     );
