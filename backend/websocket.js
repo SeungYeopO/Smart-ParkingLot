@@ -35,7 +35,7 @@ io.on('connection', (socket) => {
 
 });
 
-
+//머지용
 // 백엔드 포트 번호 입력
 server.listen(5000, () => {
     console.log('WebSocket server listening on port 5000');
