@@ -1,7 +1,7 @@
 const express = require("express");
 const cors = require("cors");
-const {exec} = require("child_process");
-const {v4:uuidv4} = require("uuid");
+const { exec } = require("child_process");
+const { v4: uuidv4 } = require("uuid");
 
 const fs = require("fs");
 
@@ -34,8 +34,8 @@ app.get("/", (req, res) => {
   res.send("You need to request API");
 });
 
- // id 중복 체크 api
- app.post("/api/users/id_check", async (req, res) => {
+// id 중복 체크 api
+app.post("/api/users/id_check", async (req, res) => {
   const loginId = req.body.login_id;
   try {
     const query = `SELECT * FROM users WHERE login_id = '${loginId}'`;
@@ -56,20 +56,20 @@ app.post("/api/users/sign_up", async (req, res) => {
   const loginId = req.body.login_id;
   const password = req.body.password;
   const carNumber = req.body.car_number;
-  const isLightCar = req.body.is_light_car;
+  const cartype = req.body.car_type;
   const isElectricCar = req.body.is_electric_car;
   const isImpairedCar = req.body.is_impared_car;
 
   try {
     const query = `
-        INSERT INTO users (login_id, password, car_number, is_light_car, is_electric_car, is_impared_car)
+        INSERT INTO users (login_id, password, car_number, car_type, is_electric_car, is_impared_car)
         VALUES (?, ?, ?, ?, ?, ?)
       `;
     await pool.query(query, [
       loginId,
       password,
       carNumber,
-      isLightCar,
+      cartype,
       isElectricCar,
       isImpairedCar,
     ]);
@@ -158,7 +158,8 @@ app.get("/api/parking_sections/:lot_id/:floor", async (req, res) => {
       `SELECT ps.data_id, ps.type_id, ps.pos_x, ps.pos_y, ps.angle
       FROM parking_info.parking_sections ps
       JOIN parking_info.lot_floor_data lfd ON ps.data_id = lfd.data_id
-      WHERE lfd.lot_id = ? AND lfd.floor = ?;`, [lot_id, floor]
+      WHERE lfd.lot_id = ? AND lfd.floor = ?;`,
+      [lot_id, floor]
     );
     return res.json(data[0]);
   } catch (error) {
@@ -176,7 +177,8 @@ app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
       `SELECT cp.data_id, cp.pos_x, cp.pos_y
       FROM parking_info.cross_points cp
       JOIN parking_info.lot_floor_data lfd ON cp.data_id = lfd.data_id
-      WHERE lfd.lot_id = ? AND lfd.floor = ?;`,[lot_id, floor]
+      WHERE lfd.lot_id = ? AND lfd.floor = ?;`,
+      [lot_id, floor]
     );
     return res.json(data[0]);
   } catch (error) {
@@ -190,31 +192,37 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   const floor = req.params.floor;
   const start = req.params.start;
   const end = req.params.end;
-  
-  await exec(`cd ./map_data
-	g++ -o root_finder ./mapalgorithm.cpp
-	./root_finder ${start} ${end}`, (error, stdout, stderr) => {
-    if(error) {
-      console.error(error);
-      return;
-    }
-    if(stderr){
-      console.error(stderr);
-      return;
-    }
-    
 
-    fs.readFile('/home/ubuntu/S10P12C102/backend/map_data/short_path.json', 'utf8', (err, data) => {
-      if (err) {
-        console.error('Error reading JSON file:', err);
+  await exec(
+    `cd ./map_data
+	g++ -o root_finder ./mapalgorithm.cpp
+	./root_finder ${start} ${end}`,
+    (error, stdout, stderr) => {
+      if (error) {
+        console.error(error);
+        return;
+      }
+      if (stderr) {
+        console.error(stderr);
         return;
       }
 
-      const short_path = JSON.parse(data);
-      console.log(short_path);
-      return res.json(short_path);
-    })
-  })
-})
+      fs.readFile(
+        "/home/ubuntu/S10P12C102/backend/map_data/short_path.json",
+        "utf8",
+        (err, data) => {
+          if (err) {
+            console.error("Error reading JSON file:", err);
+            return;
+          }
+
+          const short_path = JSON.parse(data);
+          console.log(short_path);
+          return res.json(short_path);
+        }
+      );
+    }
+  );
+});
 
 app.listen(PORT, () => console.log(`서버 기동중`));
