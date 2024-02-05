@@ -124,8 +124,8 @@ const ParkingLot = () => {
 
   // 변환된 x,y 좌표로 주차장 칸을 만드는 부분
   return (
-    <div className="parkinglots-dot">
-      <div className="parkingEdge">
+    <div className="mapEdge">
+      <div className="parkinglots-dot">
         {modifiedPositions.map((pos, index) => (
           <div
             key={index}
@@ -137,6 +137,13 @@ const ParkingLot = () => {
               height: `${pos.rect_height}px`,
               transform: pos.rot === 1 ? `rotate(45deg)` : `rotate(0deg)`,
               border: "0.1px solid black",
+              // 데이터 받아오면 값에 따라 배경색 설정
+              // backgroundColor:
+              //   parkingStatus[space.id] === 1 ? "rgb(2, 24, 45)" : "#66e166",
+              border: "2px solid rgba(55, 158, 159, 0.7)",
+              borderRadius: "5px",
+              boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
+              color: "#66e166", // 글자색 설정
             }}
           >
             <p>{pos.lotnum}</p>

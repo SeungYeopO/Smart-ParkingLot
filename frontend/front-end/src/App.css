@@ -5,23 +5,35 @@
 }
 
 :root {
-  --background-color-light: #FFFFFF; /* 라이트 모드 배경색 */
+  --background-color-light: #ffffff; /* 라이트 모드 배경색 */
+  --background-content-color-light: #fbfafa; /* 라이트 모드 배경색 */
   --text-color-light: #000000; /* 라이트 모드 텍스트색 */
-  
-  --background-color-dark: #181818; /* 다크 모드 배경색 */
-  --text-color-dark: #E0E0E0; /* 다크 모드 텍스트색 */
+  --label-color-light: #000000;
+  --border-color-light: #ccc; /* 라이트 모드 테두리 색상 */
+
+  --background-color-dark: #1d1e1f; /* 다크 모드 배경색 */
+  --background-content-color-dark: #373636; /* 다크 모드 배경색 */
+  --text-color-dark: #e0e0e0; /* 다크 모드 텍스트색 */
+  --label-color-dark: #e0e0e0;
+  --border-color-dark: #5f5f5f; /* 다크 모드 테두리 색상 */
 }
 
 /* 라이트 모드 스타일 */
 .light-mode {
   --background-color: var(--background-color-light);
+  --background-content-color: var(--background-content-color-light);
   --text-color: var(--text-color-light);
+  --label-color: var(--label-color-light);
+  --border-color: var(--border-color-light);
 }
 
 /* 다크 모드 스타일 */
 .dark-mode {
   --background-color: var(--background-color-dark);
+  --background-content-color: var(--background-content-color-dark);
   --text-color: var(--text-color-dark);
+  --label-color: var(--label-color-dark);
+  --border-color: var(--border-color-dark);
 }
 
 body {
@@ -29,6 +41,32 @@ body {
   color: var(--text-color);
 }
 
+/* form 내용 영역 스타일 */
+.form-content {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* form 테두리 스타일 */
+.form-border {
+  background-color: var(
+    --background-content-color
+  ); /* 컨텐츠 배경색상 변수 사용 */
+  /* border: 1px solid var(--border-color); 테두리 색상 변수 사용 */
+  border-radius: 10px; /* 둥근 테두리 */
+  margin-bottom: 20px; /* 여백 */
+  padding: 20px;
+}
+
+/* 라이트 모드 스타일 */
+.light-mode {
+  --border-color: #ccc; /* 라이트 모드 테두리 색상 */
+}
+
+/* 다크 모드 스타일 */
+.dark-mode {
+  --border-color: #5f5f5f; /* 다크 모드 테두리 색상 */
+}
 
 .App {
   font-family: "BMJUA", sans-serif;
@@ -36,7 +74,7 @@ body {
 .sign-password {
   font-family: sans-serif;
 }
-.navbar-brand p{
+.navbar-brand p {
   color: #6373e8;
   text-align: center;
 }
@@ -45,7 +83,7 @@ body {
   height: 50px;
   margin-bottom: 30px;
 }
-                                                                         
+
 /* 관리자 페이지 */
 
 /* 관리자 로그인 페이지 */
@@ -142,35 +180,31 @@ body {
 }
 
 /* 사용자 페이지 */
-.parkingLot {
-  background-image: url("../public/assets/image.png");
-  background-size: cover;
-  height: 750px;
-  max-width: 1550px; 
+
+#destinationMap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
 }
-.parkingEdge {
-  border: 1px solid white;
-  width: 100vw;
-  height: 100vh;
+
+.mapEdge {
+  margin: 10px;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  width: 1200px;
+  height: 590px;
+  box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
 }
-/* 자바 스크립트로 일단 구현 */
-/* .parking-space {
-  border: 2px solid rgba(55, 158, 159, 0.7);
-  border-radius: 5px;
-  box-shadow: 3px 3px 40px 2px rgba(95, 102, 238, 0.5);
-  color: #66e166;
-} */
 
 
-.dotsinfo{
+.dotsinfo {
   font-size: small;
 }
-
 
 .position-dot {
   position: absolute;
   display: flex;
-} 
+}
 
 .card-img-top {
   width: 60px;
@@ -190,9 +224,11 @@ body {
 
 .adminmode-bg {
   /* background-color: black; */
-  /* height : 100vh; */
-
+  height : 100vh;
+  /* color: white; */
 }
+
+
 
 .nav-logo img {
   width: 50px; /* 로고 크기 조정이 필요할 수 있습니다 */
@@ -225,24 +261,21 @@ body {
 
 .letter-function {
   padding-left: 65px;
-  padding-top : 40px;
-  color : rgb(86, 86, 232);
+  padding-top: 40px;
+  color: rgb(86, 86, 232);
   font-size: 28px;
 }
 
-.mode-selection{
+.mode-selection {
   display: flex;
-
 }
 
 .cctvmode {
   border: solid 1px blue;
-  width : 280px;
-  height : 280px;
-  margin-left : 100px;
+  width: 280px;
+  height: 280px;
+  margin-left: 100px;
   font-size: 25px;
-
-  
 }
 .cctvmode p {
   text-align: center;
@@ -251,16 +284,16 @@ body {
 }
 
 .cctvmode img {
-  width : 240px;
-  height : 240px;
+  width: 240px;
+  height: 240px;
   margin-left: 10px;
 }
 
 .statusmode {
   border: solid 1px blue;
-  width : 280px;
-  height : 280px;
-  margin-left : 60px;
+  width: 280px;
+  height: 280px;
+  margin-left: 60px;
   font-size: 25px;
 }
 
@@ -268,21 +301,20 @@ body {
   text-align: center;
   margin-bottom: 0px;
   margin-top: 10px;
-
 }
 
 .statusmode img {
-  width : 200px;
-  height : 180px;
+  width: 200px;
+  height: 180px;
   margin-left: 34px;
-  margin-top : 15px;
+  margin-top: 15px;
 }
 
-.managemode{
+.managemode {
   border: solid 1px blue;
-  width : 280px;
-  height : 280px;
-  margin-left : 60px;
+  width: 280px;
+  height: 280px;
+  margin-left: 60px;
   font-size: 25px;
 }
 .managemode p {
@@ -292,18 +324,17 @@ body {
 }
 
 .managemode img {
-  width : 210px;
-  height : 180px;
-  margin-top : 25px;
+  width: 210px;
+  height: 180px;
+  margin-top: 25px;
   margin-left: 29px;
- 
 }
 
-.logicmode{
+.logicmode {
   border: solid 1px blue;
-  width : 280px;
-  height : 280px;
-  margin-left : 60px;
+  width: 280px;
+  height: 280px;
+  margin-left: 60px;
   font-size: 25px;
 }
 
@@ -314,7 +345,7 @@ body {
 }
 
 .logicmode img {
-  width : 190px;
+  width: 190px;
   height: 190px;
   margin-top: 15px;
   margin-left: 40px;
@@ -322,17 +353,16 @@ body {
 
 .memo p {
   margin-left: 70px;
-  margin-top : 60px;
-  color : rgb(86, 86, 232);
-  font-size : 28px;
+  margin-top: 60px;
+  color: rgb(86, 86, 232);
+  font-size: 28px;
 }
 
 .inputMemo {
   border: 1px solid blue;
-  margin-left : 60px;
-  width : 1400px;
-  height : 160px;
-
+  margin-left: 60px;
+  width: 1400px;
+  height: 160px;
 }
 
 .inputMemo p {
@@ -343,10 +373,10 @@ body {
   margin-left: 10px;
 }
 .inputMemo2 {
-  margin-left : 10px;
+  margin-left: 10px;
 }
 .inputMemo3 {
-  margin-left : 40px;
+  margin-left: 40px;
 }
 
 /* 우선순위 밀리는듯,,, */
@@ -384,7 +414,7 @@ body {
   justify-content: center;
   align-items: flex-start;
   padding: 20px;
-  font-family: 'Arial', sans-serif;
+  font-family: "Arial", sans-serif;
 }
 
 .edit-profile {
@@ -410,7 +440,7 @@ body {
   display: block;
   margin-bottom: 5px;
   font-size: 14px;
-  color: #333;
+  /* color: #333; */
 }
 
 .form-group input,
@@ -434,7 +464,6 @@ body {
   display: inline-block;
   margin-top: 10px;
   width: 200px;
-
 }
 /* 다크모드 색상 */
 /* 배경 : #181818
@@ -447,13 +476,13 @@ body {
   justify-content: space-around;
   align-items: center;
   background-color: #242424;
-  color: #E0E0E0;
+  color: #e0e0e0;
   font-size: 30px;
   position: fixed;
   bottom: 0;
   width: 91.5%;
   height: 80px;
-  box-shadow: 0 -2px 5px rgba(0,0,0,0.1);
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
 .bottom-navbar img {
   width: 30px;
@@ -464,7 +493,6 @@ body {
 .nav-item {
   text-align: center;
 }
-
 
 /*  */
 
@@ -480,9 +508,8 @@ body {
 /* AdminSideNavbar css 속성 */
 
 .logo-letter {
- 
-  color : white;
-  text-decoration-line : none;
+  color: white;
+  text-decoration-line: none;
 }
 
 .logo-letter div {
@@ -490,36 +517,35 @@ body {
   justify-content: center;
 }
 
-.letter-auto{
+.letter-auto {
   margin-top: 15px;
 }
 
-.mode1-cctv{
-  margin-top : 50px;
-  margin-left: 40px ;  
+.mode1-cctv {
+  margin-top: 50px;
+  margin-left: 40px;
 }
 
 .mode1-cctv a {
-  color : white;
-  text-decoration-line : none;
+  color: white;
+  text-decoration-line: none;
 }
 
-.mode2-status{
-  margin-top : 50px;
-  margin-left : 40px;
+.mode2-status {
+  margin-top: 50px;
+  margin-left: 40px;
 }
 .mode2-status a {
-  color : white;
-  text-decoration-line : none;
+  color: white;
+  text-decoration-line: none;
 }
 
-.mode3-manage{
-  margin-top : 50px;
-  margin-left : 40px;
-
+.mode3-manage {
+  margin-top: 50px;
+  margin-left: 40px;
 }
 .mode3-manage a {
-  color : white;
+  color: white;
   text-decoration: none;
 }
 .mode4-logic {
@@ -527,14 +553,14 @@ body {
   margin-left: 40px;
 }
 .mode4-logic a {
-  color : white;
-  text-decoration:  none ;
+  color: white;
+  text-decoration: none;
 }
 /* AdminSideNavbar css속성 끝! */
 
 /* adminstatus 페이지 css 속성*/
-.floor-status{
-  border : 1px solid darkblue;
+.floor-status {
+  border: 1px solid darkblue;
   margin-bottom: 10px;
 }
 .admin-notify {
@@ -549,7 +575,7 @@ body {
   background-image: url("../public/assets/searchmap.PNG");
   background-size: cover;
   height: 735px;
-  max-width: 1550px; 
+  max-width: 1550px;
 }
 .balloonStatus1 {
   position: relative;
@@ -639,8 +665,9 @@ body {
   border-radius: 10px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
 }
-.balloonStatus2::after, .balloonStatus4::after{
-  content: '';
+.balloonStatus2::after,
+.balloonStatus4::after {
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -651,8 +678,9 @@ body {
   display: block;
   width: 0;
 }
-.balloonStatus1::after, .balloonStatus3::after{
-  content: '';
+.balloonStatus1::after,
+.balloonStatus3::after {
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -663,8 +691,11 @@ body {
   display: block;
   width: 0;
 }
-.balloonStatus5::after, .balloonStatus6::after, .balloonStatus7::after, .balloonStatus8::after {
-  content: '';
+.balloonStatus5::after,
+.balloonStatus6::after,
+.balloonStatus7::after,
+.balloonStatus8::after {
+  content: "";
   position: absolute;
   bottom: -10px;
   left: 50%;
@@ -681,16 +712,20 @@ body {
 }
 
 /* 호버 스타일을 추가합니다. */
-.balloonStatus2:hover, .balloonStatus4:hover {
+.balloonStatus2:hover,
+.balloonStatus4:hover {
   background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
-.balloonStatus1:hover,.balloonStatus3:hover {
+.balloonStatus1:hover,
+.balloonStatus3:hover {
   background-color: #ffdd00; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
-.balloonStatus5:hover, .balloonStatus6:hover, .balloonStatus7:hover, .balloonStatus8:hover {
+.balloonStatus5:hover,
+.balloonStatus6:hover,
+.balloonStatus7:hover,
+.balloonStatus8:hover {
   background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
- 
