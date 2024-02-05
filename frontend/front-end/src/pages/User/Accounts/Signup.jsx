@@ -128,7 +128,7 @@ const Signup = () => {
             style={{ width: "200px", marginTop: "50px" }}
           />
         </div>
-        <div classeName="login-login">
+        <div className="login-login">
           <h2 style={{ marginBottom: "30px" }}>회원 가입</h2>
           <form onSubmit={handleSignup}>
             <div>

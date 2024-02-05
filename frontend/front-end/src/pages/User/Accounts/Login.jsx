@@ -14,7 +14,7 @@ const Login = () => {
     setAnimate(true);
     setTimeout(() => {
       console.log(username, password);
-      navigate('/destinationmap'); // 로그인 후 이동할 경로
+      navigate("/searchmap"); // 로그인 후 이동할 경로
       setAnimate(false); // 애니메이션 종료 후 상태 초기화
     }, 2000);
   };
@@ -34,7 +34,9 @@ const Login = () => {
           <h2 style={{ color: "#6373e8" }}>Auto Parking</h2>
           {/* <h6 style={{ color: "white", marginLeft: "150px" }}>for user</h6> */}
           <img
-            className={`animate__animated ${animate ? 'animate__bounceOutUp' : ''}`}
+            className={`animate__animated ${
+              animate ? "animate__bounceOutUp" : ""
+            }`}
             src="./assets/car.png"
             alt="logo"
             style={{ width: "200px", marginTop: "50px" }}

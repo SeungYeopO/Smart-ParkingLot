@@ -70,7 +70,7 @@ const SideNavbar = () => {
             <img src="./assets/Notifications.png" alt="notifications" />
           </a>
 
-          <a className="nav-item nav-link" href="/profile">
+          <a className="nav-item nav-link" href="/userprofile">
             <img src="./assets/Person.png" alt="person" />
           </a>
         </div>
