@@ -1,27 +1,29 @@
 const express = require("express");
 const cors = require("cors");
 const {exec} = require("child_process");
+const {v4:uuidv4} = require("uuid");
+
 const fs = require("fs");
 
 const pool = require("./DB.js");
-
 const app = express();
-
 const PORT = 3001;
 
-function carToSection(start, end) {
-  exec(`g++ -o root_finder ./map_data/mapalgorithm.cpp && ./map_data/root_finder ${start} ${end}`, (error, stdout, stderr) => {
-    if(error) {
-      console.error(error);
-      return;
-    }
-    if(stderr){
-      console.error(stderr);
-      return;
-    }
-    console.log(stdout);
-  })
-}
+// function carToSection(start, end) {
+//   exec(`cd ./map_data
+// 	g++ -o root_finder ./mapalgorithm.cpp
+// 	./root_finder ${start} ${end}`, (error, stdout, stderr) => {
+//     if(error) {
+//       console.error(error);
+//       return;
+//     }
+//     if(stderr){
+//       console.error(stderr);
+//       return;
+//     }
+//     console.log(stdout);
+//   })
+// }
 
 //carToSection();
 
@@ -73,23 +75,31 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   const floor = req.params.floor;
   const start = req.params.start;
   const end = req.params.end;
-  try {
-    const short_path = null;
-    carToSection(start, end);
-    fs.readFile('./short_path.json', 'utf8', (err, data) => {
+  
+  await exec(`cd ./map_data
+	g++ -o root_finder ./mapalgorithm.cpp
+	./root_finder ${start} ${end}`, (error, stdout, stderr) => {
+    if(error) {
+      console.error(error);
+      return;
+    }
+    if(stderr){
+      console.error(stderr);
+      return;
+    }
+    
+
+    fs.readFile('/home/ubuntu/S10P12C102/backend/map_data/short_path.json', 'utf8', (err, data) => {
       if (err) {
         console.error('Error reading JSON file:', err);
         return;
       }
-    
-      short_path = JSON.parse(data);
+
+      const short_path = JSON.parse(data);
       console.log(short_path);
-    });
-    return res.json(short_path);
-  } catch (error) {
-    console.log(error);
-    return res.json(error);
-  }
+      return res.json(short_path);
+    })
+  })
 })
 
 app.listen(PORT, () => console.log(`서버 기동중`));

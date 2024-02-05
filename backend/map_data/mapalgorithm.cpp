@@ -2,6 +2,7 @@
 
 #include <iostream>
 #include <vector>
+#include <cstdlib>
 
 using namespace std;
 
@@ -29,7 +30,7 @@ void dfs(int now, int end, vector<bool> visited) {
 
 int main(int argc, char* argv[]) {
 
-	FILE* map_data = freopen("./map0.txt", "r", stdin);
+	FILE* map_data = freopen("/home/ubuntu/S10P12C102/backend/map_data/map0.txt", "r", stdin);
 
 	if (map_data == nullptr) {
 		fprintf(stderr, "파일을 열 수 없습니다.\n");
@@ -47,7 +48,7 @@ int main(int argc, char* argv[]) {
 		if (from != to) map0[to].push_back(from);
 	}
 
-	fclose(file);
+	fclose(map_data);
 
 	for (int i = 0; i < map0.size(); i++) {
 		cout << i << " : ";
@@ -60,7 +61,11 @@ int main(int argc, char* argv[]) {
 	int map_vector_size = map0.size();
 	vector<bool> visited(map_vector_size, false);
 
-	int start = argv[1], end = argv[2];
+	const char* st = argv[1];
+	const char* ed = argv[2];
+	
+	int start = atoi(st);
+	int end = atoi(ed);
 
 	path.push_back(start);
 	dfs(start, end, visited);
@@ -71,7 +76,7 @@ int main(int argc, char* argv[]) {
 
 	cout << endl;
 
-	FILE* map_json = fopen("./short_path.json", "w");  
+	FILE* map_json = fopen("/home/ubuntu/S10P12C102/backend/map_data/short_path.json", "w");  
 	fprintf(map_json, "[\n");
 
 	for (int i = 0; i < short_path.size(); i++) {
