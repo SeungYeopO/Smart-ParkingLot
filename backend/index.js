@@ -6,9 +6,7 @@ const {v4:uuidv4} = require("uuid");
 const fs = require("fs");
 
 const pool = require("./DB.js");
-
 const app = express();
-
 const PORT = 3001;
 
 // function carToSection(start, end) {
