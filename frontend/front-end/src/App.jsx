@@ -12,7 +12,7 @@ import AdminCCTV from "./pages/Admin/AdminCCTV";
 import AdminStatus from "./pages/Admin/AdminStatus";
 import Login from "./pages/User/Accounts/Login";
 import Signup from "./pages/User/Accounts/Signup";
-import Profile from "./pages/User/Accounts/Profile";
+import Userprofile from "./pages/User/Accounts/Userprofile";
 import AdminLogic from "./pages/Admin/AdminLogic";
 import './App.css'; // CSS 파일 임포트
 import ParkingLot from './components/ParkingLot';
@@ -39,7 +39,7 @@ const App = () => {
 
             <Route path="/" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
-            <Route path="/profile" element={<Profile />} />
+            <Route path="/userprofile" element={<Userprofile />} />
             <Route path="/help" element={<Help />} />
             <Route path="/searchmap" element={<SearchMap />} />
             <Route path="/destinationmap" element={<DestinationMap />} />
