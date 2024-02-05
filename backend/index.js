@@ -118,6 +118,40 @@ app.get("/api/lot_variable_data/:lot_id", async (req, res) => {
         WHERE lot_id = ?
       `;
     const result = await pool.query(query, [lotId]);
+
+    if (result.length > 0) {
+      let total_available_sections = 0;
+      let total_entries = 0;
+      for (let i = 0; i < result.length; i++) {
+        total_available_sections += result[0][i].available_sections;
+        total_entries += result[0][i].now_entries;
+      }
+      return res.json({
+        total_available_sections: total_available_sections,
+        total_entries: total_entries,
+      });
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+// 목적지 주차장 층별 현황 확인
+app.get("/api/lot_variable_data/:lot_id/:floor", async (req, res) => {
+  const lotId = req.params.lot_id;
+  const floor = req.params.floor;
+
+  try {
+    const query = `
+        SELECT floor, floor_sections, available_sections, now_entries
+        FROM lot_variable_data
+        WHERE lot_id = ? AND floor = ?
+      `;
+    const result = await pool.query(query, [lotId], [floor]);
     if (result.length > 0) {
       const { floor, floor_sections, available_sections, now_entries } =
         result[0];
@@ -245,4 +279,57 @@ app.get("/api/get_latest_cctv_data", async (req, res) => {
   }
 });
 
+// 주차장 내 주차 칸 규격 확인
+app.get("/api/section_scales/:lot_id", async (req, res) => {
+  const lotId = req.params.lot_id;
+  try {
+    // 가장 최근에 저장된 주차 칸 규격 데이터를 가져오는 쿼리
+    const selectQuery = `
+      SELECT type_id, width, height
+      FROM section_scales
+      WHERE lot_id = ?`;
+
+    const [results] = await pool.query(selectQuery, [lotId]);
+
+    if (results.length > 0) {
+      res.json(results);
+    } else {
+      res
+        .status(404)
+        .json({ error: "No section scales found for the specified lot_id" });
+    }
+  } catch (error) {
+    console.error("주차 칸 규격 데이터 가져오기 오류:", error);
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+///////////////////////////
+
+// 차량 위치 더미 데이터 api
+let carcar = 0;
+app.get("/api/asdasd", async (req, res) => {
+  try {
+    const query = `
+    SELECT pos_x, pos_y FROM cross_points AS a INNER JOIN car_positions1 As b ON a.data_id = b.point_num WHERE b.entry_car_id = ?
+      `;
+    const result = await pool.query(query, [carcar]);
+    carcar++;
+    if (carcar == 25) {
+      carcar = 1;
+    }
+    console.log(result[0]);
+    console.log(carcar);
+    if (result.length > 0) {
+      return res.json(result[0]);
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 app.listen(PORT, () => console.log(`서버 기동중`));
