@@ -20,10 +20,7 @@ const AdminSideNavbar = () => {
       }}
     >
         <div>
-         <a className="logo-letter" href="/adminmode">
-            < div className="letter-auto">Auto</div>
-              <div>Parking</div>
-         </a>
+     
             <div className="mode1-cctv" onClick={goToCCTVmode}>
               <Link to="/admincctv">CCTV</Link>
             </div>
