@@ -1,12 +1,20 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import SideNavbar from "../../components/SideNavbar";
+import BottomNavbar from "../../components/BottomNavbar";
 
 const DrivingMap = () => {
+  const destinationMapStyle = {
+    flex: 1,
+    position: "relative",
+    overflow: "hidden",
+  };
+
   return (
-    <div style={{ display: "flex" }}>
+    <div className="parkingLot" style={{ height: "100vh", display: "flex" }}>
       <SideNavbar />
-      <div>
-        <p>추천 받은 경로로 안내하는 페이지 입니다.</p>
+      <div style={destinationMapStyle}>
+        이 페이지 어카누,.,
+        <BottomNavbar />
       </div>
     </div>
   );
