@@ -9,24 +9,6 @@ const pool = require("./DB.js");
 const app = express();
 const PORT = 3001;
 
-// function carToSection(start, end) {
-//   exec(`cd ./map_data
-// 	g++ -o root_finder ./mapalgorithm.cpp
-// 	./root_finder ${start} ${end}`, (error, stdout, stderr) => {
-//     if(error) {
-//       console.error(error);
-//       return;
-//     }
-//     if(stderr){
-//       console.error(stderr);
-//       return;
-//     }
-//     console.log(stdout);
-//   })
-// }
-
-//carToSection();
-
 app.use(express.json());
 app.use(cors());
 
@@ -118,40 +100,6 @@ app.get("/api/lot_variable_data/:lot_id", async (req, res) => {
         WHERE lot_id = ?
       `;
     const result = await pool.query(query, [lotId]);
-
-    if (result.length > 0) {
-      let total_available_sections = 0;
-      let total_entries = 0;
-      for (let i = 0; i < result.length; i++) {
-        total_available_sections += result[0][i].available_sections;
-        total_entries += result[0][i].now_entries;
-      }
-      return res.json({
-        total_available_sections: total_available_sections,
-        total_entries: total_entries,
-      });
-    } else {
-      return res.status(404).json({
-        error: "Parking information not found for the specified lot_id",
-      });
-    }
-  } catch (error) {
-    console.error(error);
-    return res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-// 목적지 주차장 층별 현황 확인
-app.get("/api/lot_variable_data/:lot_id/:floor", async (req, res) => {
-  const lotId = req.params.lot_id;
-  const floor = req.params.floor;
-
-  try {
-    const query = `
-        SELECT floor, floor_sections, available_sections, now_entries
-        FROM lot_variable_data
-        WHERE lot_id = ? AND floor = ?
-      `;
-    const result = await pool.query(query, [lotId], [floor]);
     if (result.length > 0) {
       const { floor, floor_sections, available_sections, now_entries } =
         result[0];
@@ -175,7 +123,7 @@ app.get("/api/lot_variable_data/:lot_id/:floor", async (req, res) => {
 // 주차장 내 현재 위치한 층 확인 api
 app.get("/api/check_floor", async (req, res) => {
   try {
-    const currentFloor = 1;
+    const currentFloor = -1;
     return res.json({ floor: currentFloor });
   } catch (error) {
     console.error(error);
@@ -183,44 +131,72 @@ app.get("/api/check_floor", async (req, res) => {
   }
 });
 
-//주차장 id와 해당 층에 해당하는 주차 칸 정보
+// 주차장 층별 주차 칸 확인
 app.get("/api/parking_sections/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   try {
-    const data = await pool.query(
-      `SELECT ps.data_id, ps.type_id, ps.pos_x, ps.pos_y, ps.angle
+    const query = `
+      SELECT ps.data_id, ps.type_id, ps.pos_x, ps.pos_y, ps.angle
       FROM parking_info.parking_sections ps
       JOIN parking_info.lot_floor_data lfd ON ps.data_id = lfd.data_id
-      WHERE lfd.lot_id = ? AND lfd.floor = ?;`,
-      [lot_id, floor]
-    );
-    return res.json(data[0]);
+      WHERE lfd.lot_id = ? AND lfd.floor = ?;
+    `;
+    const result = await pool.query(query, [lot_id, floor]);
+    return res.json(result[0]);
   } catch (error) {
     console.log(error);
     return res.json(error);
   }
 });
+
+// 주차 칸 상태 확인
+app.get("/api/section_states/:lot_id/:floor", async (req, res) => {
+  const lot_id = req.params.lot_id;
+  const floor = req.params.floor;
+  try{
+    const query = `
+      SELECT sst.data_id, sst.is_filled, sst.is_managed
+      FROM parking_info.section_states sst
+      JOIN parking_info.lot_floor_data lfd ON sst.data_id = lfd.data_id
+      WHERE lfd.lot_id = ? AND lfd.floor = ?
+    `
+    const data = await pool.query(query, [lot_id, floor]);
+    const result = [];
+    data[0].forEach(element => {
+      if(element.is_filled === 0 && element.is_managed === 0) {
+        result.push({ data_id : element.data_id, is_filled : 0});
+      } else {
+        result.push({ data_id : element.data_id, is_filled : 1});
+      }
+    });
+    return res.json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+})
 
 //주차장 id와 해당 층에 있는 도로 지점 정보
 app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   try {
-    const data = await pool.query(
-      `SELECT cp.data_id, cp.pos_x, cp.pos_y
+    const query = `
+      SELECT cp.data_id, cp.pos_x, cp.pos_y
       FROM parking_info.cross_points cp
       JOIN parking_info.lot_floor_data lfd ON cp.data_id = lfd.data_id
-      WHERE lfd.lot_id = ? AND lfd.floor = ?;`,
-      [lot_id, floor]
-    );
-    return res.json(data[0]);
+      WHERE lfd.lot_id = ? AND lfd.floor = ?;
+    `;
+    const result = await pool.query(query, [lot_id, floor]);
+    return res.json(result[0]);
   } catch (error) {
     console.log(error);
     return res.json(error);
   }
 });
 
+//주차칸 경로 안내 api
 app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
@@ -229,8 +205,8 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
 
   await exec(
     `cd ./map_data
-	g++ -o root_finder ./mapalgorithm.cpp
-	./root_finder ${start} ${end}`,
+	  g++ -o root_finder ./mapalgorithm.cpp
+	  ./root_finder ${start} ${end}`,
     (error, stdout, stderr) => {
       if (error) {
         console.error(error);
@@ -259,78 +235,62 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   );
 });
 
-app.get("/api/get_latest_cctv_data", async (req, res) => {
-  try {
-    // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
-    const selectQuery = "SELECT cctv_json FROM cctv ORDER BY id DESC LIMIT 1";
+// 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
+app.get("/api/get_latest_cctv_data", (req, res) => {
+  const selectQuery =
+    "SELECT cctv_json FROM cctv ORDER BY created_at DESC LIMIT 1";
 
-    // mysql2/promise를 사용하여 비동기 쿼리 수행
-    const [results] = await pool.query(selectQuery);
-    console.log(results);
-    if (results.length > 0) {
-      const latestCctvData = results[0].cctv_json;
-      res.json({ cctv_json: latestCctvData });
+  pool.query(selectQuery, (error, results) => {
+    if (error) {
+      console.error("CCTV 데이터 가져오기 오류:", error);
+      res.status(500).json({ error: "Internal Server Error" });
     } else {
-      res.status(404).json({ error: "No CCTV data found" });
+      if (results.length > 0) {
+        const latestCctvData = results[0].cctv_json;
+        res.json({ cctv_json: latestCctvData });
+      } else {
+        res.status(404).json({ error: "No CCTV data found" });
+      }
     }
-  } catch (error) {
-    console.error("CCTV 데이터 가져오기 오류:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
+  });
 });
 
-// 주차장 내 주차 칸 규격 확인
-app.get("/api/section_scales/:lot_id", async (req, res) => {
-  const lotId = req.params.lot_id;
-  try {
-    // 가장 최근에 저장된 주차 칸 규격 데이터를 가져오는 쿼리
-    const selectQuery = `
-      SELECT type_id, width, height
-      FROM section_scales
-      WHERE lot_id = ?`;
-
-    const [results] = await pool.query(selectQuery, [lotId]);
-
-    if (results.length > 0) {
-      res.json(results);
-    } else {
-      res
-        .status(404)
-        .json({ error: "No section scales found for the specified lot_id" });
-    }
-  } catch (error) {
-    console.error("주차 칸 규격 데이터 가져오기 오류:", error);
-    res.status(500).json({ error: "Internal Server Error" });
-  }
-});
-
-///////////////////////////
-
-// 차량 위치 더미 데이터 api
-let carcar = 1;
-app.get("/api/asdasd", async (req, res) => {
+// 주차장 관리자 로그인 api
+app.post("/api/managers/sign_in", async (req, res) => {
+  const admin_password = req.body.admin_password;
+  const lot_token = req.body.lot_token;
   try {
     const query = `
-    SELECT pos_x, pos_y FROM cross_points AS a INNER JOIN car_positions1 As b ON a.data_id = b.point_num WHERE b.entry_car_id = ?
-      `;
-    const result = await pool.query(query, [carcar]);
-    console.log(result[0]);
-    console.log(carcar);
-    carcar++;
-    if (carcar > 26) {
-      carcar = 1;
-    }
+      SELECT lot_id
+      FROM managers
+      WHERE password = ? AND lot_token = ?; 
+    `
 
-    if (result.length > 0) {
-      return res.json(result[0]);
-    } else {
-      return res.status(404).json({
-        error: "Parking information not found for the specified lot_id",
-      });
+    const result = await pool.query(query, [admin_password], [lot_token]);
+
+    if(result.length > 0){
+      const lot_id = result[0].lot_id;
+      return res.json({lot_id : lot_id, result : true});
+    }else{
+      return res.json({lot_id : null, result : false});
     }
-  } catch (error) {
+  }catch(error){
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
-});
+})
+
+// 관리 중인 주차장 확인
+app.get("/api/lot_floor_data/:lot_id", async (req, res)=>{
+  const lot_id = req.params.lot_id;
+
+  try{
+    const query = `
+
+    `
+  }catch(error){
+
+  }
+})
+
 app.listen(PORT, () => console.log(`서버 기동중`));
