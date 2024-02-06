@@ -292,4 +292,32 @@ app.get("/api/lot_floor_data/:lot_id", async (req, res) => {
   } catch (error) {}
 });
 
+// 주차 경로 알려줄 수 있는 api 요청
+let carcar = 1;
+app.get("/api/asdasd", async (req, res) => {
+  try {
+    const query = `
+    SELECT pos_x, pos_y FROM cross_points AS a INNER JOIN car_positions1 As b ON a.data_id = b.point_num WHERE b.entry_car_id = ?
+      `;
+    const result = await pool.query(query, [carcar]);
+    console.log(result[0]);
+    console.log(carcar);
+    carcar++;
+    if (carcar > 24) {
+      carcar = 1;
+    }
+
+    if (result.length > 0) {
+      return res.json(result[0]);
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(PORT, () => console.log(`서버 기동중`));
