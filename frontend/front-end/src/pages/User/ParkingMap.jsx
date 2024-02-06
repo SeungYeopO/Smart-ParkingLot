@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import ParkingLot from "../../components/ParkingLot";
 import SideNavbar from "../../components/SideNavbar";
 import BottomNavbar from "../../components/BottomNavbar";
+import MapTest from "../../components/MapTest";
 
 const ParkingMap = () => {
   const destinationMapStyle = {
@@ -11,12 +12,12 @@ const ParkingMap = () => {
   };
 
   return (
-    <div className="parkingLot" style={{ height: "100vh", display: "flex"}}>
+    <div className="parkingLot" style={{ height: "100vh", display: "flex" }}>
       <SideNavbar />
       <div style={destinationMapStyle}>
-      <ParkingLot />
-
-      <BottomNavbar />
+        <ParkingLot />
+        <MapTest />
+        <BottomNavbar />
       </div>
     </div>
   );

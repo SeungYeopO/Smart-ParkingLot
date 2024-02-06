@@ -98,12 +98,11 @@ const DestinationMap = () => {
             style={imgStyle}
           />
 
-          <svg style={arrowStyle} viewBox="0 0 24 24">
-            <path
-              fill="red"
-              d="M12 2L1 21h22L12 2zm0 4.83L17.6 19H6.4L12 6.83z"
-            />
-          </svg>
+          <img // 여기서 svg를 img 태그로 변경
+            src="./assets/car.png" // car.png 이미지로 변경
+            alt="Car Icon"
+            style={arrowStyle} // 화살표 스타일 적용
+          />
         </div>
         <BottomNavbar />
       </div>

@@ -3,7 +3,7 @@
 
 import React, { useState, useEffect } from 'react';
 
-const MapTest = () => {
+const MapTestDriving = () => {
   const [nowPosition, setNowPosition] = useState([]);
   const updateInterval = 500; // 업데이트 간격 설정
 
@@ -44,4 +44,4 @@ const MapTest = () => {
   );
 };
 
-export default MapTest;
+export default MapTestDriving;
