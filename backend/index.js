@@ -333,4 +333,5 @@ app.get("/api/asdasd", async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
+
 app.listen(PORT, () => console.log(`서버 기동중`));

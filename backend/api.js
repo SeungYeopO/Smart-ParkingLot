@@ -211,16 +211,19 @@ app.post("/api/users/user_inquiries", async (req, res) => {
   const user_inquiry = req.body.user_inquiry;
 
   try {
-    const query = `
+    const insertQuery = `
     INSERT INTO user_inquiries (user_id, lot_id, inquiry)
     VALUES (?, ?, ?)
   `;
-    const result = await pool.query(query, [user_id, lot_id, user_inquiry]);
+    const result = await pool.query(insertQuery, [
+      user_id,
+      lot_id,
+      user_inquiry,
+    ]);
     const selectQuery = `
     SELECT LAST_INSERT_ID() AS inquiry_id
     `;
     const inquiryResult = await pool.query(selectQuery);
-
     const inquiry_id = inquiryResult[0].inquiry_id;
 
     return res.json({ inquiry_id: inquiry_id, result: true });
