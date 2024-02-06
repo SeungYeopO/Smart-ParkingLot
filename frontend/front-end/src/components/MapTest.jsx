@@ -1,29 +1,33 @@
+// 경로 테스트 중
+
+
 import React, { useState, useEffect } from 'react';
 
 const MapTest = () => {
-  const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
+  const [nowPosition, setNowPosition] = useState([]);
+  const updateInterval = 500; // 업데이트 간격 설정
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchData = async () => { // 데이터를 가져오는 비동기 함수
       try {
-        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1');
+        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/asdasd');
         const nowPosition = await response.json();
-        setNowPosition(nowPosition);
-        console.log('데이터 수신 중');
-        console.log(nowPosition)
+        setNowPosition(nowPosition); // 상태 업데이트
+        console.log('데이터 수신 중:', nowPosition);
       } catch (error) {
         console.error('데이터를 가져오는 중 오류 발생:', error);
       }
     };
 
-    fetchData(); // fetchData 함수 호출
-  }, []);
+    const interval = setInterval(fetchData, updateInterval); // 일정 간격으로 fetchData를 호출한다 -> 실시간으로 받아야해서
 
-   const ratio = 1
+    return () => clearInterval(interval); // 컴포넌트가 언마운트 될 때 인터벌 정리
+  }, []); 
+
+  const ratio = 1; 
 
   return (
     <div>
-      {/* <h1>좌표 목록</h1> */}
       <div className="map-container">
         {nowPosition.map((position, index) => (
           <div
@@ -31,8 +35,7 @@ const MapTest = () => {
             className="testposition-dot"
             style={{
               left: `${position.pos_x * ratio}px`,
-              top: `${position.pos_y   * ratio }px`,
-              // marginRight : position.angle==='0' ? 0 : 21.5*2
+              top: `${position.pos_y * ratio}px`,
             }}
           ></div>
         ))}
