@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import AdminUpNavbar from '../../components/AdminUpNavbar';
 
 const NavBar = () => {
   let navigate = useNavigate();
@@ -41,18 +42,7 @@ const NavBar = () => {
   };
   return (
     <div>
-      <div className="nav-bar">
-        <div className="nav-logo">
-          <img src="/assets/car_logo.png" alt="Logo" />
-        </div>
-        <div className="nav-title-date">
-          <p>2024.01.29 11:12:03</p>
-        </div>
-      <div className="nav-user-info">
-        <img src="/assets/usericon.png" alt="User Avatar" className="user-avatar" />
-        <span className="user-name">사용자</span>
-      </div>
-    </div>
+      <AdminUpNavbar />
     <div className='adminmode-bg'>
     <div className='letter-function'>
       <p>Function</p>

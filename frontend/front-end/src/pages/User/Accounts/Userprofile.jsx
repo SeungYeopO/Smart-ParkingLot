@@ -37,54 +37,58 @@ const Profile = () => {
       </div>
       <div className="myprofile" style={{ marginLeft: "20px" }}>
         <h2 style={{ marginBottom: "50px" }}>My Profile</h2>
-        <div className="form-group">
-          <label htmlFor="userId">UserID</label>
-          <input
-            type="text"
-            id="userId"
-            value={user.userId}
-            disabled // 사용자 ID는 비활성화
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="carNumber">차량번호</label>
-          <input
-            type="text"
-            id="carNumber"
-            value={user.carNumber}
-            onChange={(e) => updateCarInfo("carNumber", e.target.value)}
-            style={{ color: user.carNumber === "18가 2967" ? "gray" : "black" }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="carType">차량 종류</label>
-          <select
-            id="carType"
-            value={user.carType}
-            onChange={(e) => updateCarInfo("carType", e.target.value)}
-            style={{ color: user.carType === "전기차" ? "gray" : "black" }}
-          >
-            <option value="일반">일반차량</option>
-            <option value="전기차">전기차</option>
-            <option value="경차">경차</option>
-          </select>
-        </div>
-        <div className="form-group">
-          <label htmlFor="disabled">장애인 여부</label>
-          <select
-            id="disabled"
-            value={user.disabled}
-            onChange={(e) => updateCarInfo("disabled", e.target.value)}
-            style={{ color: user.disabled === "" ? "gray" : "black" }}
-          >
-            <option value="비장애인">비장애인</option>
-            <option value="장애인">장애인</option>
-          </select>
-          {specialMessage && (
-            <p style={{ color: "red", fontSize: "17px", padding: "10px" }}>
-              {specialMessage}
-            </p>
-          )}
+        <div className="form-border">
+          <div className="form-group">
+            <label htmlFor="userId">UserID</label>
+            <input
+              type="text"
+              id="userId"
+              value={user.userId}
+              disabled // 사용자 ID는 비활성화
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="carNumber">차량번호</label>
+            <input
+              type="text"
+              id="carNumber"
+              value={user.carNumber}
+              onChange={(e) => updateCarInfo("carNumber", e.target.value)}
+              style={{
+                color: user.carNumber === "18가 2967" ? "gray" : "black",
+              }}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="carType">차량 종류</label>
+            <select
+              id="carType"
+              value={user.carType}
+              onChange={(e) => updateCarInfo("carType", e.target.value)}
+              style={{ color: user.carType === "전기차" ? "gray" : "black" }}
+            >
+              <option value="일반">일반차량</option>
+              <option value="전기차">전기차</option>
+              <option value="경차">경차</option>
+            </select>
+          </div>
+          <div className="form-group">
+            <label htmlFor="disabled">장애인 여부</label>
+            <select
+              id="disabled"
+              value={user.disabled}
+              onChange={(e) => updateCarInfo("disabled", e.target.value)}
+              style={{ color: user.disabled === "" ? "gray" : "black" }}
+            >
+              <option value="비장애인">비장애인</option>
+              <option value="장애인">장애인</option>
+            </select>
+            {specialMessage && (
+              <p style={{ color: "red", fontSize: "17px", padding: "10px" }}>
+                {specialMessage}
+              </p>
+            )}
+          </div>
         </div>
         <button onClick={handleSave} className="save-button">
           Save

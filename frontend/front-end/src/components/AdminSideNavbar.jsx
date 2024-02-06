@@ -11,7 +11,8 @@ const AdminSideNavbar = () => {
     <div
       className="nav-sidebar"
       style={{
-        backgroundColor: "#273142",     
+        backgroundColor: "#2c3e50",
+        marginTop : "40px",     
         width: "130px",    
         height: "100vh",    
         display: "flex",   
@@ -20,10 +21,7 @@ const AdminSideNavbar = () => {
       }}
     >
         <div>
-         <a className="logo-letter" href="/adminmode">
-            < div className="letter-auto">Auto</div>
-              <div>Parking</div>
-         </a>
+     
             <div className="mode1-cctv" onClick={goToCCTVmode}>
               <Link to="/admincctv">CCTV</Link>
             </div>

@@ -21,7 +21,7 @@ const BottomNavbar = () => {
   const formattedTime = currentTime.toLocaleTimeString("ko-KR");
 
   return (
-    <div className="bottom-navbar">
+    <div className="bottom-navbar" >
       <div className="nav-item">
         <img src="./assets/flag.png" alt="flag" />
         롯데마트 수완점

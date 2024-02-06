@@ -23,55 +23,56 @@ const Help = () => {
   return (
     <div style={{ display: "flex" }}>
       <SideNavbar />
-      <div className="line" >
+      <div className="line">
         <p>Help</p>
       </div>
       <div className="myprofile" style={{ marginLeft: "20px" }}>
         <h2 style={{ marginBottom: "50px" }}>Ask for help</h2>
-        <div className="form-group">
-          <label htmlFor="userId">UserID</label>
-          <input
-            type="text"
-            id="userId"
-            value={userInfo.userId}
-            disabled // 사용자 ID는 비활성화
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="carNumber">차량번호</label>
-          <input
-            type="text"
-            id="carNumber"
-            value={userInfo.carNumber}
-            disabled
-            style={{
-              color: userInfo.carNumber === "18가 2967" ? "gray" : "black",
-            }}
-          />
-        </div>
-        <div className="form-group">
-          <label htmlFor="inquiry">문의 내용</label>
-          <textarea
-            id="inquiry"
-            value={userInfo.inquiry}
-            onChange={(e) => updateInquiry(e.target.value)}
-            placeholder="문의하실 내용을 입력해주세요"
-            style={{
-              width: "700px", // 너비를 500픽셀로 설정합니다.
-              minHeight: "200px",
-              /* word-break: keep-all 은 길어서 줄을 바꿀 때 단어를 쪼개서 바꾸지 말라는 기능 */
-              wordBreak: "keep-all",
-              /* overflow-wrap: break-word 은 길어서 라인을 넘어 갈 경우 넘기지 말고 줄 바꾸라는 뜻 */
-              overflowWrap: "break-word",
-              color: userInfo.inquiry ? "black" : "gray",
-            }}
-          />
+        <div className="form-border">
+          <div className="form-group">
+            <label htmlFor="userId">UserID</label>
+            <input
+              type="text"
+              id="userId"
+              value={userInfo.userId}
+              disabled // 사용자 ID는 비활성화
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="carNumber">차량번호</label>
+            <input
+              type="text"
+              id="carNumber"
+              value={userInfo.carNumber}
+              disabled
+              style={{
+                color: userInfo.carNumber === "18가 2967" ? "gray" : "black",
+              }}
+            />
+          </div>
+          <div className="form-group">
+            <label htmlFor="inquiry">문의 내용</label>
+            <textarea
+              id="inquiry"
+              value={userInfo.inquiry}
+              onChange={(e) => updateInquiry(e.target.value)}
+              placeholder="문의하실 내용을 입력해주세요"
+              style={{
+                width: "700px", // 너비를 500픽셀로 설정합니다.
+                minHeight: "200px",
+                /* word-break: keep-all 은 길어서 줄을 바꿀 때 단어를 쪼개서 바꾸지 말라는 기능 */
+                wordBreak: "keep-all",
+                /* overflow-wrap: break-word 은 길어서 라인을 넘어 갈 경우 넘기지 말고 줄 바꾸라는 뜻 */
+                overflowWrap: "break-word",
+                color: userInfo.inquiry ? "black" : "gray",
+              }}
+            />
+          </div>
         </div>
         <button onClick={handleSave} className="save-button">
           Send
         </button>
       </div>
-      
     </div>
   );
 };
