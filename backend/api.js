@@ -173,20 +173,23 @@ app.get("/api/section_scales/:lot_id", async (req, res) => {
   }
 });
 
-// 여기까지 index.js에서 추가됨 //
-////////////////////////////////
-
 // 주차 경로 알려줄 수 있는 api 요청
+let carcar = 1;
 app.get("/api/asdasd", async (req, res) => {
   try {
     const query = `
-        SELECT entry_car_id, point_num
-        FROM car_positions1
+    SELECT pos_x, pos_y FROM cross_points AS a INNER JOIN car_positions1 As b ON a.data_id = b.point_num WHERE b.entry_car_id = ?
       `;
-    const result = await pool.query(query);
-    console.log(result);
+    const result = await pool.query(query, [carcar]);
+    console.log(result[0]);
+    console.log(carcar);
+    carcar++;
+    if (carcar > 24) {
+      carcar = 1;
+    }
+
     if (result.length > 0) {
-      return res.json(result);
+      return res.json(result[0]);
     } else {
       return res.status(404).json({
         error: "Parking information not found for the specified lot_id",
@@ -195,5 +198,36 @@ app.get("/api/asdasd", async (req, res) => {
   } catch (error) {
     console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// 여기까지 index.js에서 추가됨 //
+////////////////////////////////
+
+// 도움 요청 문의 내용 업로드 api
+app.post("/api/users/user_inquiries", async (req, res) => {
+  const user_id = req.body.user_id;
+  const lot_id = req.body.lot_id;
+  const user_inquiry = req.body.user_inquiry;
+
+  try {
+    const query = `
+    INSERT INTO user_inquiries (user_id, lot_id, inquiry)
+    VALUES (?, ?, ?)
+  `;
+    const result = await pool.query(query, [user_id, lot_id, user_inquiry]);
+    const selectQuery = `
+    SELECT LAST_INSERT_ID() AS inquiry_id
+    `;
+    const inquiryResult = await pool.query(selectQuery);
+
+    const inquiry_id = inquiryResult[0].inquiry_id;
+
+    return res.json({ inquiry_id: inquiry_id, result: true });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ result: false, error: "Internal Server Error" });
   }
 });

@@ -175,7 +175,7 @@ app.get("/api/lot_variable_data/:lot_id/:floor", async (req, res) => {
 // 주차장 내 현재 위치한 층 확인 api
 app.get("/api/check_floor", async (req, res) => {
   try {
-    const currentFloor = 1;
+    const currentFloor = -1;
     return res.json({ floor: currentFloor });
   } catch (error) {
     console.error(error);
