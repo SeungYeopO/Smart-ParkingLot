@@ -124,7 +124,7 @@ const AdminParkingLot = () => {
 
   // 변환된 x,y 좌표로 주차장 칸을 만드는 부분
   return (
-    <div className="mapEdge">
+    <div className="adminmapEdge">
       <div className="parkinglots-dot">
         {modifiedPositions.map((pos, index) => (
           <div
