@@ -7,19 +7,28 @@ import CCTV from './../../components/CCTV';
 import AdminSideNavbar from './../../components/AdminSideNavbar';
 import AdminUpNavbar from './../../components/AdminUpNavbar';
 
-
 const AdminCCTV = () => {
  
   return (
-    <div>
+    <div className='cctvbg'>
        <AdminUpNavbar />
-      <div style={{display : 'flex'}}>
-        <AdminSideNavbar />
-          <div>
-            <p></p>
+       <div style={{display : 'flex'}}>
+       <div>
+      <AdminSideNavbar />
+       </div>
+      <div>
+          <div className='camNum1'>     
+            <div className='cctv-img'><img src="/assets/cctv.png" alt="cctv" /></div>
+            <div className='letter-cam1'>CAM1</div>   
           </div>
-        
+          <div className='real-cctv'>
+            <CCTV />
+          </div>
+    
       </div>
+
+       </div>
+      
     </div>
   );
 };

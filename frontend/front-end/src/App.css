@@ -800,3 +800,48 @@ body {
 
 }
 
+
+/* CCTV페이지 */
+.camNum1 {
+  display: flex;
+  width: 220px;
+  height: 90px;
+  margin-top: 100px; /* Changed from 100px to 0 to remove the top margin */
+  margin-left: 20px;
+  /* border: solid 1px blue; */
+  background-color: #273142; /* Changed from transparent to match the .cctvbg background color */
+  border-radius: 5%;
+}
+
+.cctv-img {
+  margin-top: 2px;
+  width : 20px;
+  height : 20px;
+}
+
+.letter-cam1 {
+  font-size: large;
+  margin-top : 30px;
+  margin-left : 100px;
+}
+
+.real-cctv {
+  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 300px;
+
+}
+
+
+.cctvbg {
+  background-color: #1B2431;
+  height: 100vh;
+  /* Add overflow to hide any extra space that causes a scrollbar */
+  overflow: hidden;
+}
+
+.cctvImg_screen img{
+  width : 800px;
+  height : 500px;
+}
+

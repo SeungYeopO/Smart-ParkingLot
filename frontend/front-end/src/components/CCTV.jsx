@@ -24,7 +24,7 @@ const CCTV = () => {
     }, []); // 
 
     return (
-        <div>
+        <div className='cctvImg_screen'>
             {imageSrc && <img src={imageSrc} alt="CCTV" />}
         </div>
     );

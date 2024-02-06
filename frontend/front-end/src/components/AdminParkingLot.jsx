@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 
-const ParkingLot = () => {
+const AdminParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
   const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
 
@@ -154,4 +154,4 @@ const ParkingLot = () => {
   );
 };
 
-export default ParkingLot;
+export default AdminParkingLot;

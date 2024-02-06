@@ -5,7 +5,7 @@ import React, { useState, useEffect } from 'react';
 
 const MapTest = () => {
   const [nowPosition, setNowPosition] = useState([]);
-  const updateInterval = 500; // 업데이트 간격 설정
+  const updateInterval = 1000; // 업데이트 간격 설정
 
   useEffect(() => {
     const fetchData = async () => { // 데이터를 가져오는 비동기 함수
