@@ -131,7 +131,7 @@ app.get("/api/check_floor", async (req, res) => {
   }
 });
 
-//주차장 id와 해당 층에 해당하는 주차 칸 정보
+// 주차장 층별 주차 칸 확인
 app.get("/api/parking_sections/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
@@ -149,6 +149,33 @@ app.get("/api/parking_sections/:lot_id/:floor", async (req, res) => {
     return res.json(error);
   }
 });
+
+// 주차 칸 상태 확인
+app.get("/api/section_states/:lot_id/:floor", async (req, res) => {
+  const lot_id = req.params.lot_id;
+  const floor = req.params.floor;
+  try{
+    const query = `
+      SELECT sst.data_id, sst.is_filled, sst.is_managed
+      FROM parking_info.section_states sst
+      JOIN parking_info.lot_floor_data lfd ON sst.data_id = lfd.data_id
+      WHERE lfd.lot_id = ? AND lfd.floor = ?
+    `
+    const data = await pool.query(query, [lot_id, floor]);
+    const result = [];
+    data[0].forEach(element => {
+      if(element.is_filled === 0 && element.is_managed === 0) {
+        result.push({ data_id : element.data_id, is_filled : 0});
+      } else {
+        result.push({ data_id : element.data_id, is_filled : 1});
+      }
+    });
+    return res.json(result);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+})
 
 //주차장 id와 해당 층에 있는 도로 지점 정보
 app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
@@ -169,6 +196,7 @@ app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
   }
 });
 
+//주차칸 경로 안내 api
 app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
@@ -207,8 +235,8 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   );
 });
 
+// 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
 app.get("/api/get_latest_cctv_data", (req, res) => {
-  // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
   const selectQuery =
     "SELECT cctv_json FROM cctv ORDER BY created_at DESC LIMIT 1";
 
@@ -226,5 +254,43 @@ app.get("/api/get_latest_cctv_data", (req, res) => {
     }
   });
 });
+
+// 주차장 관리자 로그인 api
+app.post("/api/managers/sign_in", async (req, res) => {
+  const admin_password = req.body.admin_password;
+  const lot_token = req.body.lot_token;
+  try {
+    const query = `
+      SELECT lot_id
+      FROM managers
+      WHERE password = ? AND lot_token = ?; 
+    `
+
+    const result = await pool.query(query, [admin_password], [lot_token]);
+
+    if(result.length > 0){
+      const lot_id = result[0].lot_id;
+      return res.json({lot_id : lot_id, result : true});
+    }else{
+      return res.json({lot_id : null, result : false});
+    }
+  }catch(error){
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+})
+
+// 관리 중인 주차장 확인
+app.get("/api/lot_floor_data/:lot_id", async (req, res)=>{
+  const lot_id = req.params.lot_id;
+
+  try{
+    const query = `
+
+    `
+  }catch(error){
+
+  }
+})
 
 app.listen(PORT, () => console.log(`서버 기동중`));
