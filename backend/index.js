@@ -238,19 +238,21 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
 // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
 app.get("/api/get_latest_cctv_data", async (req, res) => {
   try {
-    const selectQuery =
-      "SELECT cctv_json FROM cctv ORDER BY created_at DESC LIMIT 1";
+    // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
+    const selectQuery = "SELECT cctv_json FROM cctv ORDER BY id DESC LIMIT 1";
 
-    const result = await pool.query(selectQuery, (error, results) => {
-      if (result.length > 0) {
-        const latestCctvData = results[0].cctv_json;
-        res.json({ cctv_json: latestCctvData });
-      } else {
-        res.status(404).json({ error: "No CCTV data found" });
-      }
-    });
+    // mysql2/promise를 사용하여 비동기 쿼리 수행
+    const [results] = await pool.query(selectQuery);
+    console.log(results);
+    if (results.length > 0) {
+      const latestCctvData = results[0].cctv_json;
+      res.json({ cctv_json: latestCctvData });
+    } else {
+      res.status(404).json({ error: "No CCTV data found" });
+    }
   } catch (error) {
-    return res.status(500).json({ error: "Internal Server Error" });
+    console.error("CCTV 데이터 가져오기 오류:", error);
+    res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
