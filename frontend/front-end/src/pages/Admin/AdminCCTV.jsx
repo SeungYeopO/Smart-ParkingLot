@@ -15,7 +15,10 @@ const AdminCCTV = () => {
        <AdminUpNavbar />
       <div style={{display : 'flex'}}>
         <AdminSideNavbar />
-        <CCTV />
+          <div>
+            <p></p>
+          </div>
+        
       </div>
     </div>
   );

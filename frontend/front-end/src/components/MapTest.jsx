@@ -10,7 +10,7 @@ const MapTest = () => {
   useEffect(() => {
     const fetchData = async () => { // 데이터를 가져오는 비동기 함수
       try {
-        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1');
+        const response = await fetch('http://i10c102.p.ssafy.io:3001/api/asdasd');
         const nowPosition = await response.json();
         setNowPosition(nowPosition); // 상태 업데이트
         console.log('데이터 수신 중:', nowPosition);

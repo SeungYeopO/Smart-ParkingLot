@@ -11,7 +11,8 @@ const AdminSideNavbar = () => {
     <div
       className="nav-sidebar"
       style={{
-        backgroundColor: "#273142",     
+        backgroundColor: "#2c3e50",
+        marginTop : "40px",     
         width: "130px",    
         height: "100vh",    
         display: "flex",   

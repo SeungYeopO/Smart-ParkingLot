@@ -18,14 +18,14 @@ const AdminUpNavbar = () => {
 
     return (
         <div>
-            <div className="nav-bar">
+            <div className="nav-bar2">
         <div className="nav-logo">
         <a className="logo-letter" href="/adminmode">
             < div className="letter-auto">Auto</div>
-              <div>Parking</div>
+              <div className = "letter-Parking">Parking</div>
          </a>
         </div>
-        <div className="nav-title-date">
+        <div className="nav-title">
           <p>{formattedTime}</p>
         </div>
       <div className="nav-user-info">
