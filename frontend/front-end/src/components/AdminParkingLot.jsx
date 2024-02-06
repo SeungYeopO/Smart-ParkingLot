@@ -3,6 +3,7 @@ import React, { useState, useEffect } from "react";
 const AdminParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
   const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
+  const [click, setClick] = useState(0);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -20,6 +21,12 @@ const AdminParkingLot = () => {
 
     fetchData(); // fetchData 함수 호출
   }, []);
+
+  const clickLot = () => {
+    click = 1;
+    setClick(click);
+  };
+
 
   useEffect(() => {
     const updateModifiedPositions = async () => {
@@ -127,7 +134,7 @@ const AdminParkingLot = () => {
     <div className="adminmapEdge">
       <div className="parkinglots-dot">
         {modifiedPositions.map((pos, index) => (
-          <div
+          <div onClick={clickLot}
             key={index}
             className="position-dot"
             style={{
