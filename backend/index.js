@@ -317,7 +317,7 @@ app.get("/api/asdasd", async (req, res) => {
     console.log(result[0]);
     console.log(carcar);
     carcar++;
-    if (carcar > 24) {
+    if (carcar > 26) {
       carcar = 1;
     }
 
