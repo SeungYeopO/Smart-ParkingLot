@@ -30,7 +30,7 @@ void dfs(int now, int end, vector<bool> visited) {
 
 int main(int argc, char* argv[]) {
 
-	FILE* map_data = freopen("./map_data/map0.txt", "r", stdin);
+	FILE* map_data = freopen("./map0.txt", "r", stdin);
 
 	if (map_data == nullptr) {
 		fprintf(stderr, "파일을 열 수 없습니다.\n");
@@ -76,7 +76,7 @@ int main(int argc, char* argv[]) {
 
 	cout << endl;
 
-	FILE* map_json = fopen("./map_data/short_path.json", "w");  
+	FILE* map_json = fopen("./short_path.json", "w");  
 	fprintf(map_json, "[\n");
 
 	for (int i = 0; i < short_path.size(); i++) {
