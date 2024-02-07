@@ -11,11 +11,11 @@ const AdminLogic = () => {
   };
 
   const [floorId, setFloorId] = useState("B2");
-  const [typeCheckboxes, setTypeCheckboxes] = useState({
-    parkingSpace: true,
-    noParkingSpace: false,
-    chargingStation: false,
-    handicapSpot: false,
+  const [selectedType, setSelectedType] = useState({
+    mart: false,
+    apt: false,
+    office: false,
+    myParkingSpace: false
   });
   const [congestion, setCongestion] = useState(50);
   const [entrance, setEntrance] = useState(50);
@@ -38,10 +38,11 @@ const AdminLogic = () => {
   };
 
   const handleCheckboxChange = (event) => {
-    setTypeCheckboxes({
-      ...typeCheckboxes,
-      [event.target.name]: event.target.checked,
-    });
+    const {name} = event.target
+    setSelectedType(prev => ({
+      ...prev,
+      [name]: !prev[name]
+    }));
   };
 
   const handleCongestionChange = (event) => {
@@ -54,8 +55,6 @@ const AdminLogic = () => {
   const handlePenaltyChange = (event) => {
     setPenalty(event.target.value);
   };
-
-
 
   return (
     <div style={{ height: "100vh", display: "flex" }}>
@@ -83,37 +82,37 @@ const AdminLogic = () => {
                 <input
                   type="checkbox"
                   name="parkingSpace"
-                  checked={typeCheckboxes.parkingSpace}
+                  checked={selectedType.mart}
                   onChange={handleCheckboxChange}
                 />
-                주차공간
+                마트
               </label>
               <label>
                 <input
                   type="checkbox"
                   name="noParkingSpace"
-                  checked={typeCheckboxes.noParkingSpace}
+                  checked={selectedType.apt}
                   onChange={handleCheckboxChange}
                 />
-                노상주차장
+                아파트
               </label>
               <label>
                 <input
                   type="checkbox"
                   name="chargingStation"
-                  checked={typeCheckboxes.chargingStation}
+                  checked={selectedType.office}
                   onChange={handleCheckboxChange}
                 />
-                충전시설
+                사업장
               </label>
               <label>
                 <input
                   type="checkbox"
                   name="handicapSpot"
-                  checked={typeCheckboxes.handicapSpot}
+                  checked={selectedType.myParkingSpace}
                   onChange={handleCheckboxChange}
                 />
-                장애인주차장
+                내주차장
               </label>
             </div>
             {/* Sliders */}
@@ -173,16 +172,15 @@ const AdminLogic = () => {
 // .form-element {
 //   margin-bottom: 10px;
 // .checkbox-group label {
-//   display: block; 
-//   margin-bottom: 10px; 
+//   display: block;
+//   margin-bottom: 10px;
 // }
 // .slider-group label {
 //   display: flex;
 //   align-items: center;
 // }
 // .slider-group input[type="range"] {
-//   margin-right: 10px; 
+//   margin-right: 10px;
 // }
-
 
 export default AdminLogic;
