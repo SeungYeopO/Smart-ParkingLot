@@ -404,8 +404,8 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
   }
 });
 
- // 관리자가 해당 자리의 is_managed 상태를 바꾸는 api
- app.patch("/api/p_manager/section_states", async (req, res) => {
+// 관리자가 해당 자리의 is_managed 상태를 바꾸는 api
+app.patch("/api/p_manager/section_states", async (req, res) => {
   const data_id = req.body.data_id;
   const is_managed = req.body.is_managed;
 
@@ -415,7 +415,7 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
         UPDATE section_states SET is_managed = ? 
         WHERE data_id = ?
       `;
-    const result = await pool.query(query, [inverted_is_managed], [data_id]);
+    const result = await pool.query(query, [inverted_is_managed, data_id]);
 
     if (result.affectedRows > 0) {
       return res.json({ result: true });
@@ -430,4 +430,28 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
   }
 });
 
+app.get("/api/user/car_position_x_y", async (req, res) => {
+  try {
+    const query = `
+    SELECT cr.pos_x, cr.pos_y
+    FROM car_positions cp
+    JOIN cross_points cr ON cp.point_num = cr.data_id
+    WHERE cp.entry_car_id = 1;
+`;
+    const result = await pool.query(query);
+    console.log(result[0]);
+    if (result.length > 0) {
+      return res.json(result[0]);
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+app.get("/api/update_RF", async (req, res) => {});
 app.listen(PORT, () => console.log(`서버 기동중`));

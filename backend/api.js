@@ -201,9 +201,6 @@ app.get("/api/asdasd", async (req, res) => {
   }
 });
 
-// 여기까지 index.js에서 추가됨 //
-////////////////////////////////
-
 // 도움 요청 문의 내용 업로드 api
 app.post("/api/users/user_inquiries", async (req, res) => {
   const user_id = req.body.user_id;
@@ -212,25 +209,78 @@ app.post("/api/users/user_inquiries", async (req, res) => {
 
   try {
     const insertQuery = `
-    INSERT INTO user_inquiries (user_id, lot_id, inquiry)
-    VALUES (?, ?, ?)
-  `;
-    const result = await pool.query(insertQuery, [
-      user_id,
-      lot_id,
-      user_inquiry,
-    ]);
-    const selectQuery = `
-    SELECT LAST_INSERT_ID() AS inquiry_id
+      INSERT INTO user_inquiries (user_id, lot_id, inquiry)
+      VALUES (?, ?, ?)
     `;
-    const inquiryResult = await pool.query(selectQuery);
-    const inquiry_id = inquiryResult[0].inquiry_id;
+    await pool.query(insertQuery, [user_id, lot_id, user_inquiry]);
 
-    return res.json({ inquiry_id: inquiry_id, result: true });
+    const selectQuery = `
+      SELECT LAST_INSERT_ID() AS inquiry_id
+    `;
+    const result = await pool.query(selectQuery);
+
+    const inquiry_id = result[0].inquiry_id;
+
+    return res.json({ user_id: user_id, inquiry_id: inquiry_id, result: true });
   } catch (error) {
     console.error(error);
     return res
       .status(500)
       .json({ result: false, error: "Internal Server Error" });
+  }
+});
+
+// 여기까지 index.js에서 추가됨 //
+////////////////////////////////
+
+// 관리자가 해당 자리의 is_managed 상태를 바꾸는 api
+app.patch("/api/section_states", async (req, res) => {
+  const data_id = req.body.data_id;
+  const is_managed = req.body.is_managed;
+
+  const inverted_is_managed = ~is_managed & 1;
+  try {
+    const query = `
+        UPDATE section_states SET is_managed = ? 
+        WHERE data_id = ?
+      `;
+    const result = await pool.query(query, [inverted_is_managed], [data_id]);
+
+    if (result.affectedRows > 0) {
+      return res.json({ result: true });
+    } else {
+      return res.status(404).json({
+        error: "ERROR",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// 여기까지 develop index.js에 추가해서 merge
+
+// 현재 차량의 cross point를 받아서 x,y좌표를 반환하는 api
+app.get("/api/user/car_position_x_y", async (req, res) => {
+  try {
+    const query = `
+    SELECT cp.data_id, cp.pos_x, cp.pos_y
+    FROM car_position cp
+    JOIN cross_points cr ON cp.entry_car_id = cr.point_id
+    WHERE cp.entry_car_id = 1;
+`;
+    const result = await pool.query(query);
+    console.log(result[0]);
+    if (result.length > 0) {
+      return res.json(result[0]);
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
