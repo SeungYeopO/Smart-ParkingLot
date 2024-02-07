@@ -17,7 +17,7 @@ app.get("/", (req, res) => {
 });
 
 // id 중복 체크 api
-app.post("/api/users/id_check", async (req, res) => {
+app.post("/api/user/users/id_check", async (req, res) => {
   const loginId = req.body.login_id;
   try {
     const query = `SELECT * FROM users WHERE login_id = '${loginId}'`;
@@ -34,7 +34,7 @@ app.post("/api/users/id_check", async (req, res) => {
 });
 
 // 회원 등록 api
-app.post("/api/users/sign_up", async (req, res) => {
+app.post("/api/user/users/sign_up", async (req, res) => {
   const loginId = req.body.login_id;
   const password = req.body.password;
   const carNumber = req.body.car_number;
@@ -63,7 +63,7 @@ app.post("/api/users/sign_up", async (req, res) => {
 });
 
 // 회원 로그인 api
-app.post("/api/users/sign_in", async (req, res) => {
+app.post("/api/user/users/sign_in", async (req, res) => {
   const loginId = req.body.login_id;
   const password = req.body.password;
 
@@ -90,7 +90,7 @@ app.post("/api/users/sign_in", async (req, res) => {
 });
 
 // 목적지 주차장 전체 현황 확인
-app.get("/api/lot_variable_data/:lot_id", async (req, res) => {
+app.get("/api/user/lot_variable_data/:lot_id", async (req, res) => {
   const lotId = req.params.lot_id;
 
   try {
@@ -121,7 +121,7 @@ app.get("/api/lot_variable_data/:lot_id", async (req, res) => {
 });
 
 // 주차장 내 현재 위치한 층 확인 api
-app.get("/api/check_floor", async (req, res) => {
+app.get("/api/user/check_floor", async (req, res) => {
   try {
     const currentFloor = -1;
     return res.json({ floor: currentFloor });
@@ -132,7 +132,7 @@ app.get("/api/check_floor", async (req, res) => {
 });
 
 // 주차장 층별 주차 칸 확인
-app.get("/api/parking_sections/:lot_id/:floor", async (req, res) => {
+app.get("/api/user/parking_sections/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   try {
@@ -151,7 +151,7 @@ app.get("/api/parking_sections/:lot_id/:floor", async (req, res) => {
 });
 
 // 주차 칸 상태 확인
-app.get("/api/section_states/:lot_id/:floor", async (req, res) => {
+app.get("/api/user/section_states/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   try {
@@ -178,7 +178,7 @@ app.get("/api/section_states/:lot_id/:floor", async (req, res) => {
 });
 
 //주차장 층별 도로 지점 확인
-app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
+app.get("/api/user/cross_points/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   try {
@@ -197,7 +197,7 @@ app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
 });
 
 //추천 주차 칸 확인
-app.get("/api/recommand_section/:lot_id", async (req, res) => {
+app.get("/api/user/recommand_section/:lot_id", async (req, res) => {
   const lot_id = req.params.lot_id;
   const query = `
     SELECT data_id,
@@ -205,7 +205,7 @@ app.get("/api/recommand_section/:lot_id", async (req, res) => {
 });
 
 //안내된 주차 칸 까지의 경로 확인
-app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
+app.get("/api/user/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   const start = req.params.start;
@@ -259,7 +259,7 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
 });
 
 //가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
-app.get("/api/get_latest_cctv_data", async (req, res) => {
+app.get("/api/p_manager/get_latest_cctv_data", async (req, res) => {
   try {
     // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
     const selectQuery = "SELECT cctv_json FROM cctv ORDER BY id DESC LIMIT 1";
@@ -280,7 +280,7 @@ app.get("/api/get_latest_cctv_data", async (req, res) => {
 });
 
 //주차장 관리자 로그인 api
-app.post("/api/managers/sign_in", async (req, res) => {
+app.post("/api/p_manager/managers/sign_in", async (req, res) => {
   const admin_password = req.body.admin_password;
   const lot_token = req.body.lot_token;
   try {
@@ -306,7 +306,7 @@ app.post("/api/managers/sign_in", async (req, res) => {
 
 //관리 중인 주차장 확인
 //포인트 번호, 해당 포인트가 존재하는 층, 포인트 타입이 전송된다
-app.get("/api/lot_floor_data/:lot_id", async (req, res) => {
+app.get("/api/p_manager/lot_floor_data/:lot_id", async (req, res) => {
   const lot_id = req.params.lot_id;
 
   try {
@@ -317,10 +317,26 @@ app.get("/api/lot_floor_data/:lot_id", async (req, res) => {
 });
 
 //관리 중인 주차장 층별 맵 확인
-//회원 쪽 API와 동일
+app.get("/api/p_manager/parking_sections/:lot_id/:floor", async (req, res) => {
+  const lot_id = req.params.lot_id;
+  const floor = req.params.floor;
+  try {
+    const query = `
+      SELECT ps.data_id, ps.type_id, ps.pos_x, ps.pos_y, ps.angle
+      FROM parking_info.parking_sections ps
+      JOIN parking_info.lot_floor_data lfd ON ps.data_id = lfd.data_id
+      WHERE lfd.lot_id = ? AND lfd.floor = ?;
+    `;
+    const result = await pool.query(query, [lot_id, floor]);
+    return res.json(result[0]);
+  } catch (error) {
+    console.log(error);
+    return res.json(error);
+  }
+});
 
 //관리 중인 주차장의 층별 주차칸 상태 확인
-app.get("/api/section_stats/:lot_id/:floor", async (req, res) => {
+app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   const query = `
