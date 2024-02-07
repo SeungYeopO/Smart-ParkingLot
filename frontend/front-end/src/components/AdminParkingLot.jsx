@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import MapTest from "./MapTest";
 
 const AdminParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
@@ -133,6 +134,7 @@ const AdminParkingLot = () => {
   return (
     <div className="adminmapEdge">
       <div className="parkinglots-dot">
+        <MapTest />
         {modifiedPositions.map((pos, index) => (
           <div onClick={clickLot}
             key={index}
@@ -151,6 +153,7 @@ const AdminParkingLot = () => {
               borderRadius: "5px",
               boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
               color: "#66e166", // 글자색 설정
+              fontSize: "12px"
             }}
           >
             <p>{pos.lotnum}</p>
