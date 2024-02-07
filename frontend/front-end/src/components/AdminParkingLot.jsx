@@ -1,32 +1,91 @@
 import React, { useState, useEffect } from "react";
 
 const AdminParkingLot = () => {
-  const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
-  const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
-  const [click, setClick] = useState(0);
+  const [nowPosition, setNowPosition] = useState([]);
+  const [modifiedPositions, setModifiedPositions] = useState([]);
+  const [click, setClick] = useState({});
+  const [parkingStatus, setParkingStatus] = useState({});
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1"
-        );
-        const nowPosition = await response.json();
-        setNowPosition(nowPosition);
-        console.log("데이터 수신 중");
+        const response = await fetch("http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1");
+        const data = await response.json();
+        setNowPosition(data);
+        console.log("데이터 수신 중:", data);
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
     };
 
-    fetchData(); // fetchData 함수 호출
+    fetchData();
   }, []);
 
-  const clickLot = () => {
-    click = 1;
-    setClick(click);
+  const fetchParkingStatus = async () => {
+    try {
+      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
+      const data = await response.json();
+      console.log("전체 주차장 상태 데이터:", data);
+      
+      // data_id와 클릭된 lotnum을 기반으로 상태를 업데이트합니다.
+      setParkingStatus(data.reduce((acc, curr) => ({
+        ...acc,
+        [curr.data_id]: curr.is_managed,
+      }), {}));
+    } catch (error) {
+      console.error("주차 상태를 가져오는 중 오류 발생:", error);
+    }
   };
 
+  useEffect(() => {
+    fetchParkingStatus(); // 컴포넌트 마운트 시 주차장 상태 데이터를 가져옵니다.
+  }, []);
+  
+  // 클릭했을때 이벤트 내용 
+  const clickLot = async (lotnum) => {
+    console.log(`Lot ${lotnum} clicked.`);
+  
+    // 클릭된 lotnum의 현재 is_managed 상태를 확인하고 반전시킵니다.
+    const currentStatus = parkingStatus[lotnum];
+    const newStatus = currentStatus === 1 ? 0 : 1;
+  
+    console.log(`Lot ${lotnum} new managed status: ${newStatus}`);
+  
+    // 변경된 is_managed 상태를 서버에 patch 요청으로 전송합니다.
+    try {
+      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data_id: lotnum, 
+          is_managed: newStatus,
+        }),
+      });
+  
+      if (!response.ok) throw new Error('Response not OK');
+  
+      const result = await response.json();
+      console.log(`Server response for lot ${lotnum}:`, result);
+  
+      // 성공적으로 서버에 상태 변경을 반영한 후, 클라이언트 상태도 업데이트합니다.
+      setParkingStatus(prevStatus => ({
+        ...prevStatus,
+        [lotnum]: newStatus,
+      }));
+  
+    } catch (error) {
+      console.error("주차 자리 상태 변경 중 오류 발생:", error);
+    }
+  
+    // 클릭 상태를 토글합니다.
+    setClick((prevState) => ({
+      ...prevState,
+      [lotnum]: !prevState[lotnum],
+    }));
+  };
+  
 
   useEffect(() => {
     const updateModifiedPositions = async () => {
@@ -63,8 +122,8 @@ const AdminParkingLot = () => {
         if (angle === "0") {
           // 각도가 0도일때
           cPos_x = ratio * pos_x - (s_width * ratio) / 2;
-          console.log(`id : ${data.section_id}`);
-          console.log(cPos_x);
+          // console.log(`id : ${data.section_id}`);
+          // console.log(cPos_x);
           //console.log(lotType)
           cPos_y = ratio * pos_y - (s_height * ratio) / 2;
           rect_width = s_width * ratio;
@@ -73,9 +132,9 @@ const AdminParkingLot = () => {
           // 각도 90도
           cPos_x = ratio * pos_x - (s_height * ratio) / 2;
           cPos_y = ratio * pos_y - (s_width * ratio) / 2;
-          console.log("angle다름");
-          console.log(`id : ${data.section_id}`);
-          console.log(cPos_x);
+          // console.log("angle다름");
+          // console.log(`id : ${data.section_id}`);
+          // console.log(cPos_x);
           // margin = s_height * ratio
           rect_width = s_height * ratio;
           rect_height = s_width * ratio;
@@ -134,7 +193,7 @@ const AdminParkingLot = () => {
     <div className="adminmapEdge">
       <div className="parkinglots-dot">
         {modifiedPositions.map((pos, index) => (
-          <div onClick={clickLot}
+          <div onClick={() => clickLot(pos.lotnum)}
             key={index}
             className="position-dot"
             style={{
@@ -151,6 +210,7 @@ const AdminParkingLot = () => {
               borderRadius: "5px",
               boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
               color: "#66e166", // 글자색 설정
+              // backgroundColor : parkingStatus[pos.lotnum] ? "rgb(255,0,0)" : "rgb(0,255,255"
             }}
           >
             <p>{pos.lotnum}</p>
