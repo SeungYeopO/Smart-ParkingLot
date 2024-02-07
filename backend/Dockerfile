@@ -8,9 +8,7 @@ RUN npm install
 
 COPY . .
 
-FROM builder AS gcc
-
-RUN apt-get update && apt-get install -y gcc g++
+FROM gcc:latest AS gcc
 
 FROM gcc AS final
 
