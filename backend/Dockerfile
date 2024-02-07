@@ -1,4 +1,5 @@
 FROM node:20
+FROM gcc:latest
 
 WORKDIR /usr/src/app
 
