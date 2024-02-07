@@ -131,6 +131,24 @@ app.get("/api/user/check_floor", async (req, res) => {
   }
 });
 
+//주차장 내 주차 칸 규격 확인
+app.get("/api/user/section_scale/:lot_id", async (req, res) => {
+  const lot_id = req.params.lot_id;
+  const query = `
+    SELECT type_id, width, height
+    FROM parking_info.section_scales
+    WHERE lot_id = ?
+  `;
+  try {
+    const results = await pool.query(query, [lot_id]);
+    console.log(results[0]);
+    return res.json(results[0]);
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 // 주차장 층별 주차 칸 확인
 app.get("/api/user/parking_sections/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
@@ -258,6 +276,35 @@ app.get("/api/user/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   );
 });
 
+// 도움 요청 및 문의 업로드
+app.post("/api/user/user_inquiries", async (req, res) => {
+  const user_id = req.body.user_id;
+  const lot_id = req.body.lot_id;
+  const user_inquiry = req.body.user_inquiry;
+
+  try {
+    const insertQuery = `
+      INSERT INTO user_inquiries (user_id, lot_id, inquiry)
+      VALUES (?, ?, ?)
+    `;
+    await pool.query(insertQuery, [user_id, lot_id, user_inquiry]);
+
+    const selectQuery = `
+      SELECT LAST_INSERT_ID() AS inquiry_id
+    `;
+    const result = await pool.query(selectQuery);
+
+    const inquiry_id = result[0].inquiry_id;
+
+    return res.json({ user_id: user_id, inquiry_id: inquiry_id, result: true });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ result: false, error: "Internal Server Error" });
+  }
+});
+
 //가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
 app.get("/api/p_manager/get_latest_cctv_data", async (req, res) => {
   try {
@@ -353,6 +400,32 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
       res.status(404).json({ error: "No section_states DATA found" });
     }
   } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+ // 관리자가 해당 자리의 is_managed 상태를 바꾸는 api
+ app.patch("/api/p_manager/section_states", async (req, res) => {
+  const data_id = req.body.data_id;
+  const is_managed = req.body.is_managed;
+
+  const inverted_is_managed = ~is_managed & 1;
+  try {
+    const query = `
+        UPDATE section_states SET is_managed = ? 
+        WHERE data_id = ?
+      `;
+    const result = await pool.query(query, [inverted_is_managed], [data_id]);
+
+    if (result.affectedRows > 0) {
+      return res.json({ result: true });
+    } else {
+      return res.status(404).json({
+        error: "ERROR",
+      });
+    }
+  } catch (error) {
+    console.error(error);
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
