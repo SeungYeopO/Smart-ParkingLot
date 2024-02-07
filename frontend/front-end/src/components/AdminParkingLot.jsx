@@ -9,7 +9,7 @@ const AdminParkingLot = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1"
+          "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
         );
         const nowPosition = await response.json();
         setNowPosition(nowPosition);

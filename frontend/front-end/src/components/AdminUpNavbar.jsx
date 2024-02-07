@@ -21,8 +21,7 @@ const AdminUpNavbar = () => {
             <div className="nav-bar2">
         <div className="nav-logo">
         <a className="logo-letter" href="/adminmode">
-            < div className="letter-auto">Auto</div>
-              <div className = "letter-Parking">Parking</div>
+            <img src="./assets/logo.png" alt="logo" />
          </a>
         </div>
         <div className="nav-title">
