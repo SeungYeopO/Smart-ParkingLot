@@ -177,7 +177,7 @@ app.get("/api/section_states/:lot_id/:floor", async (req, res) => {
   }
 });
 
-//주차장 id와 해당 층에 있는 도로 지점 정보
+//주차장 층별 도로 지점 확인
 app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
@@ -196,7 +196,15 @@ app.get("/api/cross_points/:lot_id/:floor", async (req, res) => {
   }
 });
 
-//주차칸 경로 안내 api
+//추천 주차 칸 확인
+app.get("/api/recommand_section/:lot_id", async (req, res) => {
+  const lot_id = req.params.lot_id;
+  const query = `
+    SELECT data_id,
+  `;
+});
+
+//안내된 주차 칸 까지의 경로 확인
 app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
@@ -250,7 +258,7 @@ app.get("/api/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
   );
 });
 
-// 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
+//가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
 app.get("/api/get_latest_cctv_data", async (req, res) => {
   try {
     // 가장 최근에 저장된 CCTV 데이터를 가져오는 쿼리
@@ -271,7 +279,7 @@ app.get("/api/get_latest_cctv_data", async (req, res) => {
   }
 });
 
-// 주차장 관리자 로그인 api
+//주차장 관리자 로그인 api
 app.post("/api/managers/sign_in", async (req, res) => {
   const admin_password = req.body.admin_password;
   const lot_token = req.body.lot_token;
@@ -296,7 +304,8 @@ app.post("/api/managers/sign_in", async (req, res) => {
   }
 });
 
-// 관리 중인 주차장 확인
+//관리 중인 주차장 확인
+//포인트 번호, 해당 포인트가 존재하는 층, 포인트 타입이 전송된다
 app.get("/api/lot_floor_data/:lot_id", async (req, res) => {
   const lot_id = req.params.lot_id;
 
@@ -305,6 +314,31 @@ app.get("/api/lot_floor_data/:lot_id", async (req, res) => {
 
     `;
   } catch (error) {}
+});
+
+//관리 중인 주차장 층별 맵 확인
+//회원 쪽 API와 동일
+
+//관리 중인 주차장의 층별 주차칸 상태 확인
+app.get("/api/section_stats/:lot_id/:floor", async (req, res) => {
+  const lot_id = req.params.lot_id;
+  const floor = req.params.floor;
+  const query = `
+    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed
+    FROM parking_info.section_states sst
+    JOIN parking_info.lot_floor_data lfd ON sst.data_id = lfd.data_id
+    WHERE lfd.lot_id = ? AND lfd.floor = ?
+  `;
+  try {
+    const results = await pool.query(query, [lot_id, floor]);
+    if (results.length > 0) {
+      return res.json(results[0]);
+    } else {
+      res.status(404).json({ error: "No section_states DATA found" });
+    }
+  } catch (error) {
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
 });
 
 app.listen(PORT, () => console.log(`서버 기동중`));
