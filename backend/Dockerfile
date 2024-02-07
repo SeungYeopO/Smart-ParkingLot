@@ -1,5 +1,4 @@
 FROM node:20
-FROM gcc:latest
 
 WORKDIR /usr/src/app
 
@@ -7,7 +6,13 @@ COPY ./package*.json ./
 
 RUN npm install
 
-COPY . /usr/src/app
+COPY . .
+
+FROM builder AS gcc
+
+RUN apt-get update && apt-get install -y gcc g++
+
+FROM gcc AS final
 
 EXPOSE 3001
 
