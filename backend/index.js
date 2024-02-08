@@ -223,17 +223,79 @@ app.get("/api/user/recommand_section/:lot_id", async (req, res) => {
 });
 
 //안내된 주차 칸 까지의 경로 확인
-app.get("/api/user/short_path/:lot_id/:floor/:start/:end", async (req, res) => {
-  const lot_id = req.params.lot_id;
-  const floor = req.params.floor;
-  const start = req.params.start;
-  const end = req.params.end;
+app.get("/api/user/short_path/:user_id", async (req, res) => {
+  const user_id = req.params.user_id;
+  const query1 = `
+  SELECT cp.point_num, ec.lot_id
+  FROM car_positions cp 
+  JOIN entry_cars ec ON ec.entry_car_id = cp.entry_car_id
+  WHERE ec.user_id = ?;
+  `;
+  const data1 = await pool.query(query1, [user_id]);
+
+  const query2 = `
+  SELECT entry_exit, is_wide
+  FROM lot_personal_presets
+  WHERE lot_id = ?;
+  `;
+  const lot_id = data1[0][0].lot_id;
+  const data2 = await pool.query(query2, [lot_id]);
+
+  const entry_exit = data2[0][0].entry_exit;
+  const is_wide = data2[0][0].is_wide;
+
+  let query3;
+
+  if (entry_exit === 0) {
+    query3 = `
+    SELECT pos_x, pos_y
+    FROM building_entry_points
+    WHERE lot_id = ? AND floor = -1
+    `;
+  } else if (entry_exit === 1) {
+    query3 = `
+    SELECT pos_x, pos_y
+    FROM car_exit_points
+    WHERE lot_id = ? AND floor = -1
+    `;
+  }
+  const data3 = await pool.query(query3, [lot_id]);
+  const entry_exit_x = data3[0][0].pos_x;
+  const entry_exit_y = data3[0][0].pos_y;
+
+  const query4 = `
+  SELECT ps.data_id, ps.pos_x, ps.pos_y
+  FROM parking_sections ps
+  JOIN section_states ss ON ps.data_id = ss.data_id
+  JOIN lot_floor_data lfd ON ps.data_id = lfd.data_id
+  WHERE lfd.lot_id = ?
+  AND lfd.floor = -1
+  AND ss.is_filled = 0
+  AND ss.is_managed = 0;
+`;
+  let min_distance = 2e9;
+  let min_pos_x;
+  let min_pos_y;
+  let min_point_num;
+  const data4 = await pool.query(query4, [lot_id]);
+  data4[0].forEach((element) => {
+    let distance = Math.sqrt(
+      (element.pos_x - entry_exit_x) ** 2 + (element.pos_y - entry_exit_y) ** 2
+    );
+    if (distance < min_distance) {
+      min_distance = distance;
+      min_point_num = element.data_id;
+      //min_pos_x = element.pos_x;
+      //min_pos_y = element.pos_y;
+    }
+  });
+  const end = min_point_num;
   const results = [];
 
   await exec(
     `cd ./map_data
-	  g++ -o root_finder ./mapalgorithm.cpp
-	  ./root_finder ${start} ${end}`,
+    g++ -o root_finder ./mapalgorithm.cpp
+    ./root_finder ${start} ${end}`,
     (error, stdout, stderr) => {
       if (error) {
         console.error(error);
