@@ -519,5 +519,87 @@ app.get("/api/user/car_position_x_y", async (req, res) => {
   }
 });
 
+// 주차장 관리 기본 프리셋 불러오기
+app.get("/api/p_manager/lot_base_presets", async (req, res) => {
+  try {
+    const query = `
+    SELECT *
+    FROM lot_base_presets;
+`;
+    const result = await pool.query(query);
+    if (result.length > 0) {
+      return res.json(result[0]);
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// 주차장 관리 개인 프리셋 불러오기
+app.get("/api/p_manager/lot_personal_presets/:lot_id", async (req, res) => {
+  const lot_id = req.params.lot_id;
+
+  try {
+    const query = `
+    SELECT *
+    FROM lot_personal_presets
+    WHERE lot_id = ?
+`;
+    const result = await pool.query(query, [lot_id]);
+    if (result.length > 0) {
+      return res.json(result[0]);
+    } else {
+      return res.status(404).json({
+        error: "Parking information not found for the specified lot_id",
+      });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
+// 주차장 관리 프리셋 저장
+app.patch("/api/p_manager/lot_personal_presets", async (req, res) => {
+  const lot_id = req.body.lot_id;
+  const congestion = req.body.congestion;
+  const entry_exit = req.body.entry_exit;
+  const is_wide = req.body.is_wide;
+  const penalty_limit = req.body.penalty_limit;
+
+  try {
+    const query = `
+      UPDATE lot_personal_presets 
+      SET congestion = ?, entry_exit = ?, is_wide = ?, penalty_limit = ?
+      WHERE lot_id = ?
+    `;
+    const result = await pool.query(query, [
+      congestion,
+      entry_exit,
+      is_wide,
+      penalty_limit,
+      lot_id,
+    ]);
+    console.log(result);
+    if (result.changedRows > 0) {
+      return res.json({ result: true });
+    } else if (result.affectedRows === 0) {
+      return res.status(404).json({
+        error: "업데이트할 행을 찾을 수 없습니다",
+      });
+    } else {
+      // 변경된 내용이 없음 (기존 값과 동일).
+      return res.json({ result: true, message: "변경 사항이 없습니다" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
 app.get("/api/update_RF", async (req, res) => {});
 app.listen(PORT, () => console.log(`서버 기동중`));
