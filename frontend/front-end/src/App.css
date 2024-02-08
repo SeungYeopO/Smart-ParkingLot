@@ -570,13 +570,13 @@ body {
 /*  */
 
 .testposition-dot {
-  position: absolute;
+  /* position: absolute;
   display: flex;
   background-color: red;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  transition: left 1s ease-out, top 1s ease-out;
+  transition: left 1s ease-out, top 1s ease-out; */
 }
 
 /* AdminSideNavbar css 속성 */

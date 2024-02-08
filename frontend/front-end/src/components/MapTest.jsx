@@ -27,7 +27,7 @@ const MapTest = () => {
           ctx.lineTo(position.pos_x * ratio, position.pos_y * ratio); // 각 위치로 선 그리기
         });
 
-        ctx.lineWidth = 5; // 선의 너비를 5픽셀로 설정
+        ctx.lineWidth = 10; // 선의 너비를 5픽셀로 설정
         ctx.strokeStyle = "#FF0000"; // 선의 색상 설정
         ctx.stroke(); // 선 그리기
         // 지렸다 지렸어~~~~~~~~~~~~
