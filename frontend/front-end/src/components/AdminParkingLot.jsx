@@ -12,19 +12,13 @@ const AdminParkingLot = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [parkingStatus, setParkingStatus] = useState({});
   const [selectedLot, setSelectedLot] = useState(null);
-
+  const [modalMessage, setModalMessage] = useState("");
 
   // 주차장 맵 그리는 로직 
   useEffect(() => {
     const fetchData = async () => {
       try {
 
-        const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
-        );
-        const nowPosition = await response.json();
-        setNowPosition(nowPosition);
-        console.log("데이터 수신 중");
 
         const response = await fetch("http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1");
         const data = await response.json();
@@ -65,14 +59,22 @@ const AdminParkingLot = () => {
   // 클릭했을때 이벤트 내용 
   const clickLot = async (lotnum) => {
     console.log(`Lot ${lotnum} clicked.`);
-    setSelectedLot(lotnum);   //해당 주차칸 id가 선택된 상태 알 수 있게 ㅐ줌
+    const currentStatus = parkingStatus[lotnum];
+    const message = currentStatus === 1 ? "주차 가능 구역으로 설정할까요?" : "주차 불가 구역으로 설정할까요?";
+    setModalMessage(message);
+    setSelectedLot(lotnum); // 해당 주차칸 id가 선택된 상태 알 수 있게 함
     setIsModalOpen(true);
   };
+  
 
   const handleConfirm = async () => {
-    const newStatus = 1;
-
+    // 현재 선택된 주차칸의 is_managed 상태에 따라 새로운 상태를 결정
+    const currentStatus = parkingStatus[selectedLot];
+    const newStatus = currentStatus === 1 ? 0 : 1; // 현재 상태가 1이면 0으로, 그렇지 않으면 1로 변경
+  
     try {
+      console.log(`현재 ${selectedLot}의 상태:`, currentStatus); // 상태 변경 전 콘솔 로그
+  
       const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
         method: 'PATCH',
         headers: {
@@ -80,26 +82,29 @@ const AdminParkingLot = () => {
         },
         body: JSON.stringify({
           data_id: selectedLot,
-          is_managed: newStatus,
+          is_managed: newStatus, // 새로운 상태로 설정
         }),
       });
-
+  
       if (!response.ok) throw new Error('Response not OK');
-
+  
       const result = await response.json();
       console.log(`Server response for lot ${selectedLot}:`, result);
-
+  
+      // 상태 업데이트
       setParkingStatus(prevStatus => ({
         ...prevStatus,
         [selectedLot]: newStatus,
       }));
-
+  
+      console.log(`변경된 ${selectedLot}의 상태:`, newStatus); // 상태 변경 후 콘솔 로그
+  
       setIsModalOpen(false);
     } catch (error) {
       console.error("주차 자리 상태 변경 중 오류 발생:", error);
     }
   };
-
+  
   useEffect(() => {
     const updateModifiedPositions = async () => {
       const modified = await coordinatePos(nowPosition);
@@ -205,7 +210,7 @@ const AdminParkingLot = () => {
   return (
     <div className="adminmapEdge">
       <div className="parkinglots-dot">
-        <MapTest />
+        {/* <MapTest /> */}
         {modifiedPositions.map((pos, index) => (
           <div onClick={() => clickLot(pos.lotnum)}
             key={index}
@@ -236,14 +241,14 @@ const AdminParkingLot = () => {
         ))}
       </div>
       <PossiblePlaceModal isOpen={isModalOpen} onConfirm={handleConfirm}>
-          <img src="/assets/notification.png" alt=" 알림이모지" />
-            <p style={{display : 'inline-block', marginLeft : '15px', fontSize : 'large'}}>여기를 주차 불가구역으로 설정할까요?</p>
-           <div style={{textAlign : 'center'}}>
-            <button style={{marginRight : '30px'}} onClick={handleConfirm}>Yes</button>
-             <button onClick={() => setIsModalOpen(false)}>No</button>
+    <img src="/assets/notification.png" alt="알림 이모지" />
+    <p style={{display: 'inline-block', marginLeft: '15px', fontSize: 'large'}}>{modalMessage}</p>
+    <div style={{textAlign: 'center'}}>
+    <button style={{marginRight: '30px'}} onClick={handleConfirm}>Yes</button>
+    <button onClick={() => setIsModalOpen(false)}>No</button>
+  </div>
+</PossiblePlaceModal>
 
-           </div>
-      </PossiblePlaceModal>
 
     </div>
   );
