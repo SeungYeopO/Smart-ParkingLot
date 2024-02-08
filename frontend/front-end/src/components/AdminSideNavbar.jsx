@@ -6,6 +6,7 @@ const AdminSideNavbar = () => {
   const savedMode = localStorage.getItem("theme");
   const [darkMode, setDarkMode] = useState(savedMode === "dark");
 
+
   // 다크모드 상태 전환 함수
   const toggleDarkMode = () => {
     const newMode = !darkMode;

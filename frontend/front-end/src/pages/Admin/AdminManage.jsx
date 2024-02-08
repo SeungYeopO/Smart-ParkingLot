@@ -1,25 +1,20 @@
 import React from 'react';
-import AdminUpNavbar from '../../components/AdminUpNavbar';
+import CarWidthModal from './../../components/Modal/CarWidthModal';
+import { useState } from 'react';
+const AdminManage = () => {
+    const [modalOpen, setModalOpen] = useState(false);
 
-const AdminLogic = () => {
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+  
     return (
-        <div >
-            <AdminUpNavbar />
-            <div style={{display : 'flex'}} className='floor-select'>
-                <p>floor:</p>
-                <div>
-                    <select
-                        className="floor-select-box">
-                        <option value="1">B1</option>
-                        <option value="2">B2</option>
-                    </select>
-                </div>                  
-            </div>
-            <div>
-
-            </div>
-        </div>
+      <div>
+        <button onClick={openModal}>자동차 너비 모달 열기</button>
+        <CarWidthModal isOpen={modalOpen} onClose={closeModal}>
+          <p>자동차 너비 정보를 여기에 표시합니다.</p>
+        </CarWidthModal>
+      </div>
     );
 };
 
-export default AdminLogic;
+export default AdminManage

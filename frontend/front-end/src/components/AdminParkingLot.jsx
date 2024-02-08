@@ -1,33 +1,104 @@
 import React, { useState, useEffect } from "react";
+
 import MapTest from "./MapTest";
 
-const AdminParkingLot = () => {
-  const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
-  const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
-  const [click, setClick] = useState(0);
+import PossiblePlaceModal from "./Modal/PossiblePlaceModal"; // 모달 컴포넌트 경로 확인 필요
 
+
+
+const AdminParkingLot = () => {
+  const [nowPosition, setNowPosition] = useState([]);
+  const [modifiedPositions, setModifiedPositions] = useState([]);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [parkingStatus, setParkingStatus] = useState({});
+  const [selectedLot, setSelectedLot] = useState(null);
+
+
+  // 주차장 맵 그리는 로직 
   useEffect(() => {
     const fetchData = async () => {
       try {
+
         const response = await fetch(
           "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
         );
         const nowPosition = await response.json();
         setNowPosition(nowPosition);
         console.log("데이터 수신 중");
+
+        const response = await fetch("http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1");
+        const data = await response.json();
+        setNowPosition(data);
+        console.log("데이터 수신 중:", data);
+
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
     };
 
-    fetchData(); // fetchData 함수 호출
+    fetchData();
   }, []);
 
-  const clickLot = () => {
-    click = 1;
-    setClick(click);
+
+  // 현재 주차장 상태 알 수 있는 로직
+  const fetchParkingStatus = async () => {
+    try {
+      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
+      const data = await response.json();
+      console.log("전체 주차장 상태 데이터:", data);
+
+      // data_id와 클릭된 lotnum을 기반으로 상태 업데이트
+      // 누적값, 현재값이 변수
+      setParkingStatus(data.reduce((acc, curr) => ({
+        ...acc,
+        [curr.data_id]: curr.is_managed,
+      }), {}));
+    } catch (error) {
+      console.error("주차 상태를 가져오는 중 오류 발생:", error);
+    }
   };
 
+  useEffect(() => {
+    fetchParkingStatus(); // 컴포넌트 마운트 시 주차장 상태 데이터를 가져옴 => 훅
+  }, []);
+
+  // 클릭했을때 이벤트 내용 
+  const clickLot = async (lotnum) => {
+    console.log(`Lot ${lotnum} clicked.`);
+    setSelectedLot(lotnum);   //해당 주차칸 id가 선택된 상태 알 수 있게 ㅐ줌
+    setIsModalOpen(true);
+  };
+
+  const handleConfirm = async () => {
+    const newStatus = 1;
+
+    try {
+      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          data_id: selectedLot,
+          is_managed: newStatus,
+        }),
+      });
+
+      if (!response.ok) throw new Error('Response not OK');
+
+      const result = await response.json();
+      console.log(`Server response for lot ${selectedLot}:`, result);
+
+      setParkingStatus(prevStatus => ({
+        ...prevStatus,
+        [selectedLot]: newStatus,
+      }));
+
+      setIsModalOpen(false);
+    } catch (error) {
+      console.error("주차 자리 상태 변경 중 오류 발생:", error);
+    }
+  };
 
   useEffect(() => {
     const updateModifiedPositions = async () => {
@@ -64,8 +135,8 @@ const AdminParkingLot = () => {
         if (angle === "0") {
           // 각도가 0도일때
           cPos_x = ratio * pos_x - (s_width * ratio) / 2;
-          console.log(`id : ${data.section_id}`);
-          console.log(cPos_x);
+          // console.log(`id : ${data.section_id}`);
+          // console.log(cPos_x);
           //console.log(lotType)
           cPos_y = ratio * pos_y - (s_height * ratio) / 2;
           rect_width = s_width * ratio;
@@ -74,9 +145,9 @@ const AdminParkingLot = () => {
           // 각도 90도
           cPos_x = ratio * pos_x - (s_height * ratio) / 2;
           cPos_y = ratio * pos_y - (s_width * ratio) / 2;
-          console.log("angle다름");
-          console.log(`id : ${data.section_id}`);
-          console.log(cPos_x);
+          // console.log("angle다름");
+          // console.log(`id : ${data.section_id}`);
+          // console.log(cPos_x);
           // margin = s_height * ratio
           rect_width = s_height * ratio;
           rect_height = s_width * ratio;
@@ -136,7 +207,7 @@ const AdminParkingLot = () => {
       <div className="parkinglots-dot">
         <MapTest />
         {modifiedPositions.map((pos, index) => (
-          <div onClick={clickLot}
+          <div onClick={() => clickLot(pos.lotnum)}
             key={index}
             className="position-dot"
             style={{
@@ -153,13 +224,27 @@ const AdminParkingLot = () => {
               borderRadius: "5px",
               boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
               color: "#66e166", // 글자색 설정
+
               fontSize: "12px"
+
+              // backgroundColor : parkingStatus[pos.lotnum] ? "rgb(255,0,0)" : "rgb(0,255,255"
+
             }}
           >
             <p>{pos.lotnum}</p>
           </div>
         ))}
       </div>
+      <PossiblePlaceModal isOpen={isModalOpen} onConfirm={handleConfirm}>
+          <img src="/assets/notification.png" alt=" 알림이모지" />
+            <p style={{display : 'inline-block', marginLeft : '15px', fontSize : 'large'}}>여기를 주차 불가구역으로 설정할까요?</p>
+           <div style={{textAlign : 'center'}}>
+            <button style={{marginRight : '30px'}} onClick={handleConfirm}>Yes</button>
+             <button onClick={() => setIsModalOpen(false)}>No</button>
+
+           </div>
+      </PossiblePlaceModal>
+
     </div>
   );
 };
