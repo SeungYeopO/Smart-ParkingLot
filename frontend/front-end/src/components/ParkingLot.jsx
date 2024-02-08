@@ -1,14 +1,16 @@
 import React, { useState, useEffect } from "react";
+import EnterLotModal from "./Modal/EnterLotModal";
 
 const ParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
   const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
+  const [isModalOpen, setIsModalOpen] = useState(false);
 
   useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/parking_sections/1/-1"
+          "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
         );
         const nowPosition = await response.json();
         setNowPosition(nowPosition);
@@ -21,6 +23,7 @@ const ParkingLot = () => {
     fetchData(); // fetchData 함수 호출
   }, []);
 
+
   useEffect(() => {
     const updateModifiedPositions = async () => {
       const modified = await coordinatePos(nowPosition);
@@ -29,6 +32,17 @@ const ParkingLot = () => {
     };
     updateModifiedPositions(); // fetchData가 완료된 후에 modifiedPositions 업데이트
   }, [nowPosition]);
+
+  // 모달 열기
+  useEffect(() => {
+    setIsModalOpen(true);
+
+    const timer = setTimeout(() => {
+      setIsModalOpen(false);
+    }, 4000);    // 진입 후 4초간만 뜨게 하는 부분
+
+    return () => clearTimeout(timer);
+  }, []);
 
   // 칸 중간 좌표에서 왼쪽 상단 좌표로 바꾸는 로직 => 반환값은 바뀐 x,y좌표가 된다
   const coordinatePos = (positionData) => {
@@ -149,6 +163,29 @@ const ParkingLot = () => {
             <p>{pos.lotnum}</p>
           </div>
         ))}
+        {/* 원활할때와 혼잡할떄 다른 모달 띄우는 부분 */}
+        <EnterLotModal isOpen={isModalOpen}>
+          {/* 조건식 원활할때   */}
+          {/* {parkingStatus === '원활' ? ( 원활 모달) : ( 혼잡 모달) } */}
+          <>
+          {/* <img style={{width : '90px', height : '80px', marginBottom: '10px', marginRight: '15px'}} src="/assets/checkgreen.png" alt="원활" />
+          <div style={{display : 'inline-block'}}>
+          <p style={{fontSize : 'x-large', fontWeight : 'bold', marginTop : '10px'}}>주차장에 진입하셨습니다</p>
+          <p style={{fontSize : '19px', marginLeft : '10px'}}>현재 주차장이 원활합니다.</p>
+          </div> */}
+          </>
+          {/* ) : ( */}
+          <>
+          <img style={{width : '90px', height : '80px', marginBottom: '10px', marginRight: '15px'}} src="/assets/congestion.png" alt="혼잡" />
+          <div style={{display : 'inline-block'}}>
+          <p style={{fontSize : 'x-large', fontWeight : 'bold', marginTop : '10px'}}>주차장에 진입하셨습니다</p>
+          <p style={{fontSize : '19px', marginLeft : '10px'}}>주차장이 혼잡하여 추천 경로로 안내됩니다</p>
+          </div>
+          </>
+
+        
+          
+        </EnterLotModal>
       </div>
     </div>
   );

@@ -74,19 +74,11 @@ const SideNavbar = () => {
     >
       <div className="nav-hover">
         <a className="navbar-brand" href="/parkingmap">
-          <p>
-            Auto
-            <br />
-            Parking
-          </p>
+          <img src="./assets/logo.png" alt="logo" />
         </a>
         <div className="navbar-nav">
           <a className="nav-item nav-link active" href="/drivingmap">
-            <img
-              src="./assets/Home.png"
-              alt="home"
-              style={{ marginRight: "1px" }}
-            />
+            <img src="./assets/car.png" alt="home" />
           </a>
 
           <a className="nav-item nav-link" href="/help">

@@ -1,17 +1,20 @@
 import React from 'react';
-import ParkingLot from '../../components/ParkingLot';
-import AdminSideNavbar from '../../components/AdminSideNavbar';
+import CarWidthModal from './../../components/Modal/CarWidthModal';
+import { useState } from 'react';
+const AdminManage = () => {
+    const [modalOpen, setModalOpen] = useState(false);
 
-const AdminLogic = () => {
+    const openModal = () => setModalOpen(true);
+    const closeModal = () => setModalOpen(false);
+  
     return (
-        <div style={{display:'flex'}}>
-            <AdminSideNavbar />  
-            <div>
-              관리페이지입니다...
-            </div>   
-        </div>
-       
+      <div>
+        <button onClick={openModal}>자동차 너비 모달 열기</button>
+        <CarWidthModal isOpen={modalOpen} onClose={closeModal}>
+          <p>자동차 너비 정보를 여기에 표시합니다.</p>
+        </CarWidthModal>
+      </div>
     );
 };
 
-export default AdminLogic;
+export default AdminManage
