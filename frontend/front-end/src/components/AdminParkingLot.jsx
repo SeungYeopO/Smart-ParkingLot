@@ -1,5 +1,9 @@
 import React, { useState, useEffect } from "react";
+
+import MapTest from "./MapTest";
+
 import PossiblePlaceModal from "./Modal/PossiblePlaceModal"; // 모달 컴포넌트 경로 확인 필요
+
 
 
 const AdminParkingLot = () => {
@@ -14,10 +18,19 @@ const AdminParkingLot = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
+
+        const response = await fetch(
+          "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
+        );
+        const nowPosition = await response.json();
+        setNowPosition(nowPosition);
+        console.log("데이터 수신 중");
+
         const response = await fetch("http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1");
         const data = await response.json();
         setNowPosition(data);
         console.log("데이터 수신 중:", data);
+
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
@@ -192,6 +205,7 @@ const AdminParkingLot = () => {
   return (
     <div className="adminmapEdge">
       <div className="parkinglots-dot">
+        <MapTest />
         {modifiedPositions.map((pos, index) => (
           <div onClick={() => clickLot(pos.lotnum)}
             key={index}
@@ -210,7 +224,11 @@ const AdminParkingLot = () => {
               borderRadius: "5px",
               boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
               color: "#66e166", // 글자색 설정
+
+              fontSize: "12px"
+
               // backgroundColor : parkingStatus[pos.lotnum] ? "rgb(255,0,0)" : "rgb(0,255,255"
+
             }}
           >
             <p>{pos.lotnum}</p>

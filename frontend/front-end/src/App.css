@@ -74,14 +74,16 @@ body {
 .sign-password {
   font-family: sans-serif;
 }
-.navbar-brand p {
-  color: #6373e8;
-  text-align: center;
+.navbar-brand img {
+  width: 80px;
+  margin-bottom: 50px;
+  margin-top: 20px;
 }
 .navbar-nav img {
   width: 50px;
   height: 50px;
   margin-bottom: 30px;
+  margin-right: 20px;
 }
 
 /* 관리자 페이지 */
@@ -203,11 +205,20 @@ body {
   width: 800px;
   height: 440px;
   box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
-
-
 }
-
-
+.preset-text {
+  /* border: 1px solid #ececec; */
+  margin-left: 20px;
+  width: 270px;
+  height: 30px;
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
 .dotsinfo {
   font-size: small;
 }
@@ -248,14 +259,11 @@ body {
 
 /* 나머지 스타일은 유지 */
 
-
-
 .adminmode-bg {
   /* background-color: black; */
   /* color: white; */
-  height : 100vh;
+  height: 100vh;
   margin-top: 30px;
-
 }
 
 .nav-logo img {
@@ -285,6 +293,7 @@ body {
 
 .user-name {
   font-size: 1.1em;
+  color: #ececec;
 }
 
 .letter-function {
@@ -358,6 +367,10 @@ body {
   margin-left: 29px;
 }
 
+.logic-page {
+  margin-top: 100px;
+}
+
 .logicmode {
   border: solid 1px blue;
   width: 280px;
@@ -377,6 +390,35 @@ body {
   height: 190px;
   margin-top: 15px;
   margin-left: 40px;
+}
+
+.save-preset {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.save-preset:hover {
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.save-preset:active {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.save-preset:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
 }
 
 .memo p {
@@ -413,7 +455,6 @@ body {
   opacity: 1 !important;
   box-shadow: 0 0 10px #f60 !important;
 }
-
 
 /* 사용자 프로필 */
 .user-signup {
@@ -523,22 +564,20 @@ body {
   text-align: center;
 }
 
-
 .navbar-nav a {
-  color : white;
+  color: white;
 }
 /*  */
 
 .testposition-dot {
-  position: absolute;
+  /* position: absolute;
   display: flex;
   background-color: red;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  transition: left 1s ease-out, top 1s ease-out;
+  transition: left 1s ease-out, top 1s ease-out; */
 }
-
 
 /* AdminSideNavbar css 속성 */
 
@@ -547,28 +586,13 @@ body {
   text-decoration-line: none;
 }
 
-.logo-letter div {
-  text-align: center;
-  justify-content: center;
+.logo-letter img {
+  margin: 10px;
 }
-
-.letter-auto {
-  margin-top: 15px;
-  margin-left : 30px;
-  color : rgb(112, 112, 235);
-  font-size : large;
-}
-.letter-Parking{
-  margin-left : 30px;
-  color : rgb(112, 112, 235);
-  font-size : large;
-}
-
 
 .mode1-cctv {
   margin-top: 50px;
   margin-left: 40px;
-
 }
 
 .mode1-cctv a {
@@ -609,17 +633,17 @@ body {
   background-color: #273142 ;
 } */
 .admin-notify {
-  margin-left : 40px;
-  width : 1000px;
-  height : 50px;
+  margin-left: 40px;
+  width: 1000px;
+  height: 50px;
   margin-bottom: 30px;
-  background-color: #1B2431;
+  background-color: #1b2431;
 }
 
 .admin-notify img {
-  width : 20px;
-  height : 20px;
-  margin-right : 10px;
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
 }
 /* 주차장 검색 페이지  */
 /* 빨간색 : #ff4800 */
@@ -784,7 +808,6 @@ body {
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
-
 /* 말풍선 주변을 도는 가상 요소를 위한 애니메이션 정의 */
 @keyframes circleAround {
   0% {
@@ -820,14 +843,12 @@ body {
   vertical-align: middle; /* 세로 중앙 정렬을 개선 */
 }
 
- 
 /* AdminUpNavbar */
 .nav-title {
   padding-top: 20px;
   font-size: large;
-
+  color: #ececec;
 }
-
 
 /* CCTV페이지 */
 .camNum1 {
@@ -843,83 +864,101 @@ body {
 
 .cctv-img {
   margin-top: 2px;
-  width : 20px;
-  height : 20px;
+  width: 20px;
+  height: 20px;
 }
 
 .letter-cam1 {
   font-size: large;
-  margin-top : 30px;
-  margin-left : 100px;
+  margin-top: 30px;
+  margin-left: 100px;
 }
 
 .real-cctv {
   margin-top: 25px;
   margin-left: 20px;
   margin-right: 300px;
-
 }
 
-
 .cctvbg {
-  background-color: #1B2431;
+  background-color: #1b2431;
   height: 100vh;
   /* Add overflow to hide any extra space that causes a scrollbar */
   overflow: hidden;
 }
 
-.cctvImg_screen img{
-  width : 800px;
-  height : 500px;
+.cctvImg_screen img {
+  width: 800px;
+  height: 500px;
 }
-
 
 /* adminstatus */
-.func-name{
+.func-name {
   margin-top: 100px;
   font-size: x-large;
-  color : #5B86E5;
-  margin-left : 30px;
-
+  color: #5b86e5;
+  margin-left: 30px;
 }
-.floor-select-box{
-  margin-left : 40px;
-  width : 100px;
-  height : 30px;
+.func-name-logic {
+  /* margin-top: 100px; */
+  font-size: x-large;
+  color: #5b86e5;
+  margin-left: 30px;
+}
+.floor-select-box {
+  margin-left: 40px;
+  width: 100px;
+  height: 30px;
   background-color: #273142;
-  color : white
+  color: white;
 }
 
-.status-box{
-  width : 290px;
-  height : 100px;
+.status-box {
+  width: 290px;
+  height: 100px;
   background-color: #273142;
-  margin-left : 50px;
+  margin-left: 50px;
   margin-bottom: 40px;
 }
 
 .status-notify {
-  margin-left : 30px;
+  margin-left: 30px;
   margin-bottom: 30px;
-  background-color :#273142;
-  height : 50px;
-
+  background-color: #273142;
+  height: 50px;
 }
 .status-notify p {
-  padding-top : 10px;
-  margin-left : 20px;
+  padding-top: 10px;
+  margin-left: 20px;
 }
 
-.status-notify img{
-  margin-left : 10px;
-  width : 30px;
-  height : 30px;
+.status-notify img {
+  margin-left: 10px;
+  width: 30px;
+  height: 30px;
 }
 
 .floor-select {
-  margin-top : 100px;
+  margin-top: 100px;
 }
 .floor-select p {
   font-size: x-large;
 }
 
+/* AdminLogic */
+
+.form-element {
+  margin-bottom: 10px;
+}
+.checkbox-group label {
+  /* display: block; */
+  margin: 10px;
+}
+.slider-group label {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+.slider-group input[type="range"] {
+  margin-right: 10px;
+}
