@@ -409,12 +409,11 @@ app.patch("/api/p_manager/section_states", async (req, res) => {
   const data_id = req.body.data_id;
   const is_managed = req.body.is_managed;
 
-  //const inverted_is_managed = ~is_managed & 1;
   try {
     const query = `
-        UPDATE section_states SET is_managed = ? 
-        WHERE data_id = ?
-      `;
+      UPDATE section_states SET is_managed = ? 
+      WHERE data_id = ?
+    `;
     const result = await pool.query(query, [is_managed, data_id]);
 
     if (result.changedRows > 0) {
@@ -429,6 +428,9 @@ app.patch("/api/p_manager/section_states", async (req, res) => {
       // 변경된 내용이 없음 (기존 값과 동일).
       return res.json({ result: true, message: "변경 사항이 없습니다" });
     }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
   }
 });
 
