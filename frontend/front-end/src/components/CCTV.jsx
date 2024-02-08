@@ -6,7 +6,7 @@ const CCTV = () => {
 
     async function fetchImageData() {
         try {
-          const response = await fetch('http://i10c102.p.ssafy.io:3001/api/get_latest_cctv_data');
+          const response = await fetch('http://i10c102.p.ssafy.io:3001/api/p_manager/get_latest_cctv_data');
           const data = await response.json();
           console.log(data)
           if (data.cctv_json) {

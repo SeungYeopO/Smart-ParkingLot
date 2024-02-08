@@ -43,15 +43,15 @@ const AdminStatus = () => {
               </div>
               <div className="status-box">
                 <img src="/assets/checkgreen.png" alt="checkimg" />
-                <p style={{ display: 'inline-block', marginLeft: '20px', marginTop: '40px', fontSize: 'large' }}>현재 대수 / 전체 대수</p>
+                <p style={{ display: 'inline-block', marginLeft: '20px', marginTop: '20px', fontSize: 'large' }}>현재 대수 / 전체 대수</p>
               </div>
-            </div>
-            <div className='status-notify'>
+            <div className='status-notify' style={{paddingLeft : '10px', paddingTop : '1px'}}>
               <img src="/assets/notification.png" alt="알림img" />
-              <p style={{ display: 'inline-block' }}>주차장이 원활합니다.</p>
+              <p style={{ display: 'inline-block' ,fontSize : 'large'  }}>주차장이 원활합니다.</p>
+            </div>
             </div>
             <div style={destinationMapStyle}>
-              <AdminParkingLot />
+              <AdminParkingLot showModal={true}/>
             </div>
           </div>
         </div>

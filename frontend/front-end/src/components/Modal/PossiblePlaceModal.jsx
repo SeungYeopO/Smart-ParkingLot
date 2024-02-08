@@ -6,7 +6,7 @@ const PossiblePlaceModal = ({isOpen, onClose, children}) => {
     if (!isOpen) return null;
     return (
       <div style={{ position: 'fixed', top: '19%', left: '50%', transform: 'translate(-50%, -50%)', zIndex: 1000 }}>
-        <div style={{ backgroundColor: 'rgba(234, 238, 248, 0.7)', padding: '20px', borderRadius: '8px', width: '400px', maxHeight: '80vh', overflowY: 'auto', color : 'black' }}>
+        <div style={{ backgroundColor: 'rgba(234, 238, 248, 0.7)', padding: '20px', borderRadius: '8px', width: '450px', height: '120px', overflowY: 'auto', color : 'black' }}>
           {children}   
         </div>
       </div>

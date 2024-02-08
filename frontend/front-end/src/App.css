@@ -260,8 +260,7 @@ body {
 /* 나머지 스타일은 유지 */
 
 .adminmode-bg {
-  /* background-color: black; */
-  /* color: white; */
+  background-color: #1B2431;
   height: 100vh;
   margin-top: 30px;
 }
@@ -298,7 +297,7 @@ body {
 
 .letter-function {
   padding-left: 65px;
-  padding-top: 40px;
+  padding-top: 50px;
   color: rgb(86, 86, 232);
   font-size: 28px;
 }
@@ -308,33 +307,39 @@ body {
 }
 
 .cctvmode {
-  border: solid 1px blue;
-  width: 280px;
-  height: 280px;
-  margin-left: 100px;
+
+  background-color: #273142;
+  width: 300px;
+  height: 300px;
+  margin-left: 175px;
   font-size: 25px;
+  border-radius: 6%;
 }
 .cctvmode p {
   text-align: center;
   margin-bottom: 0px;
   margin-top: 10px;
+  color : white;
 }
 
 .cctvmode img {
   width: 240px;
   height: 240px;
-  margin-left: 10px;
+  margin-left: 20px;
+  margin-top : 5px;
 }
 
 .statusmode {
-  border: solid 1px blue;
-  width: 280px;
-  height: 280px;
-  margin-left: 60px;
+  background-color: #273142;
+  width: 300px;
+  height: 300px;
+  margin-left: 120px;
   font-size: 25px;
+  border-radius: 6%;
 }
 
 .statusmode p {
+  color: white;
   text-align: center;
   margin-bottom: 0px;
   margin-top: 10px;
@@ -343,8 +348,8 @@ body {
 .statusmode img {
   width: 200px;
   height: 180px;
-  margin-left: 34px;
-  margin-top: 15px;
+  margin-left: 45px;
+  margin-top: 30px;
 }
 
 .managemode {
@@ -372,14 +377,16 @@ body {
 }
 
 .logicmode {
-  border: solid 1px blue;
-  width: 280px;
-  height: 280px;
-  margin-left: 60px;
+  background-color: #273142;
+  width: 300px;
+  height: 300px;
+  margin-left: 120px;
   font-size: 25px;
+  border-radius: 6%;
 }
 
 .logicmode p {
+  color: white;
   text-align: center;
   margin-bottom: 0px;
   margin-top: 10px;
@@ -388,8 +395,8 @@ body {
 .logicmode img {
   width: 190px;
   height: 190px;
-  margin-top: 15px;
-  margin-left: 40px;
+  margin-top: 19px;
+  margin-left: 50px;
 }
 
 .save-preset {
@@ -422,21 +429,23 @@ body {
 }
 
 .memo p {
-  margin-left: 70px;
-  margin-top: 60px;
+  margin-left: 90px;
+  margin-top: 40px;
   color: rgb(86, 86, 232);
   font-size: 28px;
 }
 
 .inputMemo {
-  border: 1px solid blue;
+  background-color: #273142 ;
   margin-left: 60px;
   width: 1400px;
   height: 160px;
 }
 
 .inputMemo p {
+  padding-top : 10px;
   font-size: 18px;
+  color : white;
 }
 .inputMemo1 {
   margin-top: 10px;
@@ -915,27 +924,36 @@ body {
 
 .status-box {
   width: 290px;
-  height: 100px;
+  height: 70px;
   background-color: #273142;
   margin-left: 50px;
-  margin-bottom: 40px;
+  margin-bottom: 10px;
+
+}
+
+.status-box img{
+  margin-left: 10px;
+  width : 55px;
+  height: 50px;
 }
 
 .status-notify {
   margin-left: 30px;
   margin-bottom: 30px;
   background-color: #273142;
-  height: 50px;
+  width : 290px;
+  height: 70px;
 }
 .status-notify p {
-  padding-top: 10px;
+  padding-top: 20px;
   margin-left: 20px;
 }
 
 .status-notify img {
-  margin-left: 10px;
-  width: 30px;
-  height: 30px;
+  margin-top : 5px;
+  margin-left: 13px;
+  width: 45px;
+  height: 45px;
 }
 
 .floor-select {
