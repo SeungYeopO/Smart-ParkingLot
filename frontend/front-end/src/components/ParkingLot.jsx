@@ -37,11 +37,11 @@ const ParkingLot = () => {
   useEffect(() => {
     setIsModalOpen(true);
 
-    // const timer = setTimeout(() => {
-    //   setIsModalOpen(false);
-    // }, 4000);    // 진입 후 4초간만 뜨게 하는 부분
+    const timer = setTimeout(() => {
+      setIsModalOpen(false);
+    }, 4000);    // 진입 후 4초간만 뜨게 하는 부분
 
-    // return () => clearTimeout(timer);
+    return () => clearTimeout(timer);
   }, []);
 
   // 칸 중간 좌표에서 왼쪽 상단 좌표로 바꾸는 로직 => 반환값은 바뀐 x,y좌표가 된다
