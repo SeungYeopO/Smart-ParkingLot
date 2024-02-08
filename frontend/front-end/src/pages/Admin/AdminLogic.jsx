@@ -190,6 +190,7 @@ const AdminLogic = () => {
             <div style={{ position: "relative" }}>
               <AdminParkingLot />
             </div>
+              {/* <MapTest /> */}
             <div
               style={{
                 display: "flex",
