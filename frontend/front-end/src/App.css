@@ -183,6 +183,206 @@ body {
 }
 
 /* 사용자 페이지 */
+@keyframes drive {
+  0% { top: 0%; left: 80%; transform: translateX(-10%); } 
+  20% { top: 0%; left: 30%; } 
+  40% { top: 30%; left: 30%; transform: scaleX(-1); } 
+  60% { top: 30%; left: 50%; transform: scaleX(-1); } 
+  80% { top: 60%; left: 50%; transform: rotate(0deg); } 
+  100% { top: 60%; left: 25%; } 
+}
+
+@keyframes driveOut {
+  0% { opacity: 1; }
+  100% { opacity: 0; }
+}
+
+@keyframes fade-in-text {
+  0% { opacity: 0; }
+  90% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+.intro-back {
+  background-color: #0e1b1e;
+  position: relative;
+  overflow: hidden; 
+}
+
+.car {
+  
+  position: absolute;
+  animation: drive 5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+.fade-out {
+  animation: driveOut 1s ease forwards;
+}
+
+
+.hello-text-background {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #0e1b1e; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  opacity: 0;
+  animation: fade-in-background 0.5s forwards; 
+}
+
+.hello-text {
+  font-size: 2em; 
+  color: #fff; 
+  text-transform: uppercase; 
+  padding: 20px; 
+  
+  width: 500px;
+  height: 300px;
+  animation: neon 1.5s ease-in-out infinite alternate;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.hello-text h1 {
+  color: white; 
+  -webkit-text-stroke: 1px black; 
+  text-stroke: 1px rgb(191, 186, 186);
+  font-size: 80px;
+}
+
+.hello-text h1 .highlight {
+  
+  color: rgb(135, 178, 241); 
+}
+
+@keyframes neon {
+  from {
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 40px rgb(140, 0, 255),
+      0 0 80px rgb(140, 0, 255),
+      0 0 90px rgb(140, 0, 255),
+      0 0 100px rgb(140, 0, 255),
+      0 0 150px rgb(140, 0, 255);
+  }
+  to {
+    text-shadow:
+      0 0 5px #fff,
+      0 0 10px #fff,
+      0 0 20px #fff,
+      0 0 45px rgb(200, 0, 255),
+      0 0 85px rgb(200, 0, 255),
+      0 0 95px rgb(200, 0, 255),
+      0 0 110px rgb(200, 0, 255),
+      0 0 155px rgb(200, 0, 255);
+  }
+}
+
+@keyframes neonBorder {
+  from {
+    box-shadow:
+      0 0 5px rgb(140, 0, 255),
+      0 0 10px rgb(140, 0, 255),
+      0 0 20px rgb(140, 0, 255),
+      0 0 40px rgb(140, 0, 255),
+      0 0 80px rgb(140, 0, 255),
+      0 0 90px rgb(140, 0, 255),
+      0 0 100px rgb(140, 0, 255),
+      0 0 150px rgb(140, 0, 255);
+  }
+  to {
+    box-shadow:
+      0 0 5px rgb(140, 0, 255),
+      0 0 10px rgb(140, 0, 255),
+      0 0 20px rgb(140, 0, 255),
+      0 0 45px rgb(140, 0, 255),
+      0 0 85px rgb(140, 0, 255),
+      0 0 95px rgb(140, 0, 255),
+      0 0 110px rgb(140, 0, 255),
+      0 0 155px rgb(140, 0, 255);
+  }
+}
+@keyframes neonBorderFlicker {
+  0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px rgb(140, 0, 255),
+      0 0 80px rgb(140, 0, 255),
+      0 0 90px rgb(140, 0, 255),
+      0 0 100px rgb(140, 0, 255),
+      0 0 150px rgb(140, 0, 255);
+    box-shadow:
+      0 0 4px #fff,
+      0 0 11px #fff,
+      0 0 19px #fff,
+      0 0 40px rgb(140, 0, 255),
+      0 0 80px rgb(140, 0, 255),
+      0 0 90px rgb(140, 0, 255),
+      0 0 100px rgb(140, 0, 255),
+      0 0 150px rgb(140, 0, 255);
+  }
+  20%, 24%, 55% {
+    text-shadow:
+      0 0 4px #fff,
+      0 0 10px #fff,
+      0 0 18px #fff,
+      0 0 38px rgb(140, 0, 255),
+      0 0 76px rgb(140, 0, 255),
+      0 0 88px rgb(140, 0, 255),
+      0 0 96px rgb(140, 0, 255),
+      0 0 140px rgb(140, 0, 255);
+    box-shadow:
+      0 0 2px #fff,
+      0 0 8px #fff,
+      0 0 18px #fff,
+      0 0 38px rgb(140, 0, 255),
+      0 0 76px rgb(140, 0, 255),
+      0 0 88px rgb(140, 0, 255),
+      0 0 96px rgb(140, 0, 255),
+      0 0 140px rgb(140, 0, 255);
+  }
+}
+
+.hello-text::before {
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  border: 3px solid rgb(140, 0, 255);
+  filter: blur(5px);
+  animation: neonBorderFlicker 1.5s ease-in-out infinite alternate;
+}
+
+.hello-text::after {
+  content: '';
+  position: absolute;
+  top: -2px;
+  bottom: -2px;
+  left: -2px;
+  right: -2px;
+  border: 3px solid rgb(140, 0, 255);
+  filter: blur(15px);
+  animation: neonBorderFlicker 1.5s ease-in-out infinite alternate;
+}
+
+@keyframes fade-in-background {
+  0% { opacity: 0.9; }
+  100% { opacity: 1; }
+}
+
+
 
 #destinationMap {
   flex: 1;
@@ -208,7 +408,7 @@ body {
   box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
 }
 .preset-text {
-  /* border: 1px solid #ececec; */
+  
   margin-left: 20px;
   width: 270px;
   height: 30px;
@@ -234,7 +434,7 @@ body {
   height: 250px;
 }
 
-/* 사용자 사이드 네비게이션 바 */
+
 .nav-bar {
   display: flex;
   justify-content: space-between;
