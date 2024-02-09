@@ -923,7 +923,7 @@ body {
 }
 
 .status-box {
-  width: 290px;
+  width: 175px;
   height: 70px;
   background-color: #273142;
   margin-left: 50px;
@@ -941,7 +941,7 @@ body {
   margin-left: 30px;
   margin-bottom: 30px;
   background-color: #273142;
-  width : 290px;
+  width : 450px;
   height: 70px;
 }
 .status-notify p {
@@ -951,9 +951,9 @@ body {
 
 .status-notify img {
   margin-top : 5px;
-  margin-left: 13px;
-  width: 45px;
-  height: 45px;
+  margin-left: 3px;
+  width: 25px;
+  height: 25px;
 }
 
 .floor-select {
