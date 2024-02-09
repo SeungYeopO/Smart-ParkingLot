@@ -21,6 +21,9 @@ import DestinationStatus from './components/DestinationStatus';
 import ParkingStatus from './components/ParkingStatus';
 import Help from "./pages/User/Accounts/Help";
 import SearchMap from "./pages/User/SearchMap";
+import Home from "./pages/User/Home";
+import DestinationSearch from "./pages/User/DestinationSearch";
+import SettingPage from "./pages/User/SettingPage";
 
 
 
@@ -37,7 +40,10 @@ const App = () => {
             <Route path="/adminstatus" element={<AdminStatus />} />
             <Route path="/adminlogic" element={<AdminLogic />} />
 
-            <Route path="/" element={<Login />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/destinationsearch" element={<DestinationSearch />} />
+            <Route path="/settingpage" element={<SettingPage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/userprofile" element={<Userprofile />} />
             <Route path="/help" element={<Help />} />

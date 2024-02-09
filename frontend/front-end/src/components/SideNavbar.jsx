@@ -66,7 +66,7 @@ const SideNavbar = () => {
       style={{
         backgroundColor: "#191a2b",
         width: "130px",
-        height: "100vh",
+        height: "110vh",
         display: "flex",
         flexDirection: "column",
         justifyContent: "space-between",
