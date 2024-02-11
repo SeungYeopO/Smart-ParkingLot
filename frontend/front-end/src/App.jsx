@@ -14,13 +14,17 @@ import Login from "./pages/User/Accounts/Login";
 import Signup from "./pages/User/Accounts/Signup";
 import Userprofile from "./pages/User/Accounts/Userprofile";
 import AdminLogic from "./pages/Admin/AdminLogic";
-import './App.css'; // CSS 파일 임포트
 import ParkingLot from './components/ParkingLot';
 import WebSocket from './components/WebSocket';
 import DestinationStatus from './components/DestinationStatus';
 import ParkingStatus from './components/ParkingStatus';
 import Help from "./pages/User/Accounts/Help";
 import SearchMap from "./pages/User/SearchMap";
+import Home from "./pages/User/Home";
+import DestinationSearch from "./pages/User/DestinationSearch";
+import SettingPage from "./pages/User/SettingPage";
+import Intropage from "./pages/User/Intropage";
+
 
 
 
@@ -37,7 +41,11 @@ const App = () => {
             <Route path="/adminstatus" element={<AdminStatus />} />
             <Route path="/adminlogic" element={<AdminLogic />} />
 
-            <Route path="/" element={<Login />} />
+            <Route path="/intro" element={<Intropage />} />
+            <Route path="/" element={<Home />} />
+            <Route path="/destinationsearch" element={<DestinationSearch />} />
+            <Route path="/settingpage" element={<SettingPage />} />
+            <Route path="/login" element={<Login />} />
             <Route path="/signup" element={<Signup />} />
             <Route path="/userprofile" element={<Userprofile />} />
             <Route path="/help" element={<Help />} />

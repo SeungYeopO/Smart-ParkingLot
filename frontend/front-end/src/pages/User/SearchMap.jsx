@@ -9,6 +9,9 @@ const SearchMap = () => {
 
   return (
     <div className='searchMap'>
+      <div className='logo-search'>
+      <img src="../assets/logo.png" alt="logo" />
+      </div>
       <div className='balloonStatus1' onClick={handleClick}>
         <div className='balloonContent'>
           주차 가능: 78대
