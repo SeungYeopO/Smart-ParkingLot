@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import MapTest from "./MapTest";
 import PossiblePlaceModal from "./Modal/PossiblePlaceModal"; // 모달 컴포넌트 경로 확인 필요
 
-const AdminParkingLot = () => {
+const LogicParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]);
   const [modifiedPositions, setModifiedPositions] = useState([]);
   const [isModalOpen, setIsModalOpen] = useState(false);
@@ -268,4 +268,4 @@ const AdminParkingLot = () => {
   );
 };
 
-export default AdminParkingLot;
+export default LogicParkingLot;

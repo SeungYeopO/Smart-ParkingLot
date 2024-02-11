@@ -3,6 +3,7 @@ import MapTest from "./../../components/MapTest";
 import AdminSideNavbar from "../../components/AdminSideNavbar";
 import AdminParkingLot from "./../../components/AdminParkingLot";
 import AdminUpNavbar from "../../components/AdminUpNavbar";
+import LogicParkingLot from "../../components/LogicParkingLot";
 
 const AdminLogic = () => {
   const [floorId, setFloorId] = useState("B1");
@@ -39,6 +40,13 @@ const AdminLogic = () => {
 
       // 받아온 데이터를 presets 상태에 저장
       setPresets(data); // API 응답의 구조에 맞게 상태 설정 함수를 사용합니다.
+
+      // 첫 번째 프리셋을 선택한 것으로 초기화
+      const firstPreset = data[0];
+      setCongestion(firstPreset.congestion);
+      setWidth(firstPreset.is_wide ? 10 : 0); // 넓은지 여부에 따라 초기값 설정
+      setEntrance(firstPreset.entry_exit);
+      setPenalty(firstPreset.is_penalty ? firstPreset.penalty_limit : 0); // 패널티 여부에 따라 초기값 설정
     } catch (error) {
       console.error("Error fetching data: ", error);
       // 여기에서 오류 처리를 할 수 있습니다.
@@ -46,26 +54,25 @@ const AdminLogic = () => {
   };
 
   useEffect(() => {
-    fetchFloorData();
+    fetchFloorData(); // 컴포넌트가 마운트될 때 데이터를 가져옵니다.
   }, []);
 
-  // save 누르면 프리셋 조절 값 DB로 보내기
   const handleSave = async () => {
-    // 백엔드 엔드포인트 URL, 이는 실제 서버의 엔드포인트로 대체해야 합니다.
-    const apiUrl = "your-backend-endpoint-url";
+    const lotId = 1;
+    const apiUrl = `http://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets/`;
 
     try {
       const response = await fetch(apiUrl, {
-        method: "POST",
+        method: "PATCH",
         headers: {
           "Content-Type": "application/json",
         },
         body: JSON.stringify({
-          floorId,
-          congestion,
-          width,
-          entrance,
-          penalty,
+          lot_id: lotId,
+          congestion: congestion,
+          entry_exit: entrance,
+          is_wide: width === 10 ? 1 : 0,
+          penalty_limit: penalty,
         }),
       });
 
@@ -75,29 +82,44 @@ const AdminLogic = () => {
 
       const responseData = await response.json();
       console.log("Save successful:", responseData);
-      // 성공 메시지 처리 또는 상태 업데이트
+
+      // 변경된 값을 로컬 스토리지에 저장합니다.
+      localStorage.setItem("selectedType", selectedType); // 추가된 부분
+      localStorage.setItem("congestion", congestion);
+      localStorage.setItem("width", width);
+      localStorage.setItem("entrance", entrance);
+      localStorage.setItem("penalty", penalty);
+
+      // 저장 후 사용자에게 알림
+      alert("저장 되었습니다.");
     } catch (error) {
       console.error("Failed to save data:", error);
-      // 에러 처리
+      // 에러 처리 로직 구현
+      alert("Failed to save settings.");
     }
-
-    // save 누르면 설정한 값 유지하기
-    localStorage.setItem("floorId", floorId);
-    localStorage.setItem("congestion", congestion);
-    localStorage.setItem("width", width);
-    localStorage.setItem("entrance", entrance);
-    localStorage.setItem("penalty", penalty);
   };
 
   useEffect(() => {
-    const savedFloorId = localStorage.getItem("floorId");
+    // selectedType이 바뀔 때마다 실행
+    const isMyParkingSpace = selectedType === "myParkingSpace";
+    setIsDisabled({
+      congestion: !isMyParkingSpace,
+      width: !isMyParkingSpace,
+      entrance: !isMyParkingSpace,
+      penalty: !isMyParkingSpace,
+    });
+  }, [selectedType]); // 의존성 배열에 selectedType을 추가하여 selectedType이 변경될 때마다 실행되도록 합니다.
+
+  useEffect(() => {
+    // 로컬 스토리지에서 값 불러오기
+    const savedSelectedType = localStorage.getItem("selectedType");
     const savedCongestion = localStorage.getItem("congestion");
     const savedWidth = localStorage.getItem("width");
     const savedEntrance = localStorage.getItem("entrance");
     const savedPenalty = localStorage.getItem("penalty");
 
-    if (savedFloorId) setFloorId(savedFloorId);
-    if (savedCongestion) setCongestion(parseInt(savedCongestion, 10)); // 값이 문자열이니 parseInt 10진수로 ㅇㅅㅇ
+    if (savedSelectedType) setSelectedType(savedSelectedType);
+    if (savedCongestion) setCongestion(parseInt(savedCongestion, 10));
     if (savedWidth) setWidth(parseInt(savedWidth, 10));
     if (savedEntrance) setEntrance(parseInt(savedEntrance, 10));
     if (savedPenalty) setPenalty(parseInt(savedPenalty, 10));
@@ -184,32 +206,53 @@ const AdminLogic = () => {
     setFloorId(selectedValue);
   };
 
+  // handleCheckboxChange 함수에서 체크박스를 클릭할 때 선택된 프리셋으로 상태를 업데이트
   const handleCheckboxChange = async (event) => {
-    setSelectedType(event.target.name);
+    const type = event.target.name;
+    setSelectedType(type);
 
-    // 백엔드에서 데이터 가져오기 (가상의 API 호출 예시)
-    const fetchData = async () => {
-      const response = await fetch(`your-api-url/${event.target.name}`);
-      const data = await response.json();
-      return data;
-    };
+    // 선택된 프리셋 찾기
+    const selectedPreset = presets.find(
+      (preset) => preset.building_type === event.target.name
+    );
 
-    try {
-      const data = await fetchData();
+    setIsDisabled({
+      congestion: type !== "myParkingSpace",
+      width: type !== "myParkingSpace",
+      entrance: type !== "myParkingSpace",
+      penalty: type !== "myParkingSpace",
+    });
 
-      // 가져온 데이터로 상태 업데이트
-      setCongestion(data.congestion);
-      setEntrance(data.entrance);
-      setPenalty(data.penalty);
+    // 선택된 프리셋이 'mypreset'일 때만 값을 업데이트하고 변경 가능하도록 설정
+    if (selectedPreset) {
+      setCongestion(selectedPreset.congestion);
+      setWidth(selectedPreset.is_wide ? 10 : 0);
+      setEntrance(selectedPreset.entry_exit);
+      setPenalty(selectedPreset.is_penalty ? selectedPreset.penalty_limit : 0);
 
-      // 슬라이더 비활성화
+      // 변경 가능하도록 슬라이더 활성화
+      setIsDisabled({
+        congestion: selectedPreset.building_type !== "myParkingSpace",
+        entrance: selectedPreset.building_type !== "myParkingSpace",
+        width: selectedPreset.building_type !== "myParkingSpace",
+        penalty: selectedPreset.building_type !== "myParkingSpace",
+      });
+    } else if (event.target.name === "myParkingSpace") {
+      // 'mypreset'이 선택된 경우에만 슬라이더 활성화하고 기본값으로 설정
+      setIsDisabled({
+        congestion: false,
+        entrance: false,
+        width: false,
+        penalty: false,
+      });
+    } else {
+      // 선택된 프리셋이 없을 때는 슬라이더 비활성화
       setIsDisabled({
         congestion: true,
         entrance: true,
+        width: true,
         penalty: true,
       });
-    } catch (error) {
-      console.error("Failed to fetch data: ", error);
     }
   };
 
@@ -231,7 +274,7 @@ const AdminLogic = () => {
             style={{ display: "flex", flexDirection: "row", margin: "20px" }}
           >
             <div style={{ position: "relative" }}>
-              <AdminParkingLot />
+              <LogicParkingLot />
             </div>
             {/* <MapTest /> */}
             <div
@@ -277,8 +320,8 @@ const AdminLogic = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="mart"
-                      checked={selectedType === "mart"}
+                      name="마트"
+                      checked={selectedType === "마트"}
                       onChange={handleCheckboxChange}
                     />
                     &nbsp;A
@@ -286,8 +329,8 @@ const AdminLogic = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="apt"
-                      checked={selectedType === "apt"}
+                      name="아파트"
+                      checked={selectedType === "아파트"}
                       onChange={handleCheckboxChange}
                     />
                     &nbsp;B
@@ -295,8 +338,8 @@ const AdminLogic = () => {
                   <label>
                     <input
                       type="checkbox"
-                      name="office"
-                      checked={selectedType === "office"}
+                      name="사업장"
+                      checked={selectedType === "사업장"}
                       onChange={handleCheckboxChange}
                     />
                     &nbsp;C

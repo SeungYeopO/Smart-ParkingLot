@@ -11,7 +11,7 @@ const Intropage = () => {
       setAnimationFinished(true);
       // 5초 후에 '/home' 경로로 이동합니다.
       setTimeout(() => {
-        navigate('/home');
+        navigate('/');
       }, 5000);
     }, animationDuration);
     return () => clearTimeout(timeout);
