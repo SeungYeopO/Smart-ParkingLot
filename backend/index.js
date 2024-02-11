@@ -232,6 +232,8 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   WHERE ec.user_id = ?;
   `;
   const data1 = await pool.query(query1, [user_id]);
+  const start = data1[0][0].point_num;
+  console.log(start);
 
   const query2 = `
   SELECT entry_exit, is_wide
@@ -292,7 +294,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   const end = min_point_num;
   const results = [];
 
-  await exec(
+  exec(
     `cd ./map_data
     g++ -o root_finder ./mapalgorithm.cpp
     ./root_finder ${start} ${end}`,
@@ -335,7 +337,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
         }
       });
     }
-  );
+ );
 });
 
 // 도움 요청 및 문의 업로드
