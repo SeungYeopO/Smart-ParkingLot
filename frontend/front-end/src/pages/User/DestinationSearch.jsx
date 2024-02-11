@@ -2,9 +2,33 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
 const DestinationSearch = () => {
-  const [searchTerm, setSearchTerm] = useState(""); // 검색어 상태
-  const [inputStage, setInputStage] = useState(0); // 입력 단계를 관리하는 상태
   const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+  const [inputStage, setInputStage] = useState(0);
+
+  const inputs = [
+    "ㄹ",
+    "로",
+    "롯",
+    "롯ㄷ",
+    "롯데",
+    "롯데ㅁ",
+    "롯데마",
+    "롯데마ㅌ",
+    "롯데마트",
+    "롯데마트 ",
+    "롯데마트 ㅅ",
+    "롯데마트 수",
+    "롯데마트 수ㅇ",
+    "롯데마트 수오",
+    "롯데마트 수와",
+    "롯데마트 수완",
+    "롯데마트 수완ㅈ",
+    "롯데마트 수완저",
+    "롯데마트 수완점",
+    "롯데마트 수완점",
+    "롯데마트 수완점",
+  ];
 
   const handleSearchChange = (event) => {
     setSearchTerm(event.target.value);
@@ -12,59 +36,40 @@ const DestinationSearch = () => {
 
   const handleSearchSubmit = (event) => {
     event.preventDefault();
-    navigate("/searchmap", { state: { searchTerm } });
+    navigate("/destinationsinfo", { state: { searchTerm } });
   };
 
   const handleSpecialInput = () => {
-    // 입력 단계에 따라 다른 텍스트를 설정
-    const inputs = [
-      "ㄹ",
-      "로",
-      "롯",
-      "롯ㄷ",
-      "롯데",
-      "롯데ㅁ",
-      "롯데마",
-      "롯데마ㅌ",
-      "롯데마트",
-      "롯데마트 ",
-      "롯데마트 ㅅ",
-      "롯데마트 수",
-      "롯데마트 수ㅇ",
-      "롯데마트 수오",
-      "롯데마트 수와",
-      "롯데마트 수완",
-      "롯데마트 수완ㅈ",
-      "롯데마트 수완저",
-      "롯데마트 수완점",
-      "롯데마트 수완점",
-      "롯데마트 수완점",
-    ];
     setSearchTerm(inputs[inputStage]);
-
-    // 다음 입력 단계로 이동하거나 초기화
     setInputStage((prevStage) => (prevStage + 1) % inputs.length);
   };
 
   return (
     <div className="search-container">
-      <h2>목적지 검색</h2> <br/>
       <form onSubmit={handleSearchSubmit}>
         <input
           type="text"
-          placeholder="목적지를 입력하세요"
+          placeholder="명칭, 주소, 설정, 연락처, 미디어를 검색합니다."
           value={searchTerm}
           onChange={handleSearchChange}
+          style={{ color: inputs.includes(searchTerm) ? "#FFFFFF" : "" }}
         />
         <button type="submit">
-        <img src="../assets/search.png" alt="search" style={{ width: "30px" }} />
+          <img
+            src="../assets/search.png"
+            alt="search"
+            style={{ width: "40px" }}
+          />
         </button>
       </form>
-      <div className="keyborad" >
-      <button type="button" onClick={handleSpecialInput} style={{backgroundColor: "#373636", border: "none", marginTop: "20px"}}>
-        <img src="../assets/Keyborad.jpeg" alt="keyboard" />
+
+      <button
+        type="button"
+        onClick={handleSpecialInput}
+        style={{ backgroundColor: "#373636", border: "none" }}
+      >
+        <img src="../assets/Keyborad.png" alt="keyboard" />
       </button>
-      </div>
     </div>
   );
 };
