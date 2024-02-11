@@ -10,7 +10,7 @@ const MapTest = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/user/short_path/1/-1/115/99"
+          "http://i10c102.p.ssafy.io:3001/api/user/short_path/1"
         );
         const nowPosition = await response.json();
         setNowPosition(nowPosition);

@@ -10,6 +10,7 @@ const AdminStatus = () => {
   const [filledlots, setFilledlots] = useState(0);
   const [managedLots, setManagedLots] = useState(0);
   const [showModal, setShowModal] = useState(false);
+  
 
   const destinationMapStyle = {
     flex: 1,
@@ -113,7 +114,6 @@ const AdminStatus = () => {
         <p> 빈 자리 : 초록색 </p>
     
       </StatusInfoModal>
-
     </div>
   );
 };

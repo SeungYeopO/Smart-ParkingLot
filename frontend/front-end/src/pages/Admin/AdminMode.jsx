@@ -29,6 +29,7 @@ const NavBar = () => {
     navigate('/adminlogic');
   };
 
+  
   // 시간을 YYYY.MM.DD HH:mm:ss 형식으로 포맷
   const formatTime = (time) => {
     const year = time.getFullYear();
