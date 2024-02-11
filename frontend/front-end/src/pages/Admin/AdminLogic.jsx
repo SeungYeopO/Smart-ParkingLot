@@ -8,24 +8,46 @@ const AdminLogic = () => {
   const [floorId, setFloorId] = useState("B1");
   const [selectedType, setSelectedType] = useState("myParkingSpace");
   const [congestion, setCongestion] = useState(0);
+  const [width, setWidth] = useState(0);
   const [entrance, setEntrance] = useState(0);
   const [penalty, setPenalty] = useState(0);
+  const [presets, setPresets] = useState([]);
   const [presetMessages, setPresetMessages] = useState({
     congestion: "",
+    width: "",
     entrance: "",
     penalty: "",
   });
   const [isDisabled, setIsDisabled] = useState({
     congestion: false,
+    width: false,
     entrance: false,
     penalty: false,
   });
 
-  const fetchFloorData = async (selectedFloorId) => {
-    const response = await fetch("url"); // 'url'을 실제 요청 URL로 대체해야 합니다.
-    const data = await response.json();
-    console.log(data);
+  const fetchFloorData = async () => {
+    const apiUrl =
+      "http://i10c102.p.ssafy.io:3001/api/p_manager/lot_base_presets";
+
+    try {
+      const response = await fetch(apiUrl);
+      if (!response.ok) {
+        throw new Error(`HTTP error! status: ${response.status}`);
+      }
+      const data = await response.json();
+      console.log(data);
+
+      // 받아온 데이터를 presets 상태에 저장
+      setPresets(data); // API 응답의 구조에 맞게 상태 설정 함수를 사용합니다.
+    } catch (error) {
+      console.error("Error fetching data: ", error);
+      // 여기에서 오류 처리를 할 수 있습니다.
+    }
   };
+
+  useEffect(() => {
+    fetchFloorData();
+  }, []);
 
   // save 누르면 프리셋 조절 값 DB로 보내기
   const handleSave = async () => {
@@ -41,6 +63,7 @@ const AdminLogic = () => {
         body: JSON.stringify({
           floorId,
           congestion,
+          width,
           entrance,
           penalty,
         }),
@@ -58,9 +81,10 @@ const AdminLogic = () => {
       // 에러 처리
     }
 
-    // save 누르면 설정한 값 유지하기 
+    // save 누르면 설정한 값 유지하기
     localStorage.setItem("floorId", floorId);
     localStorage.setItem("congestion", congestion);
+    localStorage.setItem("width", width);
     localStorage.setItem("entrance", entrance);
     localStorage.setItem("penalty", penalty);
   };
@@ -68,11 +92,13 @@ const AdminLogic = () => {
   useEffect(() => {
     const savedFloorId = localStorage.getItem("floorId");
     const savedCongestion = localStorage.getItem("congestion");
+    const savedWidth = localStorage.getItem("width");
     const savedEntrance = localStorage.getItem("entrance");
     const savedPenalty = localStorage.getItem("penalty");
 
     if (savedFloorId) setFloorId(savedFloorId);
     if (savedCongestion) setCongestion(parseInt(savedCongestion, 10)); // 값이 문자열이니 parseInt 10진수로 ㅇㅅㅇ
+    if (savedWidth) setWidth(parseInt(savedWidth, 10));
     if (savedEntrance) setEntrance(parseInt(savedEntrance, 10));
     if (savedPenalty) setPenalty(parseInt(savedPenalty, 10));
   }, []);
@@ -84,6 +110,15 @@ const AdminLogic = () => {
       ...prevMessages,
       congestion:
         value >= 10 ? "남은 자리가 10%가 넘어가면 혼잡 상태가 됩니다." : "",
+    }));
+  };
+
+  const handleWidthChange = (event) => {
+    const value = parseInt(event.target.value, 10);
+    setWidth(value);
+    setPresetMessages((prevMessages) => ({
+      ...prevMessages,
+      width: value > 0 ? "선택한 너비를 기준으로 주차 공간을 설정합니다." : "", // Width 메시지 업데이트
     }));
   };
 
@@ -115,6 +150,14 @@ const AdminLogic = () => {
     }
   };
 
+  const getWidthMessage = (value) => {
+    if (value === 0) {
+      return "기본 너비로 설정합니다.";
+    } else {
+      return `너비를 ${value}로 설정합니다.`;
+    }
+  };
+
   const getEntranceMessage = (value) => {
     if (value === 0) {
       return "시설물 입구 쪽으로 경로를 안내합니다";
@@ -125,9 +168,9 @@ const AdminLogic = () => {
 
   const getPenaltyMessage = (value) => {
     if (value === 0) {
-      return "주의사항을 어길시 즉시 패널티를 부여합니다.";
+      return "패널티를 부여하지 않습니다.";
     } else {
-      return `${value}회 경고 후 패널티를 부여합니다.`;
+      return `경고 ${value}회 부터 패널티를 부여합니다.`;
     }
   };
 
@@ -190,7 +233,7 @@ const AdminLogic = () => {
             <div style={{ position: "relative" }}>
               <AdminParkingLot />
             </div>
-              {/* <MapTest /> */}
+            {/* <MapTest /> */}
             <div
               style={{
                 display: "flex",
@@ -202,7 +245,7 @@ const AdminLogic = () => {
                 boxShadow: "3px 3px 80px 2px rgba(142, 146, 211, 0.5)",
                 borderRadius: "20px",
                 width: "350px",
-                height: "440px",
+                height: "540px",
               }}
             >
               {/* Floor Selector */}
@@ -272,7 +315,7 @@ const AdminLogic = () => {
               {/* Sliders */}
               <div className="slider-group" style={{ marginLeft: "20px" }}>
                 <label>
-                  Congestion&nbsp;
+                  Congestion&nbsp;&nbsp;|&nbsp;&nbsp;
                   <input
                     type="range"
                     min="0"
@@ -288,7 +331,23 @@ const AdminLogic = () => {
                   <p>{getCongestionMessage(congestion)}</p>
                 </div>
                 <label>
-                  Entrance&nbsp;
+                  &nbsp;&nbsp;&nbsp;&nbsp;Width&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;
+                  <input
+                    type="range"
+                    min="0"
+                    max="10"
+                    step="1"
+                    value={width}
+                    onChange={handleWidthChange}
+                    disabled={isDisabled.width}
+                  />
+                  <span>{width}</span>
+                </label>
+                <div className="preset-text">
+                  <p>{getWidthMessage(width)}</p>
+                </div>
+                <label>
+                  &nbsp;&nbsp;Entrance &nbsp;|&nbsp;
                   <input
                     type="range"
                     min="0"
@@ -304,7 +363,7 @@ const AdminLogic = () => {
                   <p>{getEntranceMessage(entrance)}</p>
                 </div>
                 <label>
-                  Penalty&nbsp;
+                  &nbsp;&nbsp;&nbsp;Penalty &nbsp;|&nbsp;&nbsp;&nbsp;
                   <input
                     type="range"
                     min="0"

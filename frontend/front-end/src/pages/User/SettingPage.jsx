@@ -24,8 +24,8 @@ const SettingPage = () => {
   };
 
   const handleBackClick = () => {
-    navigate("/")
-  }
+    navigate("/");
+  };
 
   return (
     <div className="menu-container">
