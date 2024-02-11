@@ -1,10 +1,36 @@
 import React, { useState, useEffect } from "react";
 import "bootstrap/dist/css/bootstrap.min.css"; // 부트스트랩 CSS
+import { useLocation } from "react-router-dom";
 
 const AdminSideNavbar = () => {
   // 다크모드 상태 관리
   const savedMode = localStorage.getItem("theme");
   const [darkMode, setDarkMode] = useState(savedMode === "dark");
+  const [activeMenu, setActiveMenu] = useState("");
+  const location = useLocation();
+
+  // 현재 어떤 카테고리  url에 있는지 얻어와주는 로직
+  useEffect(() => {
+    console.log(location)
+    switch (location.pathname) {
+      case "/admincctv":
+        setActiveMenu("CCTV")
+        break;
+      case "/adminstatus":
+        setActiveMenu("Status")
+        break;
+      case "/adminlogic":
+        setActiveMenu("Logic")
+        break;
+    }
+  }, [location]);
+
+  const getActiveStyle = (menuName) => ({
+    color : activeMenu === menuName? '#FFD700' : 'white',
+    fontSize : '20px',
+    marginBottom : '15px'
+  });
+
 
 
   // 다크모드 상태 전환 함수
@@ -22,6 +48,8 @@ const AdminSideNavbar = () => {
       document.body.classList.add("light-mode"); // 라이트 모드 활성화
     }
   };
+
+ 
 
   // 컴포넌트가 마운트될 때 한 번 실행하여 로컬 스토리지에 저장된 모드를 적용
   useEffect(() => {
@@ -82,13 +110,10 @@ const AdminSideNavbar = () => {
           </p>
         </a>
         <div className="navbar-nav">
-          <a className="nav-item nav-link active" style={{color : 'white', fontSize : 'large', marginBottom : '15px'}} href="/admincctv">CCTV</a>
-          <a className="nav-item nav-link" style={{color : 'white', fontSize : '20px', marginBottom : '15px'}} href="/adminstatus">주차 현황</a>
-
-          <a className="nav-item nav-link"style={{color : 'white', fontSize : '20px', marginBottom : '15px'}} href="/adminmanage">주차 관리</a>
-          
-          <a className="nav-item nav-link" style={{color : 'white', fontSize : '20px', marginBottom : '105px'}} href="/adminlogic">
-           로직변경
+          <a className="nav-item nav-link active" style={getActiveStyle('CCTV')} href="/admincctv">CCTV</a>
+          <a className="nav-item nav-link" style={getActiveStyle('Status')} href="/adminstatus">주차 관리 및 현황</a>
+          <a className="nav-item nav-link" style={getActiveStyle('Logic')} href="/adminlogic">
+           프리셋
           </a>
         </div>
       </div>
