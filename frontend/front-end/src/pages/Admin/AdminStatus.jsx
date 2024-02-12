@@ -52,13 +52,13 @@ const AdminStatus = () => {
 
 // === 실시간 통신이 아니기 때문에 실시간 데이터 반영을 위해서 주기적으로 요청
 
-  // useEffect(() => {
-  //   const intervalId = setInterval(() => {
-  //     fetchParkingStatus(); // 주기적으로 실행할 함수
-  //   }, 1000); // 5000ms = 5초마다 실행
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      fetchParkingStatus(); // 주기적으로 실행할 함수
+    }, 500); // 5000ms = 5초마다 실행
   
-  //   return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
-  // }, []);
+    return () => clearInterval(intervalId); // 컴포넌트 언마운트 시 인터벌 정리
+  }, []);
   
 
   const handleFloorChange = (event) => {

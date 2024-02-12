@@ -1361,7 +1361,3 @@ body {
   left: 0;
 
 }
-
-.MapTest {
-  z-index: 10; /* 지도 위에 경로가 렌더링되도록 z-index 값을 높임 */
-}

@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
+import RealTimeCarRoute from './RealTimeCarRoute';
+
 
 const MapTest = () => {
   const [nowPosition, setNowPosition] = useState([]);
   const [isInitialLoad, setIsInitialLoad] = useState(true); // 초기로드 여부를 확인
-  const updateInterval = 5000; // 업데이트 간격 설정
+  const updateInterval = 1000; // 업데이트 간격 설정
   const ratio = 1.3;
 
   // 데이터를 가져와서 상태를 업데이트하는 함수
@@ -56,23 +58,16 @@ const MapTest = () => {
     return () => clearInterval(interval);
   }, [isInitialLoad]); // 의존성 배열에 isInitialLoad를 추가하여 초기 로드 상태 변경 시에만 fetchData 함수가 실행되도록 함
 
-  return (
-    <div>
-      <div>
-        <canvas className="route-canvas" id="mapCanvas" width="800" height="600"></canvas>
-        {/* {nowPosition.map((position, index) => (
-          <div
-            key={index}
-            className="testposition-dot"
-            style={{
-              left: `${position.pos_x * ratio}px`,
-              top: `${position.pos_y * ratio}px`,
-            }}
-          ></div>
-        ))} */}
-      </div>
-    </div>
-  );
+ // MapTest 컴포넌트 내부의 return 문 수정
+return (
+  <div className="route-canvas">
+    <canvas  id="mapCanvas" width="800" height="600"></canvas>
+    <RealTimeCarRoute currentPosition={nowPosition[0]} />
+  </div>
+);
+
 };
+
+
 
 export default MapTest;
