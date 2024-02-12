@@ -942,13 +942,13 @@ body {
 /*  */
 
 .testposition-dot {
-  /* position: absolute;
+  position: absolute;
   display: flex;
   background-color: red;
   width: 10px;
   height: 10px;
   border-radius: 50%;
-  transition: left 1s ease-out, top 1s ease-out; */
+  transition: left 1s ease-out, top 1s ease-out;
 }
 
 /* AdminSideNavbar css 속성 */
@@ -1347,4 +1347,21 @@ body {
 }
 .slider-group input[type="range"] {
   margin-right: 10px;
+}
+
+/* 지도맵 위에 경로 띄우는중 (테스트)   */
+
+.map-container {
+  position: relative; /* 자식 요소에 대해 절대 위치를 기준으로 함 */
+}
+
+.route-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+
+}
+
+.MapTest {
+  z-index: 10; /* 지도 위에 경로가 렌더링되도록 z-index 값을 높임 */
 }
