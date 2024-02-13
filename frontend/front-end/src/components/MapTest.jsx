@@ -11,7 +11,7 @@ const MapTest = () => {
   // 데이터를 가져와서 상태를 업데이트하는 함수
   const fetchData = async () => {
     if (isInitialLoad) { // 초기 로드인 경우에만 데이터를 가져옴
-      try {
+      try { 
         const response = await fetch("/assets/route.json");
         const data = await response.json();
         console.log("데이터 수신 중:", data);
