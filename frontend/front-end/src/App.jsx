@@ -43,6 +43,14 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Intropage />} />
             <Route path="/home" element={<Home />} />
+            <Route path="/adminlogin" element={<AdminLogin />} />
+            <Route path="/adminmode" element={<AdminMode />} />
+            <Route path="/admincctv" element={<AdminCCTV />} />
+            <Route path="/adminmanage" element={<AdminManage />} />
+            <Route path="/adminstatus" element={<AdminStatus />} />
+            <Route path="/adminlogic" element={<AdminLogic />} />
+            <Route path="/intro" element={<Intropage />} />
+            <Route path="/" element={<Home />} />
             <Route path="/destinationsearch" element={<DestinationSearch />} />
             <Route path="/destinationsinfo" element={<DestinationInfo />} />
             <Route path="/settingpage" element={<SettingPage />} />

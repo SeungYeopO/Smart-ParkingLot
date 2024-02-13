@@ -1,13 +1,27 @@
+// RealTimeCarRoute.js
 import React from 'react';
 
-//  실제 경로 띄우는 컴포넌트입니당
+const RealTimeCarRoute = ({ currentPosition }) => {
+  if (!currentPosition) return null;
 
-const RealTimeCarroute = () => {
-    return (
-        <div>
-            
-        </div>
-    );
+  const { pos_x, pos_y } = currentPosition;
+  const ratio = 1.3; // MapTest 컴포넌트에서 사용한 비율과 동일하게 설정
+
+  return (
+    <div
+      className="real-time-car"
+      style={{
+        position: 'absolute',
+        left: `${pos_x * ratio - 20}px`,
+        top: `${pos_y * ratio  - 20}px`,
+        width: '40px',
+        height: '40px',
+        borderRadius: '100%',
+        backgroundColor: 'blue',
+        transition: 'left 2s, top 1s' // 위치 변경 시 부드러운 이동을 위한 transition 설정
+      }}
+    ></div>
+  );
 };
 
-export default RealTimeCarroute;
+export default RealTimeCarRoute;

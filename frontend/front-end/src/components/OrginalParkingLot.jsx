@@ -2,8 +2,6 @@
 // 맵 따는 코드만 있어용
 
 import React, { useState, useEffect } from "react";
-import EnterLotModal from "./Modal/EnterLotModal";
-
 const OriginalParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]); // 좌표값 받아오기
   const [modifiedPositions, setModifiedPositions] = useState([]); // 변환된 좌표값 저장
