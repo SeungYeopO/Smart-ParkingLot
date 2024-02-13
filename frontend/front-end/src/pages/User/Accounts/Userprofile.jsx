@@ -1,20 +1,23 @@
 import React, { useState } from "react";
 import SideNavbar from "../../../components/SideNavbar";
+import { useNavigate } from "react-router-dom";
 
 const Profile = () => {
   // 로그인한 사용자 정보를 상태로 설정 => 데이터 받아오면 user.으로 전부 초기화
   const [user, setUser] = useState({
     userId: "user123",
     carNumber: "18가 2967",
-    carType: "전기차",
+    carType: "일반차량",
     disabled: "",
   });
   const [specialMessage, setSpecialMessage] = useState("");
+  const navigate = useNavigate();
 
   const handleSave = () => {
-    console.log("Saved", user);
-    // 서버로 데이터를 보내는 로직을 여기에 구현하면 됩니다.
+    navigate("/settingpage")
   };
+
+  
 
   // 차량번호와 차량 종류만 업데이트 하는 함수
   const updateCarInfo = (key, value) => {
@@ -29,14 +32,15 @@ const Profile = () => {
 
   return (
     <div className="profile-fill" style={{ display: "flex" }}>
-      <SideNavbar />
+      {/* <SideNavbar /> */}
       <div className="line" style={{ display: "flex" }}>
         <div className="profile-content">
-          <p>Edit Profile</p>
+          <p>Profile</p>
         </div>
       </div>
       <div className="myprofile" style={{ marginLeft: "20px" }}>
-        <h2 style={{ marginBottom: "50px" }}>My Profile</h2>
+        <h2 style={{marginTop: "30px"}}>차량 정보</h2>
+        <div className="rotate-image"></div>
         <div className="form-border">
           <div className="form-group">
             <label htmlFor="userId">UserID</label>
@@ -65,7 +69,7 @@ const Profile = () => {
               id="carType"
               value={user.carType}
               onChange={(e) => updateCarInfo("carType", e.target.value)}
-              style={{ color: user.carType === "전기차" ? "gray" : "black" }}
+              style={{ color: user.carType === "일반차량" ? "gray" : "black" }}
             >
               <option value="일반">일반차량</option>
               <option value="전기차">전기차</option>

@@ -13,7 +13,7 @@ const ParkingMap = () => {
 
   return (
     <div className="parkingLot" style={{ height: "100vh", display: "flex" }}>
-      <SideNavbar />
+      {/* <SideNavbar /> */}
       <div style={destinationMapStyle}>
         <ParkingLot />
         <MapTest />

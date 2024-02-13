@@ -1,37 +1,10 @@
 import React, { useState, useEffect } from "react";
-import "bootstrap/dist/css/bootstrap.min.css"; // 부트스트랩 CSS
-import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const AdminSideNavbar = () => {
+const Home = () => {
   // 다크모드 상태 관리
   const savedMode = localStorage.getItem("theme");
   const [darkMode, setDarkMode] = useState(savedMode === "dark");
-  const [activeMenu, setActiveMenu] = useState("");
-  const location = useLocation();
-
-  // 현재 어떤 카테고리  url에 있는지 얻어와주는 로직
-  useEffect(() => {
-    console.log(location)
-    switch (location.pathname) {
-      case "/admincctv":
-        setActiveMenu("CCTV")
-        break;
-      case "/adminstatus":
-        setActiveMenu("Status")
-        break;
-      case "/adminlogic":
-        setActiveMenu("Logic")
-        break;
-    }
-  }, [location]);
-
-  const getActiveStyle = (menuName) => ({
-    color : activeMenu === menuName? '#FFD700' : 'white',
-    fontSize : '20px',
-    marginBottom : '15px'
-  });
-
-
 
   // 다크모드 상태 전환 함수
   const toggleDarkMode = () => {
@@ -48,8 +21,6 @@ const AdminSideNavbar = () => {
       document.body.classList.add("light-mode"); // 라이트 모드 활성화
     }
   };
-
- 
 
   // 컴포넌트가 마운트될 때 한 번 실행하여 로컬 스토리지에 저장된 모드를 적용
   useEffect(() => {
@@ -70,9 +41,11 @@ const AdminSideNavbar = () => {
     width: "70px",
     height: "35px",
     borderRadius: "50px",
+    marginTop: "300px",
     position: "relative",
     backgroundColor: `${darkMode ? "#373636" : "#e2e2e2"}`,
     transition: "background-color 0.3s",
+    // display: "none"
   });
 
   // 토글 버튼 내부 서클 스타일
@@ -89,43 +62,47 @@ const AdminSideNavbar = () => {
     backgroundColor: `${darkMode ? "#e2e2e2" : "#373636"}`,
   });
 
-  return (
-    <nav
-      className="navbar navbar-light"
-      style={{
-        backgroundColor: "#191a2b",
-        width: "130px",
-        height: "110vh",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-      }}
-    >
-      <div className="nav-hover">
-        <a className="navbar-brand" href="/adminmode">
-          <p>
-            Auto
-            <br />
-            Parking
-          </p>
-        </a>
-        <div className="navbar-nav">
-          <a className="nav-item nav-link active" style={getActiveStyle('CCTV')} href="/admincctv">CCTV</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Status')} href="/adminstatus">주차 관리 및 현황</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Logic')} href="/adminlogic">
-           프리셋
-          </a>
-        </div>
-      </div>
+  const navigate = useNavigate();
+  const [currentTime, setCurrentTime] = useState(new Date()); // 현재 시간 상태
 
-      {/* 하단 설정 버튼 대신 다크모드 토글 버튼 */}
-      <div className="navbar-nav" style={{ padding: "10px" }}>
-        <div style={getButtonStyle()} onClick={toggleDarkMode}>
-          <div style={getCircleStyle()}></div>
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setCurrentTime(new Date()); // 1초마다 현재 시간 업데이트
+    }, 1000);
+
+    return () => {
+      clearInterval(timer); // 컴포넌트 언마운트 시 타이머 제거
+    };
+  }, []);
+
+  const goToDestinationPage = () => {
+    navigate("/destinationsearch");
+  };
+
+  const goToSettingsPage = () => {
+    navigate("/settingpage");
+  };
+
+  return (
+    <div className="home-container">
+      <div className="home-map">
+        <button
+          className="search-button"
+          onClick={goToDestinationPage}
+        ></button>
+        {/* 하단 설정 버튼 대신 다크모드 토글 버튼 */}
+        <div className="navbar-nav" style={{ padding: "10px" }}>
+          <div style={getButtonStyle()} onClick={toggleDarkMode}>
+            <div style={getCircleStyle()}></div>
+          </div>
+        </div>
+        <button className="option-button" onClick={goToSettingsPage}></button>
+        <div className="home-time">
+          <div className="time-display">{currentTime.toLocaleTimeString()}</div>{" "}
         </div>
       </div>
-    </nav>
+    </div>
   );
 };
 
-export default AdminSideNavbar;
+export default Home;

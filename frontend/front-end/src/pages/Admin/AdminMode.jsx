@@ -29,6 +29,7 @@ const NavBar = () => {
     navigate('/adminlogic');
   };
 
+  
   // 시간을 YYYY.MM.DD HH:mm:ss 형식으로 포맷
   const formatTime = (time) => {
     const year = time.getFullYear();
@@ -53,13 +54,13 @@ const NavBar = () => {
         <img src="/assets/cctvimg.png" alt="cctvImg" />
     </div>
     <div onClick={goStatusMode} className='statusmode'>
-        <p>주차현황</p>
+        <p>주차 현황 및 관리</p>
         <img src="/assets/Graph.png" alt="status" />
     </div>
-    <div onClick={goManageMode} className='managemode'>
+    {/* <div onClick={goManageMode} className='managemode'>
         <p>주차관리</p>
         <img src="/assets/settingimg.png" alt="setting" />
-    </div>
+    </div> */}
         <div onClick={goLogicMode} className='logicmode'>
           <p>로직변경</p>
           <img src="/assets/logicimg3.png" alt="logic" />
