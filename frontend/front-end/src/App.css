@@ -51,11 +51,24 @@ body {
 .form-border {
   background-color: var(
     --background-content-color
-  ); /* 컨텐츠 배경색상 변수 사용 */
-  /* border: 1px solid var(--border-color); 테두리 색상 변수 사용 */
+  ); 
   border-radius: 30px; /* 둥근 테두리 */
-  margin-bottom: 20px; /* 여백 */
+  margin-bottom: 20px;
   padding: 20px;
+}
+.form-border1 {
+  background-color: var(
+    --background-content-color
+  ); 
+  border-radius: 30px; /* 둥근 테두리 */
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 800px;
+  height: 400px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
 }
 
 /* 라이트 모드 스타일 */
@@ -800,12 +813,17 @@ body {
   color: white;
   padding: 10px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
   margin-top: 10px;
   width: 200px;
+  transition: background-color 0.3s ease; /* 호버 효과에 transition 추가 */
+}
+
+.save-button:hover {
+  background-color: #ff8533; /* 호버 시 배경색 변경 */
 }
 /* 다크모드 색상 */
 /* 배경 : #181818
@@ -927,6 +945,7 @@ body {
   background-repeat: no-repeat; /* 이미지를 반복하지 않도록 설정합니다. */
   height: 100vh;
   width: 1300px;
+  color: black;
 }
 
 .logo-search img {
@@ -962,7 +981,8 @@ body {
   width: 120px;
   bottom: -230px;
   left: 720px;
-  background-color: #4dff00;
+  /* background-color: #4dff00; */
+  background-color: #ff4800;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
@@ -976,7 +996,7 @@ body {
   transform: translateX(-50%);
   border-width: 10px 10px 0;
   border-style: solid;
-  border-color: #4dff00 transparent;
+  border-color: #ff4800 transparent;
   display: block;
   width: 0;
 }
@@ -985,7 +1005,7 @@ body {
   width: 120px;
   top: 50px;
   left: 650px;
-  background-color: #ff4800;
+  background-color: #4dff00;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
@@ -1000,7 +1020,7 @@ body {
   transform: translateX(-50%);
   border-width: 10px 10px 0;
   border-style: solid;
-  border-color: #ff4800 transparent;
+  border-color: #4dff00 transparent;
   display: block;
   width: 0;
 }
@@ -1010,20 +1030,17 @@ body {
 }
 
 /* 호버 스타일을 추가합니다. */
-.balloonStatus2:hover,
-.balloonStatus4:hover {
-  background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
+.balloonStatus2:hover {
+  background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 .balloonStatus1:hover {
   background-color: #ffdd00; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
-.balloonStatus3:hover,
-.balloonStatus6:hover,
-.balloonStatus7:hover,
-.balloonStatus8:hover {
-  background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
+.balloonStatus3:hover {
+  background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
+  
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
@@ -1096,6 +1113,7 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1000;
   opacity: 0.8;
+  color: black;
 }
 
 .message {
@@ -1107,7 +1125,8 @@ body {
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
 }
-/* 자동차 달린다 */
+/* help */
+
 
 /* AdminUpNavbar */
 .nav-title {
