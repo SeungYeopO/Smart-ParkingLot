@@ -32,7 +32,7 @@ const Profile = () => {
 
   return (
     <div className="profile-fill" style={{ display: "flex" }}>
-      <SideNavbar />
+      {/* <SideNavbar /> */}
       <div className="line" style={{ display: "flex" }}>
         <div className="profile-content">
           <p>Profile</p>

@@ -131,7 +131,7 @@ const LogicParkingLot = () => {
       const height = 21.5;
       const s_width = 33.1;
       const s_height = 18.9;
-      const ratio = 1;
+      const ratio = 1.05;
       const lotnum = data.data_id;
       var rect_width = 0;
       var rect_height = 0;

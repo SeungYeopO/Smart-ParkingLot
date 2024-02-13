@@ -24,7 +24,7 @@ const SettingPage = () => {
   };
 
   const handleBackClick = () => {
-    navigate("/");
+    navigate("/home");
   };
 
   return (
