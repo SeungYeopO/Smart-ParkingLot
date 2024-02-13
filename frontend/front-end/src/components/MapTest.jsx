@@ -4,6 +4,7 @@ import RealTimeCarRoute from './RealTimeCarRoute';
 
 const MapTest = () => {
   const [nowPosition, setNowPosition] = useState([]);
+  const [isInitialLoad, setIsInitialLoad] = useState(true); // 초기로드 여부를 확인
   const updateInterval = 1000; // 업데이트 간격 설정
   const ratio = 1.3;
        
@@ -70,3 +71,4 @@ return (
 
 
 export default MapTest;
+
