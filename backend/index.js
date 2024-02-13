@@ -479,11 +479,11 @@ app.patch("/api/p_manager/section_states", async (req, res) => {
       WHERE data_id = ?
     `;
     const result = await pool.query(query, [is_managed, data_id]);
-
-    if (result.changedRows > 0) {
+    console.log(result[0]);
+    if (result[0].changedRows > 0) {
       // 최소한 한 행은 찾아져서 변경됨.
       return res.json({ result: true });
-    } else if (result.affectedRows === 0) {
+    } else if (result[0].affectedRows === 0) {
       // WHERE 절에 맞는 행이 없음.
       return res.status(404).json({
         error: "업데이트할 행을 찾을 수 없습니다",
@@ -587,10 +587,10 @@ app.patch("/api/p_manager/lot_personal_presets", async (req, res) => {
       penalty_limit,
       lot_id,
     ]);
-    console.log(result);
-    if (result.changedRows > 0) {
+    console.log(result[0]);
+    if (result[0].changedRows > 0) {
       return res.json({ result: true });
-    } else if (result.affectedRows === 0) {
+    } else if (result[0].affectedRows === 0) {
       return res.status(404).json({
         error: "업데이트할 행을 찾을 수 없습니다",
       });
@@ -603,5 +603,28 @@ app.patch("/api/p_manager/lot_personal_presets", async (req, res) => {
     return res.status(500).json({ error: "Internal Server Error" });
   }
 });
-app.get("/api/update_RF", async (req, res) => {});
+
+app.get("/api/update_RF", async (req, res) => {
+  // 변수 이름 수정
+  const newText = req.query.text;
+  const yourId = 1;
+  try {
+    const query = `UPDATE RF_data SET signal_index = ? WHERE data_id = ?`;
+    const result = await pool.query(query, [newText, yourId]);
+    console.log(result[0]);
+    if (result[0].changedRows > 0) {
+      return res.json({ result: true });
+    } else if (result[0].affectedRows === 0) {
+      return res.status(404).json({
+        error: "업데이트할 행을 찾을 수 없습니다",
+      });
+    } else {
+      return res.json({ result: true, message: "변경 사항이 없습니다" });
+    }
+  } catch (error) {
+    console.error(error);
+    return res.status(500).json({ error: "Internal Server Error" });
+  }
+});
+
 app.listen(PORT, () => console.log(`서버 기동중`));
