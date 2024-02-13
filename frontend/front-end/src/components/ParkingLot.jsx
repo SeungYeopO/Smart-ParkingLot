@@ -23,7 +23,6 @@ const ParkingLot = () => {
     fetchData(); // fetchData 함수 호출
   }, []);
 
-
   useEffect(() => {
     const updateModifiedPositions = async () => {
       const modified = await coordinatePos(nowPosition);
@@ -39,7 +38,7 @@ const ParkingLot = () => {
 
     const timer = setTimeout(() => {
       setIsModalOpen(false);
-    }, 4000);    // 진입 후 4초간만 뜨게 하는 부분
+    }, 4000); // 진입 후 4초간만 뜨게 하는 부분
 
     return () => clearTimeout(timer);
   }, []);
@@ -168,7 +167,7 @@ const ParkingLot = () => {
           {/* 조건식 원활할때   */}
           {/* {parkingStatus === '원활' ? ( 원활 모달) : ( 혼잡 모달) } */}
           <>
-          {/* <img style={{width : '90px', height : '80px', marginBottom: '10px', marginRight: '15px'}} src="/assets/checkgreen.png" alt="원활" />
+            {/* <img style={{width : '90px', height : '80px', marginBottom: '10px', marginRight: '15px'}} src="/assets/checkgreen.png" alt="원활" />
           <div style={{display : 'inline-block'}}>
           <p style={{fontSize : 'x-large', fontWeight : 'bold', marginTop : '10px'}}>주차장에 진입하셨습니다</p>
           <p style={{fontSize : '19px', marginLeft : '10px'}}>현재 주차장이 원활합니다.</p>
@@ -176,15 +175,31 @@ const ParkingLot = () => {
           </>
           {/* ) : ( */}
           <>
-          <img style={{width : '90px', height : '80px', marginBottom: '10px', marginRight: '15px'}} src="/assets/congestion.png" alt="혼잡" />
-          <div style={{display : 'inline-block'}}>
-          <p style={{fontSize : 'x-large', fontWeight : 'bold', marginTop : '10px'}}>주차장에 진입하셨습니다</p>
-          <p style={{fontSize : '19px', marginLeft : '10px'}}>주차장이 혼잡하여 추천 경로로 안내됩니다</p>
-          </div>
+            <img
+              style={{
+                width: "90px",
+                height: "80px",
+                marginBottom: "10px",
+                marginRight: "15px",
+              }}
+              src="/assets/congestion.png"
+              alt="혼잡"
+            />
+            <div style={{ display: "inline-block" }}>
+              <p
+                style={{
+                  fontSize: "x-large",
+                  fontWeight: "bold",
+                  marginTop: "10px",
+                }}
+              >
+                주차장에 진입하셨습니다
+              </p>
+              <p style={{ fontSize: "19px", marginLeft: "10px" }}>
+                주차장이 혼잡하여 추천 경로로 안내됩니다
+              </p>
+            </div>
           </>
-
-        
-          
         </EnterLotModal>
       </div>
     </div>
