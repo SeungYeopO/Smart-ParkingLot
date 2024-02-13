@@ -1,6 +1,6 @@
 const express = require("express");
 const cors = require("cors");
-const https = requre("https");
+const https = require("https");
 const { exec } = require("child_process");
 const { v4: uuidv4 } = require("uuid");
 
