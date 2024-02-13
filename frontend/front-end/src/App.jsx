@@ -30,7 +30,6 @@ const App = () => {
   return (
     <BrowserRouter>
       <div className="App">
-        {/* <div className="container"> */}
         <Routes>
           <Route path="/adminlogin" element={<AdminLogin />} />
           <Route path="/adminmode" element={<AdminMode />} />
@@ -38,22 +37,25 @@ const App = () => {
           <Route path="/adminmanage" element={<AdminManage />} />
           <Route path="/adminstatus" element={<AdminStatus />} />
           <Route path="/adminlogic" element={<AdminLogic />} />
-
-          <Route path="/" element={<Intropage />} />
-          <Route path="/home" element={<Home />} />
-          <Route path="/destinationsearch" element={<DestinationSearch />} />
-          <Route path="/destinationsinfo" element={<DestinationInfo />} />
-          <Route path="/settingpage" element={<SettingPage />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/signup" element={<Signup />} />
-          <Route path="/userprofile" element={<Userprofile />} />
-          <Route path="/help" element={<Help />} />
-          <Route path="/searchmap" element={<SearchMap />} />
-          <Route path="/destinationmap" element={<DestinationMap />} />
-          <Route path="/drivingmap" element={<DrivingMap />} />
-          <Route path="/ParkingMap" element={<ParkingMap />} />
         </Routes>
-        {/* </div> */}
+        <div className="container">
+          {/* 사용자 페이지들 */}
+          <Routes>
+            <Route path="/" element={<Intropage />} />
+            <Route path="/home" element={<Home />} />
+            <Route path="/destinationsearch" element={<DestinationSearch />} />
+            <Route path="/destinationsinfo" element={<DestinationInfo />} />
+            <Route path="/settingpage" element={<SettingPage />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/signup" element={<Signup />} />
+            <Route path="/userprofile" element={<Userprofile />} />
+            <Route path="/help" element={<Help />} />
+            <Route path="/searchmap" element={<SearchMap />} />
+            <Route path="/destinationmap" element={<DestinationMap />} />
+            <Route path="/drivingmap" element={<DrivingMap />} />
+            <Route path="/ParkingMap" element={<ParkingMap />} />
+          </Routes>
+        </div>
       </div>
     </BrowserRouter>
   );

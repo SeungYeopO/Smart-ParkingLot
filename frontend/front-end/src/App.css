@@ -70,6 +70,10 @@ body {
 
 .App {
   font-family: "BMJUA", sans-serif;
+  background-color: #1d1e1f;
+}
+.container {
+  width: 1300px;
 }
 .sign-password {
   font-family: sans-serif;
@@ -205,7 +209,7 @@ body {
   80% {
     top: 60%;
     left: 50%;
-    transform: rotate(0deg);
+    transform: rotate(45deg);
   }
   100% {
     top: 60%;
@@ -519,7 +523,7 @@ body {
   background-image: url("../public/assets/homemap.png");
   background-size: cover;
   background-position: center;
-  width: 1240px;
+  width: 1300px;
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -530,8 +534,8 @@ body {
   width: 90px;
   height: 90px;
   border-radius: 15px;
-  margin-left: 18px;
-  margin-top: 7px;
+  margin-left: 7px;
+  margin-top: 17px;
   transition: background-color 0.3s, opacity 0.3s;
   border: none;
   opacity: 0;
@@ -548,8 +552,8 @@ body {
   height: 90px;
   border-radius: 15px;
   border: none;
-  margin-left: 18px;
-  margin-bottom: 50px;
+  margin-left: 10px;
+  margin-bottom: 65px;
 }
 
 .option-button:hover {
@@ -637,7 +641,7 @@ body {
   height: 500px;
 }
 .menu-time {
-  color: white;
+  color: #ececec;
   text-align: center;
   height: 60px;
   display: flex;
@@ -650,11 +654,11 @@ body {
 .menu-times {
   height: 50px;
   margin-bottom: 10px;
-  margin-left: 270px;
+  margin-left: 272px;
   background-color: black;
 }
 .back {
-  margin-left: 550px;
+  margin-left: 470px;
   border: none;
   opacity: 0;
 }
@@ -664,9 +668,10 @@ body {
 }
 
 .mycar {
-  margin-left: 95px;
+  margin-left: 65px;
   margin-top: 110px;
 }
+
 .mycar button {
   width: 70px;
   height: 70px;

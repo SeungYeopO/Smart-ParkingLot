@@ -41,10 +41,11 @@ const Home = () => {
     width: "70px",
     height: "35px",
     borderRadius: "50px",
+    marginTop: "300px",
     position: "relative",
     backgroundColor: `${darkMode ? "#373636" : "#e2e2e2"}`,
     transition: "background-color 0.3s",
-    display: "none"
+    // display: "none"
   });
 
   // 토글 버튼 내부 서클 스타일
