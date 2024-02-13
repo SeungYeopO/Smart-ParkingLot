@@ -1,6 +1,5 @@
 const express = require("express");
 const cors = require("cors");
-const https = require("https");
 const { exec } = require("child_process");
 const { v4: uuidv4 } = require("uuid");
 
@@ -9,13 +8,6 @@ const fs = require("fs");
 const pool = require("./DB.js");
 const app = express();
 const PORT = 3001;
-
-const options = {
-  key: fs.readFileSync('/etc/letsencrypt/live/i10c102.p.ssafy.io/privkey.pem'),  // 개인 키 파일 경로
-  cert: fs.readFileSync('/etc/letsencrypt/live/i10c102.p.ssafy.io/cert.pem'), // 인증서 파일 경로
-};
-
-const server = https.createServer(options, app);
 
 app.use(express.json());
 app.use(cors());
@@ -637,4 +629,4 @@ app.get("/api/update_RF", async (req, res) => {
   }
 });
 
-server.listen(PORT, () => console.log(`서버 기동중`));
+app.listen(PORT, () => console.log(`서버 기동중`));

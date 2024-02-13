@@ -56,7 +56,7 @@ pipeline {
             steps {
                 script {
                     sh "docker run -d --name ${FRONT_CONTAINER_NAME} -p 3000:3000 ${DOCKER_FRONT_IMAGE}"
-                    sh "docker run -d --name ${BACK_CONTAINER_NAME} -p 3001:3001 ${DOCKER_BACK_IMAGE}"
+                    sh "docker run -d --name ${BACK_CONTAINER_NAME} -p 3002:3001 ${DOCKER_BACK_IMAGE}"
                 }
             }
         }
