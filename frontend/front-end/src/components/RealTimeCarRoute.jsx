@@ -12,13 +12,13 @@ const RealTimeCarRoute = ({ currentPosition }) => {
       className="real-time-car"
       style={{
         position: 'absolute',
-        left: `${pos_x * ratio}px`,
-        top: `${pos_y * ratio}px`,
+        left: `${pos_x * ratio - 20}px`,
+        top: `${pos_y * ratio  - 20}px`,
         width: '40px',
         height: '40px',
-        borderRadius: '60%',
+        borderRadius: '100%',
         backgroundColor: 'blue',
-        transition: 'left 1s, top 1s' // 위치 변경 시 부드러운 이동을 위한 transition 설정
+        transition: 'left 2s, top 1s' // 위치 변경 시 부드러운 이동을 위한 transition 설정
       }}
     ></div>
   );

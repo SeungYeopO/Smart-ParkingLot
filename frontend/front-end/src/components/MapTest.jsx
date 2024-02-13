@@ -7,7 +7,7 @@ const MapTest = () => {
   const [isInitialLoad, setIsInitialLoad] = useState(true); // 초기로드 여부를 확인
   const updateInterval = 1000; // 업데이트 간격 설정
   const ratio = 1.3;
-
+       
   // 데이터를 가져와서 상태를 업데이트하는 함수
   const fetchData = async () => {
     if (isInitialLoad) { // 초기 로드인 경우에만 데이터를 가져옴
@@ -16,7 +16,7 @@ const MapTest = () => {
         const data = await response.json();
         console.log("데이터 수신 중:", data);
         setNowPosition(data); // 처음 데이터를 로드한 후 상태를 업데이트
-        setIsInitialLoad(false); // 초기 로드 완료 표시
+        setIsInitialLoad(false); // 초기 로드 완료 표시로 바꿈
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
@@ -62,7 +62,7 @@ const MapTest = () => {
 return (
   <div className="route-canvas">
     <canvas  id="mapCanvas" width="800" height="600"></canvas>
-    <RealTimeCarRoute currentPosition={nowPosition[0]} />
+    <RealTimeCarRoute currentPosition={nowPosition[1]} />
   </div>
 );
 
