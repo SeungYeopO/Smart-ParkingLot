@@ -36,7 +36,7 @@ const MapTest = () => {
     if (canvas && nowPosition.length > 0) {
         const ctx = canvas.getContext("2d");
         ctx.clearRect(0, 0, canvas.width, canvas.height); // 이전 경로 지우기
-
+ 
         // 주 경로 그리기
         ctx.beginPath();
         ctx.moveTo(nowPosition[0].pos_x * ratio, nowPosition[0].pos_y * ratio);

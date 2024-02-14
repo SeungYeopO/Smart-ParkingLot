@@ -17,7 +17,7 @@ const ParkingMap = () => {
       {/* <SideNavbar /> */}
       <div style={destinationMapStyle}>
         <ParkingLot />
-        <MapTest />
+        {/* <MapTest /> */}
         <BottomNavbar />
       </div>
     </div>
