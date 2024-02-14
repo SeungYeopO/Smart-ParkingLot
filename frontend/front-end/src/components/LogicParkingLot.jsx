@@ -15,7 +15,7 @@ const LogicParkingLot = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
+          "https://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
         );
         const data = await response.json();
         setNowPosition(data);
@@ -32,7 +32,7 @@ const LogicParkingLot = () => {
   const fetchParkingStatus = async () => {
     try {
       const response = await fetch(
-        "http://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1"
+        "https://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1"
       );
       const data = await response.json();
       console.log("전체 주차장 상태 데이터:", data);
@@ -79,7 +79,7 @@ const LogicParkingLot = () => {
       console.log(`현재 ${selectedLot}의 상태:`, currentStatus); // 상태 변경 전 콘솔 로그
 
       const response = await fetch(
-        "http://i10c102.p.ssafy.io:3001/api/p_manager/section_states",
+        "https://i10c102.p.ssafy.io:3001/api/p_manager/section_states",
         {
           method: "PATCH",
           headers: {

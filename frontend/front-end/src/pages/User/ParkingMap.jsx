@@ -8,7 +8,8 @@ const ParkingMap = () => {
   const destinationMapStyle = {
     flex: 1,
     position: "relative",
-    overflow: "hidden", // 맵이 이 div를 넘어서지 않도록 설정
+    // overflow: "hidden", // 맵이 이 div를 넘어서지 않도록 설정
+    
   };
 
   return (
@@ -16,7 +17,7 @@ const ParkingMap = () => {
       {/* <SideNavbar /> */}
       <div style={destinationMapStyle}>
         <ParkingLot />
-        <MapTest />
+        {/* <MapTest /> */}
         <BottomNavbar />
       </div>
     </div>

@@ -34,7 +34,7 @@ const SettingPage = () => {
           <div className="back">
             <button onClick={handleBackClick}></button>
           </div>
-          <div className="menu-times">{currentTime}</div>
+          {/* <div className="menu-times">{currentTime}</div> */}
         </div>
         <div className="mycar">
           <button onClick={handleButtonClick}></button>

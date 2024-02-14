@@ -1,3 +1,5 @@
+// 입차알림 
+
 import React from 'react';
 
 const EnterLotModal = ({isOpen, onClose, children}) => {

@@ -19,13 +19,13 @@ const SearchMap = () => {
     <div className='searchMap'>
       <div className='logo-search'></div>
       <div className='balloonStatus1' onClick={handleClick}>
-        <div className='balloonContent'>주차 가능: 78대</div>
+        <div className='balloonContent'>주차 가능: 45대</div>
       </div>
       <div className='balloonStatus2' onClick={handleClick}>
-        <div className='balloonContent'>주차 가능: 133대</div>
+        <div className='balloonContent'>주차 가능: 36대</div>
       </div>
       <div className='balloonStatus3' onClick={handleClick}>
-        <div className='balloonContent'>주차 가능: 13대</div>
+        <div className='balloonContent'>주차 가능: 42대</div>
       </div>
 
       {/* 안내 메시지 */}

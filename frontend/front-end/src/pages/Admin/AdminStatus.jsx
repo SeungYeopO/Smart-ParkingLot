@@ -16,13 +16,14 @@ const AdminStatus = () => {
     flex: 1,
     position: "relative",
     overflow: "hidden",
-    marginLeft: '30px'
+    marginLeft: '30px',
   };
+  
 
 
   const fetchParkingStatus = async () => {
     try {
-      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
+      const response = await fetch("https://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
       const data = await response.json();
       console.log("전체 주차장 상태 데이터:", data);
       setParkingStatus(data);
@@ -109,8 +110,8 @@ const AdminStatus = () => {
       </div>
       <StatusInfoModal isOpen={showModal} onClose={() => setShowModal(false)}>
         <p> 현재 주차된 차량의 대수 / 전체 주차장 자리 수를 확인하실 수 있습니다</p>
-        <p> 현재 주차된 차량 : 빨간색</p>
-        <p> 관리자에 의해 주차 불가구역으로 설정된 자리 : 파란색</p>
+        <p> 현재 주차된 차량 : 검정색</p>
+        <p> 관리자에 의해 주차 불가구역으로 설정된 자리 : 노란색</p>
         <p> 빈 자리 : 초록색 </p>
     
       </StatusInfoModal>
