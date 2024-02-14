@@ -122,8 +122,6 @@ const AdminParkingLot = () => {
       );
 
       if (!response.ok) throw new Error("Response not OK");
-    
-  
 
       // PATCH 요청 성공 후 최신 상태 데이터를 다시 가져옴
       await fetchParkingStatus();

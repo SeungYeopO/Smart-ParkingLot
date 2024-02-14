@@ -11,34 +11,32 @@ const AdminSideNavbar = () => {
 
   // 현재 어떤 카테고리  url에 있는지 얻어와주는 로직
   useEffect(() => {
-    console.log(location)
+    console.log(location);
     switch (location.pathname) {
       case "/admincctv":
-        setActiveMenu("CCTV")
+        setActiveMenu("CCTV");
         break;
       case "/adminstatus":
-        setActiveMenu("Status")
+        setActiveMenu("Status");
         break;
       case "/adminlogic":
-        setActiveMenu("Logic")
+        setActiveMenu("Logic");
         break;
     }
   }, [location]);
 
   const getActiveStyle = (menuName) => ({
-    color : activeMenu === menuName? '#FFD700' : 'white',
-    fontSize : '20px',
-    marginBottom : '15px'
+    color: activeMenu === menuName ? "#FFD700" : "white",
+    fontSize: "20px",
+    marginBottom: "15px",
   });
-
-
 
   // 다크모드 상태 전환 함수
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode); // 상태 전환
-    // 로컬 스토리지에 모드 선택 저장
-    localStorage.setItem("theme", newMode ? "dark" : "light");
+    // 항상 다크 모드로 설정
+    localStorage.setItem("theme", "dark");
 
     if (newMode) {
       document.body.classList.add("dark-mode"); // 다크 모드 활성화
@@ -48,8 +46,6 @@ const AdminSideNavbar = () => {
       document.body.classList.add("light-mode"); // 라이트 모드 활성화
     }
   };
-
- 
 
   // 컴포넌트가 마운트될 때 한 번 실행하여 로컬 스토리지에 저장된 모드를 적용
   useEffect(() => {
@@ -110,16 +106,32 @@ const AdminSideNavbar = () => {
           </p>
         </a>
         <div className="navbar-nav">
-          <a className="nav-item nav-link active" style={getActiveStyle('CCTV')} href="/admincctv">CCTV</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Status')} href="/adminstatus">주차 관리 및 현황</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Logic')} href="/adminlogic">
-           프리셋
+          <a
+            className="nav-item nav-link active"
+            style={getActiveStyle("CCTV")}
+            href="/admincctv"
+          >
+            CCTV
+          </a>
+          <a
+            className="nav-item nav-link"
+            style={getActiveStyle("Status")}
+            href="/adminstatus"
+          >
+            주차 관리 및 현황
+          </a>
+          <a
+            className="nav-item nav-link"
+            style={getActiveStyle("Logic")}
+            href="/adminlogic"
+          >
+            프리셋
           </a>
         </div>
       </div>
 
       {/* 하단 설정 버튼 대신 다크모드 토글 버튼 */}
-      <div className="navbar-nav" style={{ padding: "10px" }}>
+      <div className="navbar-nav" style={{ padding: "10px", display: "none" }}>
         <div style={getButtonStyle()} onClick={toggleDarkMode}>
           <div style={getCircleStyle()}></div>
         </div>
