@@ -5,6 +5,7 @@ const Home = () => {
   // 다크모드 상태 관리
   const savedMode = localStorage.getItem("theme");
   const [darkMode, setDarkMode] = useState(savedMode === "dark");
+  const [isHovered, setIsHovered] = useState(false);
 
   // 다크모드 상태 전환 함수
   const toggleDarkMode = () => {
@@ -35,32 +36,35 @@ const Home = () => {
     }
   }, [savedMode]);
 
+  const hoverStyle = {
+    backgroundColor: "#4a4a4a",
+    opacity: 0.8
+  };
+
   // 토글 버튼 스타일
   const getButtonStyle = () => ({
     cursor: "pointer",
-    width: "70px",
-    height: "35px",
-    borderRadius: "50px",
-    marginTop: "300px",
+    width: "95px", // 버튼의 너비
+    height: "95px", // 버튼의 높이
+    marginTop: "330px",
+    marginRight: "1px",
     position: "relative",
-    backgroundColor: `${darkMode ? "#373636" : "#e2e2e2"}`,
-    transition: "background-color 0.3s",
-    // display: "none"
+    backgroundColor: `${darkMode ? "#575659" : "#e2e2e2"}`,
+    transition: "background-color 0.3s, transform 0.3s, box-shadow 0.3s", // 트랜지션 추가
+    backgroundImage: `url(${
+      darkMode ? "../assets/moon.png" : "../assets/sun.png"
+    })`,
+    backgroundPosition: "center",
+    backgroundRepeat: "no-repeat",
+    backgroundSize: "40px 40px",
+    ...(isHovered ? hoverStyle : {}), // 마우스 호버 상태일 때만 hoverStyle을 적용
   });
 
-  // 토글 버튼 내부 서클 스타일
-  const getCircleStyle = () => ({
-    position: "absolute",
-    top: "3.3px",
-    left: darkMode ? "37px" : "2.5px", // 위치 조정
-    width: "30px",
-    height: "30px",
-    borderRadius: "50%",
-    transition: "left 0.3s",
-    // backgroundImage: `url(${darkMode ? '/assets/night.png' : '/assets/light.png'})`,
-    backgroundSize: "cover", // 이미지가 서클을 꽉 채우도록
-    backgroundColor: `${darkMode ? "#e2e2e2" : "#373636"}`,
-  });
+  // 마우스 호버 이벤트 핸들러
+  const handleMouseEnter = () => setIsHovered(true);
+  const handleMouseLeave = () => setIsHovered(false);
+
+  // 이미지가 버튼의 중심에 오도록 backgroundImage와 관련된 스타일 속성을 추가했습니다.
 
   const navigate = useNavigate();
   const [currentTime, setCurrentTime] = useState(new Date()); // 현재 시간 상태
@@ -92,8 +96,13 @@ const Home = () => {
         ></button>
         {/* 하단 설정 버튼 대신 다크모드 토글 버튼 */}
         <div className="navbar-nav" style={{ padding: "10px" }}>
-          <div style={getButtonStyle()} onClick={toggleDarkMode}>
-            <div style={getCircleStyle()}></div>
+          <div
+            style={getButtonStyle()}
+            onClick={toggleDarkMode}
+            onMouseEnter={handleMouseEnter}
+            onMouseLeave={handleMouseLeave}
+          >
+            {/* <div style={getCircleStyle()}></div> */}
           </div>
         </div>
         <button className="option-button" onClick={goToSettingsPage}></button>

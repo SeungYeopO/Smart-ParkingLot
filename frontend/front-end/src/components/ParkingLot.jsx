@@ -10,7 +10,7 @@ const ParkingLot = () => {
     const fetchData = async () => {
       try {
         const response = await fetch(
-          "http://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
+          "https://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
         );
         const nowPosition = await response.json();
         setNowPosition(nowPosition);
@@ -159,7 +159,7 @@ const ParkingLot = () => {
               color: "#66e166", // 글자색 설정
             }}
           >
-            <p>{pos.lotnum}</p>
+            {/* <p>{pos.lotnum}</p> */}
           </div>
         ))}
         {/* 원활할때와 혼잡할떄 다른 모달 띄우는 부분 */}
