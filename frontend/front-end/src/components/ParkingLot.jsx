@@ -182,7 +182,7 @@ const ParkingLot = () => {
                 marginBottom: "10px",
                 marginRight: "15px",
               }}
-              src="/assets/congestion.png"
+              src="/assets/angry_emozi.png"
               alt="혼잡"
             />
             <div style={{ display: "inline-block" }}>
