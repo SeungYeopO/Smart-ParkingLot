@@ -4,10 +4,10 @@ import SideNavbar from "../../components/SideNavbar";
 import BottomNavbar from "../../components/BottomNavbar";
 
 const DestinationMap = () => {
-  const stepSize = 40; // 한 칸당 이동 거리 (px 단위)
+  const stepSize = 30; // 한 칸당 이동 거리 (px 단위)
   const [arrowPosition, setArrowPosition] = useState({
     top: 600,
-    left: 650,
+    left: 680,
     rotate: 0,
   });
   const [mapScale, setMapScale] = useState(1); // 맵 확대를 위한 상태
@@ -93,7 +93,7 @@ const DestinationMap = () => {
       <div className="destination-map" style={destinationMapStyle}>
         <div className="map-container" style={mapContainerStyle}>
           <img
-            src="./assets/desttest.png"
+            src="./assets/desttest.jpg"
             // src="./assets/destination.png"
             alt="Destination Map"
             style={imgStyle}
