@@ -111,7 +111,7 @@ const AdminSideNavbar = () => {
         </a>
         <div className="navbar-nav">
           <a className="nav-item nav-link active" style={getActiveStyle('CCTV')} href="/admincctv">CCTV</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Status')} href="/adminstatus">주차 관리 및 현황</a>
+          <a className="nav-item nav-link" style={getActiveStyle('Status')} href="/adminstatus">주차 현황 및 관리</a>
           <a className="nav-item nav-link" style={getActiveStyle('Logic')} href="/adminlogic">
            프리셋
           </a>
