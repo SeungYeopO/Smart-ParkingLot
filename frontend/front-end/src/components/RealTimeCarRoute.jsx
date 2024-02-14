@@ -1,11 +1,28 @@
-// RealTimeCarRoute.js
-import React from 'react';
+import React, { useEffect, useState } from 'react'; 
 
 const RealTimeCarRoute = ({ currentPosition }) => {
-  if (!currentPosition) return null;
+  const [rotation, setRotation] = useState(''); 
+
+  useEffect(() => {
+    if (!currentPosition) return; 
+
+    const { pos_x, pos_y } = currentPosition;
+    const ratio = 1.3;
+
+    // 회전 각도 설정 하기 useEffect 안에 넣어서 쭉 유지되게 만들어야됨
+    if (pos_x === '490' && pos_y === '150') {
+      setRotation('rotate(-90deg)');
+    } else if (pos_x === '328' && pos_y === '150') {
+      setRotation('rotate(-180deg)'); 
+    }
+  }, [currentPosition]); 
+
+  if (!currentPosition) return null; 
 
   const { pos_x, pos_y } = currentPosition;
-  const ratio = 1.3; // MapTest 컴포넌트에서 사용한 비율과 동일하게 설정
+  const ratio = 1.3; 
+
+  const carImage = '/assets/arrow.png';
 
   return (
     <div
@@ -13,12 +30,14 @@ const RealTimeCarRoute = ({ currentPosition }) => {
       style={{
         position: 'absolute',
         left: `${pos_x * ratio - 20}px`,
-        top: `${pos_y * ratio  - 20}px`,
+        top: `${pos_y * ratio - 20}px`,
         width: '40px',
         height: '40px',
-        borderRadius: '100%',
-        backgroundColor: 'blue',
-        transition: 'left 2s, top 1s' // 위치 변경 시 부드러운 이동을 위한 transition 설정
+        backgroundImage: `url(${carImage})`,
+        backgroundSize: 'cover',
+        transform: rotation,
+        transition: 'left 2s, top 1s, transform 2s 0.5s', // transform에도 transition 걸 수 있음 
+    
       }}
     ></div>
   );

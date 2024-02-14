@@ -29,7 +29,7 @@ const AdminLogic = () => {
 
   useEffect(() => {
     const fetchBasePresets = async () => {
-      const apiUrl = `http://i10c102.p.ssafy.io:3001/api/p_manager/lot_base_presets`;
+      const apiUrl = `https://i10c102.p.ssafy.io:3001/api/p_manager/lot_base_presets`;
 
       try {
         const response = await fetch(apiUrl);

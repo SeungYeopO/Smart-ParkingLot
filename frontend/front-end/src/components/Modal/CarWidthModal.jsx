@@ -2,6 +2,7 @@ import React from 'react';
 // 우리 주차장의 칸 너비가 넓은 편이다 좁은 편이다를 나타내는 프리셋
 // 좁다 -> suv 같은 큰 차는 경차 옆으로 우선 배치해준다는걸 알려주는 모달
 
+
 const CarWidthModal = ({ isOpen, onClose, children }) => {
   if (!isOpen) return null;
 

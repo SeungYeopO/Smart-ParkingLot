@@ -22,7 +22,7 @@ const AdminStatus = () => {
 
   const fetchParkingStatus = async () => {
     try {
-      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
+      const response = await fetch("https://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
       const data = await response.json();
       console.log("전체 주차장 상태 데이터:", data);
       setParkingStatus(data);

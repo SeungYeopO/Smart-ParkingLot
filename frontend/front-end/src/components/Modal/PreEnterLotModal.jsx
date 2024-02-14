@@ -1,8 +1,6 @@
-// 입차알림 
-
 import React from 'react';
 
-const EnterLotModal = ({isOpen, onClose, children}) => {
+const PreEnterLotModal = (isOpen, children, onClose ) => {
     if (!isOpen) return null;
 
   return (
@@ -14,4 +12,5 @@ const EnterLotModal = ({isOpen, onClose, children}) => {
   );
 };
 
-export default EnterLotModal;
+
+export default PreEnterLotModal;

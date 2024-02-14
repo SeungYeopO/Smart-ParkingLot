@@ -28,24 +28,41 @@ const MapTest = () => {
   // Canvas에 경로를 그리는 함수
   const drawPath = () => {
     const canvas = document.getElementById("mapCanvas");
-    console.log(canvas)
     if (canvas && nowPosition.length > 0) {
-      console.log('조건문안에 들어옴')
-      console.log(nowPosition)
       const ctx = canvas.getContext("2d");
       ctx.clearRect(0, 0, canvas.width, canvas.height); // 이전 경로를 지웁니다
+  
+      // 전체 경로 그리기
       ctx.beginPath();
-      ctx.moveTo(nowPosition[0].pos_x * ratio, nowPosition[0].pos_y * ratio); // 시작점 설정
-
+      ctx.moveTo(nowPosition[0].pos_x * ratio, nowPosition[0].pos_y * ratio);
       nowPosition.forEach((position) => {
-        ctx.lineTo(position.pos_x * ratio, position.pos_y * ratio); // 각 위치로 선 그리기
+        ctx.lineTo(position.pos_x * ratio, position.pos_y * ratio);
       });
-
-      ctx.lineWidth = 10; // 선의 너비 설정
-      ctx.strokeStyle = "red"; // 선의 색상 설정
-      ctx.stroke(); // 선 그리기
+      ctx.lineWidth = 7;
+      ctx.strokeStyle = "red";
+      ctx.stroke();
+  
+      // 마지막 위치부터 주차 공간까지 점선 그리기
+      const lastPos = nowPosition[nowPosition.length - 1];
+      console.log(lastPos)     //328
+      
+      ctx.setLineDash([4, 10]); // 점선 패턴 설정
+      ctx.beginPath();
+      ctx.moveTo(lastPos.pos_x * ratio, lastPos.pos_y * ratio);
+      console.log(lastPos.pos_x)
+      
+      // 주차 공간까지의 점선 경로를 계산하여 그리기
+      console.log(ratio)
+      ctx.lineTo((Number(lastPos.pos_x) + 50) * ratio, lastPos.pos_y * ratio);
+      ctx.strokeStyle = "yellow"; // 점선 색상
+      ctx.stroke();
+  
+      // 점선 설정을 초기화
+      ctx.setLineDash([]);
     }
   };
+  
+  
 
   // nowPosition 상태가 업데이트될 때마다 drawPath 함수를 호출
   useEffect(() => {
