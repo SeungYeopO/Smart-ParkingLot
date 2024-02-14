@@ -10,8 +10,8 @@ const SideNavbar = () => {
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode); // 상태 전환
-    // 로컬 스토리지에 모드 선택 저장
-    localStorage.setItem("theme", newMode ? "dark" : "light");
+    // 항상 다크 모드로 설정
+    localStorage.setItem("theme", "dark");
 
     if (newMode) {
       document.body.classList.add("dark-mode"); // 다크 모드 활성화
