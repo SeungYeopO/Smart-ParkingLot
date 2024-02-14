@@ -231,6 +231,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   WHERE ec.user_id = ?;
   `;
   const data1 = await pool.query(query1, [user_id]);
+  const start = data1[0][0].point_num;
   const query2 = `
   SELECT entry_exit, is_wide
   FROM lot_personal_presets
