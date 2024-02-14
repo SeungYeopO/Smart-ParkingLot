@@ -12,7 +12,7 @@ const RealTimeCarRoute = ({ currentPosition }) => {
     // 회전 각도 설정 하기 useEffect 안에 넣어서 쭉 유지되게 만들어야됨
     if (pos_x === '490' && pos_y === '150') {
       setRotation('rotate(-90deg)');
-    } else if (pos_x === '328' && pos_y === '150') {
+    } else if (pos_x === '327' && pos_y === '150') {
       setRotation('rotate(-180deg)'); 
     }
   }, [currentPosition]); 

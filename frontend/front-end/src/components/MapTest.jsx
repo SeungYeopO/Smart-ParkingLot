@@ -79,7 +79,7 @@ const MapTest = () => {
  return (
   <div className="route-canvas">
     <canvas id="mapCanvas" width="800" height="600"></canvas>
-    <RealTimeCarRoute currentPosition={nowPosition[1]} />
+    <RealTimeCarRoute currentPosition={nowPosition[0]} />
     <EndRouteInfoModal isOpen={isModalOpen}> {/* isOpen prop 전달 */}
       <p style={{fontSize : 'x-large'}}>주차 안내를 종료합니다.</p>
     </EndRouteInfoModal>
