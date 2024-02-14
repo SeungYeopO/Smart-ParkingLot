@@ -85,7 +85,7 @@ const AdminParkingLot = () => {
     const newStatus = parkingStatus[selectedLot].is_managed  === 1 ? 0 : 1;
   
     try {
-      const response = await fetch("http://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
+      const response = await fetch("https://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
         method: 'PATCH',
         headers: {
           'Content-Type': 'application/json',
