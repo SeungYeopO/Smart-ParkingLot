@@ -106,12 +106,6 @@ const AdminSideNavbar = () => {
           </p>
         </a>
         <div className="navbar-nav">
-
-          <a className="nav-item nav-link active" style={getActiveStyle('CCTV')} href="/admincctv">CCTV</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Status')} href="/adminstatus">주차 현황 및 관리</a>
-          <a className="nav-item nav-link" style={getActiveStyle('Logic')} href="/adminlogic">
-           프리셋 </a>
-
           <a
             className="nav-item nav-link active"
             style={getActiveStyle("CCTV")}
@@ -131,14 +125,13 @@ const AdminSideNavbar = () => {
             style={getActiveStyle("Logic")}
             href="/adminlogic"
           >
-            프리셋
-
+            프리셋{" "}
           </a>
         </div>
       </div>
 
       {/* 하단 설정 버튼 대신 다크모드 토글 버튼 */}
-      <div className="navbar-nav" style={{ padding: "10px", display: "none" }}>
+      <div className="navbar-nav" style={{ padding: "10px" }}>
         <div style={getButtonStyle()} onClick={toggleDarkMode}>
           <div style={getCircleStyle()}></div>
         </div>
