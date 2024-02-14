@@ -11,8 +11,8 @@ const Home = () => {
   const toggleDarkMode = () => {
     const newMode = !darkMode;
     setDarkMode(newMode); // 상태 전환
-    // 로컬 스토리지에 모드 선택 저장
-    localStorage.setItem("theme", newMode ? "dark" : "light");
+    // 항상 다크 모드로 설정
+    localStorage.setItem("theme", "dark");
 
     if (newMode) {
       document.body.classList.add("dark-mode"); // 다크 모드 활성화
@@ -95,16 +95,7 @@ const Home = () => {
           onClick={goToDestinationPage}
         ></button>
         {/* 하단 설정 버튼 대신 다크모드 토글 버튼 */}
-        <div className="navbar-nav" style={{ padding: "10px" }}>
-          <div
-            style={getButtonStyle()}
-            onClick={toggleDarkMode}
-            onMouseEnter={handleMouseEnter}
-            onMouseLeave={handleMouseLeave}
-          >
-            {/* <div style={getCircleStyle()}></div> */}
-          </div>
-        </div>
+
         <button className="option-button" onClick={goToSettingsPage}></button>
         <div className="home-time">
           <div className="time-display">{currentTime.toLocaleTimeString()}</div>{" "}
