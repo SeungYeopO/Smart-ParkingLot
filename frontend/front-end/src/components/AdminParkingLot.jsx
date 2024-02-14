@@ -4,8 +4,6 @@ import MapTest from "./MapTest";
 
 import PossiblePlaceModal from "./Modal/PossiblePlaceModal"; // 모달 컴포넌트 경로 확인 필요
 
-
-
 const AdminParkingLot = () => {
   const [nowPosition, setNowPosition] = useState([]);
   const [modifiedPositions, setModifiedPositions] = useState([]);
@@ -17,15 +15,16 @@ const AdminParkingLot = () => {
   const [parkingLotColors, setParkingLotColors] = useState({});
   const [parkedCarCount, setParkedCarCount] = useState(0);
 
-  // 주차장 맵 그리는 로직 
+  // 주차장 맵 그리는 로직
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1");
+        const response = await fetch(
+          "https://i10c102.p.ssafy.io:3001/api/user/parking_sections/1/-1"
+        );
         const data = await response.json();
         setNowPosition(data);
         console.log("데이터 수신 중:", data);
-
       } catch (error) {
         console.error("데이터를 가져오는 중 오류 발생:", error);
       }
@@ -34,20 +33,29 @@ const AdminParkingLot = () => {
     fetchData();
   }, []);
 
-
   // 현재 주차장 상태 알 수 있는 로직
   const fetchParkingStatus = async () => {
     try {
-      const response = await fetch("https://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1");
+      const response = await fetch(
+        "https://i10c102.p.ssafy.io:3001/api/p_manager/section_stats/1/-1"
+      );
       const data = await response.json();
       console.log("전체 주차장 상태 데이터:", data);
 
       // data_id와 클릭된 lotnum을 기반으로 상태 업데이트
       // 누적값, 현재값이 변수
-      setParkingStatus(data.reduce((acc, curr) => ({
-        ...acc,
-        [curr.data_id]: {is_managed : curr.is_managed, is_filled : curr.is_filled}
-      }), {}));
+      setParkingStatus(
+        data.reduce(
+          (acc, curr) => ({
+            ...acc,
+            [curr.data_id]: {
+              is_managed: curr.is_managed,
+              is_filled: curr.is_filled,
+            },
+          }),
+          {}
+        )
+      );
     } catch (error) {
       console.error("주차 상태를 가져오는 중 오류 발생:", error);
     }
@@ -57,20 +65,35 @@ const AdminParkingLot = () => {
     fetchParkingStatus(); // 컴포넌트 마운트 시 주차장 상태 데이터를 가져옴 => 훅
   }, []);
 
-  // 클릭했을때 이벤트 내용 
+  // 클릭했을때 이벤트 내용
   const clickLot = async (lotnum) => {
     console.log(`Lot ${lotnum} clicked.`);
     let message;
-    let style = {display: 'inline-block', marginLeft: '15px', fontSize: 'large', justifyContent : 'center'};
+    let style = {
+      display: "inline-block",
+      marginLeft: "15px",
+      fontSize: "large",
+      justifyContent: "center",
+    };
 
-    if (parkingStatus[lotnum].is_filled === 0 && parkingStatus[lotnum].is_managed === 0) {
-     message = `${lotnum}번 자리를 주차 불가 자리로 설정하시겠습니까?`
-  
-    } else if (parkingStatus[lotnum].is_filled === 0 && parkingStatus[lotnum].is_managed === 1 ) {
-      message = `${lotnum}번 자리를 주차 가능 자리로 설정하시겠습니까?`
+    if (
+      parkingStatus[lotnum].is_filled === 0 &&
+      parkingStatus[lotnum].is_managed === 0
+    ) {
+      message = `${lotnum}번 자리를 주차 불가 자리로 설정하시겠습니까?`;
+    } else if (
+      parkingStatus[lotnum].is_filled === 0 &&
+      parkingStatus[lotnum].is_managed === 1
+    ) {
+      message = `${lotnum}번 자리를 주차 가능 자리로 설정하시겠습니까?`;
     } else {
-      style = {display: 'inline-block', marginLeft: '15px', fontSize: 'medium', justifyContent : 'center'}
-      message = `${lotnum}번 자리는 현재 주차 되어있습니다. 다음에 시도하세요`
+      style = {
+        display: "inline-block",
+        marginLeft: "15px",
+        fontSize: "medium",
+        justifyContent: "center",
+      };
+      message = `${lotnum}번 자리는 현재 주차 되어있습니다. 다음에 시도하세요`;
     }
 
     setModalMessage(message);
@@ -78,13 +101,29 @@ const AdminParkingLot = () => {
     setSelectedLot(lotnum); // 해당 주차칸 id가 선택된 상태 알 수 있게 함
     setIsModalOpen(true);
   };
-  
 
   const handleConfirm = async () => {
     // 현재 상태에 따라 새 상태 결정
-    const newStatus = parkingStatus[selectedLot].is_managed  === 1 ? 0 : 1;
-  
+    const newStatus = parkingStatus[selectedLot].is_managed === 1 ? 0 : 1;
+
     try {
+      const response = await fetch(
+        "https://i10c102.p.ssafy.io:3001/api/p_manager/section_states",
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            data_id: selectedLot,
+            is_managed: newStatus,
+          }),
+        }
+      );
+
+      if (!response.ok) throw new Error("Response not OK");
+
+
       const response = await fetch("https://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
         method: 'PATCH',
         headers: {
@@ -99,8 +138,9 @@ const AdminParkingLot = () => {
       if (!response.ok) throw new Error('Response not OK');
       
   
+
       // PATCH 요청 성공 후 최신 상태 데이터를 다시 가져옴
-      await fetchParkingStatus(); 
+      await fetchParkingStatus();
     } catch (error) {
       console.error("주차 자리 상태 변경 중 오류 발생:", error);
     } finally {
@@ -111,30 +151,32 @@ const AdminParkingLot = () => {
   useEffect(() => {
     const newColors = {};
 
-    Object.keys(parkingStatus).forEach(lotnum => {
+    Object.keys(parkingStatus).forEach((lotnum) => {
       const status = parkingStatus[lotnum];
-      if(!status) {
-        newColors[lotnum] = 'defaultColor';
+      if (!status) {
+        newColors[lotnum] = "defaultColor";
       } else {
-        if (status.is_managed === 1 && status.is_filled === 0){
-          newColors[lotnum] = 'rgb(0, 0, 255)';   // 관리자가 막고, 차있지 않은 자리 색표시 => 파란색
-        } else if (status.is_managed === 0 && status.is_filled === 0){
-          newColors[lotnum] = 'rgb(0, 255, 0)'   // 빈자리  => 초록색
+        if (status.is_managed === 1 && status.is_filled === 0) {
+          newColors[lotnum] = "yellow"; // 관리자가 막고, 차있지 않은 자리 색표시 => 파란색
+        } else if (status.is_managed === 0 && status.is_filled === 0) {
+          newColors[lotnum] = "#66e166"; // 빈자리  => 초록색
         } else {
-          newColors[lotnum] = 'rgb(255, 0, 0)'   // 주차 되어있는 자리  => 빨간색 11 01 
+          newColors[lotnum] = "rgb(2, 24, 45)"; // 주차 되어있는 자리  => 빨간색 11 01
         }
-        
+        // parkingStatus[space.id] === 1 ? "rgb(2, 24, 45)" : "#66e166",
       }
     });
     setParkingLotColors(newColors);
   }, [parkingStatus]);
 
-
   useEffect(() => {
-    const count = Object.values(parkingStatus).reduce((acc, {is_filled}) => acc + (is_filled === 1 ? 1 : 0), 0);
+    const count = Object.values(parkingStatus).reduce(
+      (acc, { is_filled }) => acc + (is_filled === 1 ? 1 : 0),
+      0
+    );
     setParkedCarCount(count);
-  },parkingStatus)
-  
+  }, parkingStatus);
+
   useEffect(() => {
     const updateModifiedPositions = async () => {
       const modified = await coordinatePos(nowPosition);
@@ -155,7 +197,7 @@ const AdminParkingLot = () => {
       const height = 21.5;
       const s_width = 33.1;
       const s_height = 18.9;
-      const ratio = 1;
+      const ratio = 1.2;
       const lotnum = data.data_id;
       var rect_width = 0;
       var rect_height = 0;
@@ -242,7 +284,8 @@ const AdminParkingLot = () => {
       <div className="parkinglots-dot">
         {/* <MapTest /> */}
         {modifiedPositions.map((pos, index) => (
-          <div onClick={() => clickLot(pos.lotnum)}
+          <div
+            onClick={() => clickLot(pos.lotnum)}
             key={index}
             className="position-dot"
             style={{
@@ -256,9 +299,11 @@ const AdminParkingLot = () => {
               border: "2px solid rgba(55, 158, 159, 0.7)",
               borderRadius: "5px",
               boxShadow: "3px 3px 40px 2px rgba(95, 102, 238, 0.5)",
-              color: "#66e166", // 글자색 설정
-              fontSize: "12px",
-              backgroundColor: parkingLotColors[pos.lotnum] || 'defaultColor'
+              color: "#ececec",
+              textShadow: "1px 1px 2px rgba(0,0,0,0.5)",
+              fontFamily: "BMJUA",
+              fontSize: "13px",
+              backgroundColor: parkingLotColors[pos.lotnum] || "defaultColor",
             }}
           >
             <p>{pos.lotnum}</p>
@@ -266,15 +311,15 @@ const AdminParkingLot = () => {
         ))}
       </div>
       <PossiblePlaceModal isOpen={isModalOpen} onConfirm={handleConfirm}>
-    <img src="/assets/notification.png" alt="알림 이모지" />
-    <p style={customStyle}>{modalMessage}</p>
-    <div style={{textAlign: 'center'}}>
-    <button style={{marginRight: '30px'}} onClick={handleConfirm}>Yes</button>
-    <button onClick={() => setIsModalOpen(false)}>No</button>
-  </div>
-</PossiblePlaceModal>
-
-
+        <img src="/assets/notification.png" alt="알림 이모지" />
+        <p style={customStyle}>{modalMessage}</p>
+        <div style={{ textAlign: "center" }}>
+          <button style={{ marginRight: "30px" }} onClick={handleConfirm}>
+            Yes
+          </button>
+          <button onClick={() => setIsModalOpen(false)}>No</button>
+        </div>
+      </PossiblePlaceModal>
     </div>
   );
 };
