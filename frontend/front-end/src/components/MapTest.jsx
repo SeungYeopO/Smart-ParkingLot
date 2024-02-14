@@ -5,7 +5,7 @@ import EndRouteInfoModal from './Modal/EndRouteInfoModal';
 
 const MapTest = () => {
   const [nowPosition, setNowPosition] = useState([]);
-  const updateInterval = 1000; // 업데이트 간격 설정
+  const updateInterval = 2000; // 업데이트 간격 설정
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const ratio = 1.3;
