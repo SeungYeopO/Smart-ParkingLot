@@ -123,22 +123,6 @@ const AdminParkingLot = () => {
 
       if (!response.ok) throw new Error("Response not OK");
 
-
-      const response = await fetch("https://i10c102.p.ssafy.io:3001/api/p_manager/section_states", {
-        method: 'PATCH',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          data_id: selectedLot,
-          is_managed: newStatus,
-        }),
-      });
-  
-      if (!response.ok) throw new Error('Response not OK');
-      
-  
-
       // PATCH 요청 성공 후 최신 상태 데이터를 다시 가져옴
       await fetchParkingStatus();
     } catch (error) {
