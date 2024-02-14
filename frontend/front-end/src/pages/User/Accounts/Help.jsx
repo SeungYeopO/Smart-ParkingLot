@@ -1,42 +1,38 @@
 import React, { useState } from "react";
-import SideNavbar from "../../../components/SideNavbar";
+import { useNavigate } from "react-router-dom";
 import BottomNavbar from "../../../components/BottomNavbar";
+import SideNavbar from "../../../components/SideNavbar";
 
 const Help = () => {
-  // 로그인한 사용자 정보를 상태로 설정 => 데이터 받아오면 user.으로 전부 초기화
   const [userInfo, setUserInfo] = useState({
-    userId: "user123", // 실제 애플리케이션에서는 로그인한 사용자 정보를 여기에 설정
-    carNumber: "18가 2967", // 사용자의 차량 번호
-    inquiry: "", // 사용자의 문의 내용
+    userId: "user123",
+    carNumber: "18가 2967",
+    inquiry: "", // 문의 내용 추가
   });
+
+  const navigate = useNavigate(); // useNavigate 훅 사용
 
   const handleSave = () => {
     console.log("Saved", userInfo);
-    // 여기에 서버로 데이터를 보내는 로직을 구현합니다.
+    // 여기에서 저장 로직을 처리하고, 처리 완료 후 /parkingmap으로 이동합니다.
+    navigate("/parkingmap");
   };
 
-  // 문의 내용만 업데이트 하는 함수
   const updateInquiry = (value) => {
     setUserInfo({ ...userInfo, inquiry: value });
   };
 
   return (
-    <div style={{ display: "flex" }}>
-      <SideNavbar />
-      <div className="line">
-        <p>Help</p>
+    <div style={{ display: "flex", flexDirection: "column", alignItems: "center" }}>
+      <div style={{ display: "none" }}>
+        <SideNavbar />
       </div>
-      <div className="myprofile" style={{ marginLeft: "20px" }}>
-        <h2 style={{ marginBottom: "50px" }}>Ask for help</h2>
-        <div className="form-border">
+      <div style={{ margin: "20px" }}>
+        <h2 style={{ marginBottom: "50px", textAlign: "center" }}>Ask for help</h2>
+        <div className="form-border1">
           <div className="form-group">
             <label htmlFor="userId">UserID</label>
-            <input
-              type="text"
-              id="userId"
-              value={userInfo.userId}
-              disabled // 사용자 ID는 비활성화
-            />
+            <input type="text" id="userId" value={userInfo.userId} disabled />
           </div>
           <div className="form-group">
             <label htmlFor="carNumber">차량번호</label>
@@ -45,34 +41,32 @@ const Help = () => {
               id="carNumber"
               value={userInfo.carNumber}
               disabled
-              style={{
-                color: userInfo.carNumber === "18가 2967" ? "gray" : "black",
-              }}
+              style={{ color:  "black" }}
             />
           </div>
           <div className="form-group">
             <label htmlFor="inquiry">문의 내용</label>
-            <textarea
+            {/* 셀렉트 박스(드롭다운 메뉴) 추가 */}
+            <select
               id="inquiry"
               value={userInfo.inquiry}
               onChange={(e) => updateInquiry(e.target.value)}
-              placeholder="문의하실 내용을 입력해주세요"
-              style={{
-                width: "700px", // 너비를 500픽셀로 설정합니다.
-                minHeight: "200px",
-                /* word-break: keep-all 은 길어서 줄을 바꿀 때 단어를 쪼개서 바꾸지 말라는 기능 */
-                wordBreak: "keep-all",
-                /* overflow-wrap: break-word 은 길어서 라인을 넘어 갈 경우 넘기지 말고 줄 바꾸라는 뜻 */
-                overflowWrap: "break-word",
-                color: userInfo.inquiry ? "black" : "gray",
-              }}
-            />
+              style={{ width: "700px", marginBottom: "10px", fontSize: "20px" }}
+            >
+              <option value="">문의 내용을 선택하세요</option>
+              <option value="주차장에 문제가 있어요 관리자 호출 부탁드립니다.">주차장에 문제가 있어요 관리자 호출 부탁드립니다.</option>
+              <option value="주차장에 사고가 났어요 조치 바랍니다.">주차장에 사고가 났어요 조치 바랍니다.</option>
+              <option value="안내된 자리에 누가 주차를 해놨어요">안내된 자리에 누가 주차를 해놨어요</option>
+            </select>
           </div>
         </div>
-        <button onClick={handleSave} className="save-button">
-          Send
-        </button>
+        <div style={{ textAlign: "center" }}>
+          <button onClick={handleSave} className="save-button">
+            Send
+          </button>
+        </div>
       </div>
+      <BottomNavbar />
     </div>
   );
 };

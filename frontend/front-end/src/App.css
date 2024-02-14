@@ -51,11 +51,24 @@ body {
 .form-border {
   background-color: var(
     --background-content-color
-  ); /* 컨텐츠 배경색상 변수 사용 */
-  /* border: 1px solid var(--border-color); 테두리 색상 변수 사용 */
+  ); 
   border-radius: 30px; /* 둥근 테두리 */
-  margin-bottom: 20px; /* 여백 */
+  margin-bottom: 20px;
   padding: 20px;
+}
+.form-border1 {
+  background-color: var(
+    --background-content-color
+  ); 
+  border-radius: 30px; /* 둥근 테두리 */
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 800px;
+  height: 400px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
 }
 
 /* 라이트 모드 스타일 */
@@ -74,6 +87,7 @@ body {
 }
 .container {
   width: 1300px;
+  height: 100vh;
 }
 .sign-password {
   font-family: sans-serif;
@@ -249,7 +263,7 @@ body {
   margin: 10px;
   border: 1px solid #ececec;
   border-radius: 20px;
-  width: 1200px;
+  width: 1280px;
   height: 590px;
   box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
 }
@@ -577,7 +591,7 @@ body {
   justify-content: center;
   align-items: center;
   height: 100vh;
-  background-color: #373636;
+  background-color: black;
 }
 
 .search-container form {
@@ -592,7 +606,7 @@ body {
   padding: 10px;
   margin-right: 10px;
   /* margin-left: 70px; */
-  border: 1px solid #000000;
+  /* border: 2px solid #373636; */
   font-size: 24px;
   background-color: #000000;
 }
@@ -621,7 +635,7 @@ body {
 }
 
 .search-container img {
-  width: 800px;
+  width: 1200px;
 }
 
 /* 메뉴 페이지 */
@@ -637,8 +651,8 @@ body {
   background-image: url("../public/assets/menu.png");
   background-size: cover;
   background-position: center;
-  width: 1350px;
-  height: 500px;
+  width: 1300px;
+  height: 100vh;
 }
 .menu-time {
   color: #ececec;
@@ -658,23 +672,23 @@ body {
   background-color: black;
 }
 .back {
-  margin-left: 470px;
+  margin-left: 2200px;
   border: none;
   opacity: 0;
 }
 .back button {
-  width: 300px;
+  width: 100px;
   height: 60px;
 }
 
 .mycar {
-  margin-left: 65px;
-  margin-top: 110px;
+  margin-left: 80px;
+  margin-top: 120px;
 }
 
 .mycar button {
-  width: 70px;
-  height: 70px;
+  width: 80px;
+  height: 80px;
   border: none;
   opacity: 0;
 }
@@ -688,7 +702,7 @@ body {
   background-image: url("../public/assets/destinations.png");
   background-size: cover;
   background-position: center;
-  width: 100vw;
+  width: 1300px;
   height: 100vh;
   display: flex;
   justify-content: center;
@@ -696,12 +710,12 @@ body {
 
 .destination-info button {
   background-color: rgba(55, 54, 54, 0);
-  width: 800px;
-  height: 170px;
+  width: 657px;
+  height: 160px;
   border-radius: 15px;
   border: none;
-  margin-right: 700px;
-  margin-top: 80px;
+  margin-right: 636px;
+  margin-top: 130px;
 }
 
 .destination-info button:hover {
@@ -799,12 +813,17 @@ body {
   color: white;
   padding: 10px 15px;
   border: none;
-  border-radius: 4px;
+  border-radius: 10px;
   font-size: 16px;
   cursor: pointer;
   display: inline-block;
   margin-top: 10px;
   width: 200px;
+  transition: background-color 0.3s ease; /* 호버 효과에 transition 추가 */
+}
+
+.save-button:hover {
+  background-color: #ff8533; /* 호버 시 배경색 변경 */
 }
 /* 다크모드 색상 */
 /* 배경 : #181818
@@ -821,7 +840,7 @@ body {
   font-size: 30px;
   position: fixed;
   bottom: 0;
-  width: 100%;
+  width: 1300px;
   height: 80px;
   box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
 }
@@ -924,8 +943,9 @@ body {
   background-image: url("../public/assets/searchmap.jpeg");
   background-size: cover; /* 이미지가 잘리지 않고 전체적으로 보이도록 조정합니다. */
   background-repeat: no-repeat; /* 이미지를 반복하지 않도록 설정합니다. */
-  height: 690px;
-  width: 1500px;
+  height: 100vh;
+  width: 1300px;
+  color: black;
 }
 
 .logo-search img {
@@ -936,8 +956,8 @@ body {
 .balloonStatus1 {
   position: relative;
   width: 120px;
-  bottom: -480px;
-  left: 620px;
+  bottom: -420px;
+  left: 540px;
   background-color: #ffcc00;
   padding: 10px;
   text-align: center;
@@ -959,9 +979,10 @@ body {
 .balloonStatus2 {
   position: relative;
   width: 120px;
-  bottom: -300px;
-  left: 830px;
-  background-color: #4dff00;
+  bottom: -230px;
+  left: 720px;
+  /* background-color: #4dff00; */
+  background-color: #ff4800;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
@@ -975,7 +996,7 @@ body {
   transform: translateX(-50%);
   border-width: 10px 10px 0;
   border-style: solid;
-  border-color: #4dff00 transparent;
+  border-color: #ff4800 transparent;
   display: block;
   width: 0;
 }
@@ -984,7 +1005,7 @@ body {
   width: 120px;
   top: 50px;
   left: 650px;
-  background-color: #ff4800;
+  background-color: #4dff00;
   padding: 10px;
   text-align: center;
   border-radius: 10px;
@@ -999,7 +1020,7 @@ body {
   transform: translateX(-50%);
   border-width: 10px 10px 0;
   border-style: solid;
-  border-color: #ff4800 transparent;
+  border-color: #4dff00 transparent;
   display: block;
   width: 0;
 }
@@ -1009,20 +1030,17 @@ body {
 }
 
 /* 호버 스타일을 추가합니다. */
-.balloonStatus2:hover,
-.balloonStatus4:hover {
-  background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
+.balloonStatus2:hover {
+  background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 .balloonStatus1:hover {
   background-color: #ffdd00; /* 호버 시 배경색 변경 예시 */
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
-.balloonStatus3:hover,
-.balloonStatus6:hover,
-.balloonStatus7:hover,
-.balloonStatus8:hover {
-  background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
+.balloonStatus3:hover {
+  background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
+  
   cursor: pointer; /* 마우스 커서를 포인터로 변경 */
 }
 
@@ -1035,7 +1053,6 @@ body {
     transform: rotate(360deg) translateX(50px) rotate(-360deg);
   }
 }
-
 
 .balloonStatus1::before {
   content: "+11";
@@ -1096,6 +1113,7 @@ body {
   transform: translate(-50%, -50%);
   z-index: 1000;
   opacity: 0.8;
+  color: black;
 }
 
 .message {
@@ -1106,9 +1124,8 @@ body {
   max-width: 500px;
   text-align: center;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-  
 }
-
+/* help */
 
 
 /* AdminUpNavbar */
@@ -1249,5 +1266,4 @@ body {
   position: absolute;
   top: 0;
   left: 0;
-
 }

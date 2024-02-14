@@ -66,7 +66,7 @@ const DestinationSearch = () => {
       <button
         type="button"
         onClick={handleSpecialInput}
-        style={{ backgroundColor: "#373636", border: "none" }}
+        style={{ backgroundColor: "black", border: "none" }}
       >
         <img src="../assets/Keyborad.png" alt="keyboard" />
       </button>
