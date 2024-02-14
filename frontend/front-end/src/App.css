@@ -940,7 +940,7 @@ body {
 /* 노란색 : #ffcc00 */
 /* 초록색 : #4dff00 */
 .searchMap {
-  background-image: url("../public/assets/searchmap.jpeg");
+  background-image: url("../public/assets/searchmap.jpg");
   background-size: cover; /* 이미지가 잘리지 않고 전체적으로 보이도록 조정합니다. */
   background-repeat: no-repeat; /* 이미지를 반복하지 않도록 설정합니다. */
   height: 100vh;

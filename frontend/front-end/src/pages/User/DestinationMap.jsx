@@ -93,7 +93,7 @@ const DestinationMap = () => {
       <div className="destination-map" style={destinationMapStyle}>
         <div className="map-container" style={mapContainerStyle}>
           <img
-            src="./assets/destination2.jpeg"
+            src="./assets/desttest.png"
             // src="./assets/destination.png"
             alt="Destination Map"
             style={imgStyle}
