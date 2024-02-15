@@ -274,27 +274,45 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   WHERE lfd.lot_id = ?
   AND lfd.floor = -1
   AND ss.is_filled = 0
-  AND ss.is_managed = 0;
+  AND ss.is_managed = 0
+  AND ss.is_reserved = 0;
+`;
+  const query5 = `
+  SELECT ps.data_id, ps.pos_x, ps.pos_y
+  FROM parking_sections ps
+  JOIN section_states ss ON ps.data_id = ss.data_id
+  JOIN lot_floor_data lfd ON ps.data_id = lfd.data_id
+  WHERE lfd.lot_id = ? 
+  AND lfd.floor = -1
+  AND ss.user_id = ?;
 `;
   let min_distance = 2e9;
   let min_pos_x;
   let min_pos_y;
   let min_point_num;
-  const data4 = await pool.query(query4, [lot_id]);
-  data4[0].forEach((element) => {
-    let distance = Math.sqrt(
-      (element.pos_x - entry_exit_x) ** 2 + (element.pos_y - entry_exit_y) ** 2
-    );
-    if (distance < min_distance) {
-      min_distance = distance;
-      min_point_num = element.data_id;
-      min_pos_x = element.pos_x;
-      min_pos_y = element.pos_y;
-    }
-  });
-  const end = min_point_num;
+  let end;
+  const data5 = await pool.query(query5, [lot_id, user_id]);
+  if (data5[0].length === 0) {
+    const data4 = await pool.query(query4, [lot_id]);
+    data4[0].forEach((element) => {
+      let distance = Math.sqrt(
+        (element.pos_x - entry_exit_x) ** 2 +
+          (element.pos_y - entry_exit_y) ** 2
+      );
+      if (distance < min_distance) {
+        min_distance = distance;
+        min_point_num = element.data_id;
+        min_pos_x = element.pos_x;
+        min_pos_y = element.pos_y;
+      }
+    });
+    end = min_point_num;
+  } else {
+    console.log(data5);
+    end = data5[0][0].data_id;
+  }
   const results = [];
-
+  console.log(end);
   exec(
     `cd ./map_data
     ./root_finder ${start} ${end}`,
@@ -344,6 +362,25 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
       });
     }
   );
+});
+
+app.patch("/api/user/reserve", async (req, res) => {
+  const data_id = req.body.data_id;
+  const user_id = req.body.user_id;
+  try {
+    const query = `
+    UPDATE section_state
+    SET is_reserved = 1 user_id = ?
+    WHERE data_id = ?
+    `;
+    const result = await pool.query(query, [user_id, data_id]);
+    return res.json({ result: true });
+  } catch (error) {
+    console.error(error);
+    return res
+      .status(500)
+      .json({ result: false, error: "Internal Server Error" });
+  }
 });
 
 // 도움 요청 및 문의 업로드
