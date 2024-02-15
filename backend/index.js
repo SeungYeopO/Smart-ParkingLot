@@ -313,13 +313,23 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
     SET is_reserved = 1 user_id = ?
     WHERE data_id = ?
     `;
-    await pool.query(query, [user_id, Number(end)]);
+    await pool.query(query, [user_id, end]);
   } else {
-    console.log(data5);
+    //console.log(data5);
     end = data5[0][0].data_id;
+    min_point_num = end;
+    const query = `
+    SELECT pos_x, pos_y
+    FROM parking_sections
+    WHERE data_id = ?
+    `
+    const result = await pool.query(query, [min_point_num]);
+    min_pos_x = result[0][0].pos_x;
+    min_pos_y = result[0][0].pos_y;
+
   }
   const results = [];
-  console.log(end);
+  //console.log(end);
   exec(
     `cd ./map_data
     ./root_finder ${start} ${end}`,
@@ -482,7 +492,7 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   const query = `
-    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed
+    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed, sst.is_reserved
     FROM parking_info.section_states sst
     JOIN parking_info.lot_floor_data lfd ON sst.data_id = lfd.data_id
     WHERE lfd.lot_id = ? AND lfd.floor = ?
