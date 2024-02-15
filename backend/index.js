@@ -310,7 +310,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
 
     const query = `
     UPDATE section_states
-    SET is_reserved = 1 user_id = ?
+    SET is_reserved = 1, user_id = ?
     WHERE data_id = ?
     `;
     await pool.query(query, [user_id, end]);
