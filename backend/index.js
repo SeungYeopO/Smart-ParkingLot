@@ -312,7 +312,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
     SET is_reserved = 1 user_id = ?
     WHERE data_id = ?
     `;
-    await pool.query(query, [user_id, data_id]);
+    await pool.query(query, [user_id, end]);
   } else {
     console.log(data5);
     end = data5[0][0].data_id;
@@ -368,25 +368,6 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
       });
     }
   );
-});
-
-app.patch("/api/user/reserve", async (req, res) => {
-  const data_id = req.body.data_id;
-  const user_id = req.body.user_id;
-  try {
-    const query = `
-    UPDATE section_state
-    SET is_reserved = 1 user_id = ?
-    WHERE data_id = ?
-    `;
-    const result = await pool.query(query, [user_id, data_id]);
-    return res.json({ result: true });
-  } catch (error) {
-    console.error(error);
-    return res
-      .status(500)
-      .json({ result: false, error: "Internal Server Error" });
-  }
 });
 
 // 도움 요청 및 문의 업로드
