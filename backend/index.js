@@ -482,7 +482,7 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   const query = `
-    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed
+    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed, sst.is_reserved
     FROM parking_info.section_states sst
     JOIN parking_info.lot_floor_data lfd ON sst.data_id = lfd.data_id
     WHERE lfd.lot_id = ? AND lfd.floor = ?
