@@ -278,7 +278,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   AND ss.is_reserved = 0;
 `;
   const query5 = `
-  SELECT ps.data_id, ps.pos_x, ps.pos_y
+  SELECT ps.data_id, ps.pos_x, ps.pos_y, ss.is_filled, ss.is_managed
   FROM parking_sections ps
   JOIN section_states ss ON ps.data_id = ss.data_id
   JOIN lot_floor_data lfd ON ps.data_id = lfd.data_id
@@ -292,7 +292,55 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   let min_point_num;
   let end;
   const data5 = await pool.query(query5, [lot_id, user_id]);
-  if (data5[0].length === 0) {
+  // if (data5[0].length === 0 ) {
+  //   const data4 = await pool.query(query4, [lot_id]);
+  //   data4[0].forEach((element) => {
+  //     let distance = Math.sqrt(
+  //       (element.pos_x - entry_exit_x) ** 2 +
+  //         (element.pos_y - entry_exit_y) ** 2
+  //     );
+  //     if (distance < min_distance) {
+  //       min_distance = distance;
+  //       min_point_num = element.data_id;
+  //       min_pos_x = element.pos_x;
+  //       min_pos_y = element.pos_y;
+  //     }
+  //   });
+  //   end = min_point_num;
+
+  //   const query = `
+  //   UPDATE section_states
+  //   SET is_reserved = 1, user_id = ?
+  //   WHERE data_id = ?
+  //   `;
+  //   await pool.query(query, [user_id, end]);
+  // } else {
+  //   //console.log(data5);
+  //   end = data5[0][0].data_id;
+  //   min_point_num = end;
+  //   const query = `
+  //   SELECT pos_x, pos_y
+  //   FROM parking_sections
+  //   WHERE data_id = ?
+  //   `
+  //   const result = await pool.query(query, [min_point_num]);
+  //   min_pos_x = result[0][0].pos_x;
+  //   min_pos_y = result[0][0].pos_y;
+  // }
+  if(data5[0].length !== 0 && data5[0][0].is_filled === 0 && data5[0][0].is_managed === 0){
+    end = data5[0][0].data_id;
+    min_point_num = end;
+    const query = `
+    SELECT pos_x, pos_y
+    FROM parking_sections
+    WHERE data_id = ?
+    `
+    const result = await pool.query(query, [min_point_num]);
+    min_pos_x = result[0][0].pos_x;
+    min_pos_y = result[0][0].pos_y;
+  }
+
+  else {
     const data4 = await pool.query(query4, [lot_id]);
     data4[0].forEach((element) => {
       let distance = Math.sqrt(
@@ -310,23 +358,10 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
 
     const query = `
     UPDATE section_states
-    SET is_reserved = 1 user_id = ?
+    SET is_reserved = 1, user_id = ?
     WHERE data_id = ?
     `;
     await pool.query(query, [user_id, end]);
-  } else {
-    //console.log(data5);
-    end = data5[0][0].data_id;
-    min_point_num = end;
-    const query = `
-    SELECT pos_x, pos_y
-    FROM parking_sections
-    WHERE data_id = ?
-    `
-    const result = await pool.query(query, [min_point_num]);
-    min_pos_x = result[0][0].pos_x;
-    min_pos_y = result[0][0].pos_y;
-
   }
   const results = [];
   //console.log(end);
