@@ -7,12 +7,13 @@ import LogicParkingLot from "../../components/LogicParkingLot";
 
 const AdminLogic = () => {
   const [floorId, setFloorId] = useState("B1");
-  const [selectedType, setSelectedType] = useState("myParkingSpace");
+  const [selectedType, setSelectedType] = useState("마트");
   const [congestion, setCongestion] = useState(0);
   const [width, setWidth] = useState(0);
   const [entrance, setEntrance] = useState(0);
   const [penalty, setPenalty] = useState(0);
   const [presets, setPresets] = useState([]);
+  const [selectedVideoPath, setSelectedVideoPath] = useState("");
   const [presetMessages, setPresetMessages] = useState({
     congestion: "",
     width: "",
@@ -26,6 +27,33 @@ const AdminLogic = () => {
     penalty: false,
   });
 
+  useEffect(() => {
+    let videoPath = "";
+    switch (selectedType) {
+      case "마트":
+        videoPath = "../assets/A.mp4";
+        break;
+      case "아파트":
+        videoPath = "../assets/B.mp4";
+        break;
+      case "사업장":
+        videoPath = "../assets/C.mp4";
+        break;
+      case "myParkingSpace":
+        if (congestion === 50 && entrance === 1) {
+          videoPath = "../assets/A_my.mp4";
+        } else if (congestion === 80 && entrance === 0) {
+          videoPath = "../assets/B_my.mp4";
+        } else if (congestion === 30 && entrance === 1) {
+          videoPath = "../assets/C_my.mp4";
+        }
+        break;
+      default:
+        videoPath = "";
+    }
+
+    setSelectedVideoPath(videoPath);
+  }, [selectedType, entrance, congestion]); // 여기서 selectedVideoPath를 제거했습니다.
 
   useEffect(() => {
     const fetchBasePresets = async () => {
@@ -67,7 +95,6 @@ const AdminLogic = () => {
   }, [selectedType]); // selectedType 변경 시 실행
 
   const handleSave = async () => {
-    // 항상 myPreset 값을 사용합니다.
     const apiUrl = `https://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets`;
 
     try {
@@ -78,7 +105,7 @@ const AdminLogic = () => {
         },
         body: JSON.stringify({
           lot_id: 1,
-          building_type: selectedType, // 실제로 선택된 타입을 사용합니다.
+          building_type: selectedType,
           congestion: congestion,
           entry_exit: entrance,
           is_wide: width,
@@ -93,15 +120,16 @@ const AdminLogic = () => {
       const responseData = await response.json();
       console.log("Save successful:", responseData);
 
-      // 변경된 값을 로컬 스토리지에 저장합니다.
+      // 변경된 값을 로컬 스토리지에 저장
       localStorage.setItem("selectedType", selectedType);
       localStorage.setItem("congestion", congestion);
       localStorage.setItem("width", width);
       localStorage.setItem("entrance", entrance);
       localStorage.setItem("penalty", penalty);
 
-      // 저장 후 사용자에게 알림
+      // 저장 후 사용자에게 알림을 주고 페이지를 새로고침
       alert("저장 되었습니다.");
+      window.location.reload(); // 페이지 새로고침
     } catch (error) {
       console.error("Failed to save data:", error);
       alert("Failed to save settings.");
@@ -173,9 +201,9 @@ const AdminLogic = () => {
 
   const getCongestionMessage = (value) => {
     if (value === 0) {
-      return "항상 원활 상태로 설정합니다.";
-    } else if (value === 100) {
       return "항상 혼잡 상태로 설정합니다.";
+    } else if (value === 100) {
+      return "항상 원활 상태로 설정합니다.";
     } else {
       return `${value}% 부터 혼잡 상태로 설정합니다.`;
     }
@@ -281,7 +309,15 @@ const AdminLogic = () => {
             style={{ display: "flex", flexDirection: "row", margin: "20px" }}
           >
             <div style={{ position: "relative" }}>
-              <LogicParkingLot />
+              {/* <AdminParkingLot /> */}
+              <div className="videoEdge">
+              {selectedVideoPath && (
+                <video width="900" height="550" autoPlay muted controls>
+                  <source src={selectedVideoPath} type="video/mp4" />
+                  Your browser does not support the video tag.
+                </video>
+              )}
+              </div>
             </div>
             {/* <MapTest /> */}
             <div
@@ -295,7 +331,7 @@ const AdminLogic = () => {
                 boxShadow: "3px 3px 80px 2px rgba(142, 146, 211, 0.5)",
                 borderRadius: "20px",
                 width: "350px",
-                height: "540px",
+                height: "600px",
               }}
             >
               {/* Floor Selector */}
