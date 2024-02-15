@@ -4,6 +4,7 @@ import AdminSideNavbar from "../../components/AdminSideNavbar";
 import AdminParkingLot from "./../../components/AdminParkingLot";
 import AdminUpNavbar from "../../components/AdminUpNavbar";
 import LogicParkingLot from "../../components/LogicParkingLot";
+import { viewport } from "@popperjs/core";
 
 const AdminLogic = () => {
   const [floorId, setFloorId] = useState("B1");
@@ -26,6 +27,7 @@ const AdminLogic = () => {
     penalty: false,
   });
 
+  const [videoType, setvideoType] = useState(0);
 
   useEffect(() => {
     const fetchBasePresets = async () => {
@@ -171,15 +173,63 @@ const AdminLogic = () => {
     }));
   };
 
+  
   const getCongestionMessage = (value) => {
+    let message = '';
     if (value === 0) {
-      return "항상 원활 상태로 설정합니다.";
+      message = '항상 원활 상태로 설정합니다.';
+      return message
     } else if (value === 100) {
-      return "항상 혼잡 상태로 설정합니다.";
+      message = '항상 혼잡 상태로 설정합니다.';
+      return message
     } else {
-      return `${value}% 부터 혼잡 상태로 설정합니다.`;
+      message = `${value}% 부터 혼잡 상태로 설정합니다.`;
+      return message
     }
   };
+
+  const CongestionMessage = getCongestionMessage(congestion);
+  
+  
+      useEffect(() => {
+        let newVideoType = 0;
+
+        if(selectedType === '마트' && entrance === 0)
+          newVideoType = 1;
+        else if(selectedType === '아파트' && entrance === 1)
+          newVideoType = 3;
+        else if(selectedType === '사업장' && entrance === 0)
+          newVideoType = 5;
+        else if(selectedType === 'myParkingSpace'){
+          if(congestion === 50 && entrance === 1)
+            newVideoType = 2;
+          else if(congestion === 80 && entrance === 0)
+            newVideoType = 4;
+          else if(congestion === 30 && entrance === 1)
+            newVideoType = 6;
+        }
+
+    setvideoType(newVideoType);
+    },[selectedType, entrance])
+
+      const renderVideo = () => {
+        switch (videoType) {
+          case 1 : 
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/A.mp4"></video>
+          case 2 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/A_my.mp4"></video>
+          case 3 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/B.mp4"></video>
+          case 4 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/B_my.mp4"></video>
+          case 5 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/C.mp4"></video>
+          case 6 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/C_my.mp4"></video>        
+          
+        }
+      }
+
 
   const getWidthMessage = (value) => {
     if (value === 0) {
@@ -280,8 +330,9 @@ const AdminLogic = () => {
           <div
             style={{ display: "flex", flexDirection: "row", margin: "20px" }}
           >
-            <div style={{ position: "relative" }}>
-              <LogicParkingLot />
+            <div style={{ position: "relative", border : '1px solid white', borderRadius: '5%', width : '800px', height : '550px' }}>
+              <div>{renderVideo()}</div>
+
             </div>
             {/* <MapTest /> */}
             <div
@@ -378,7 +429,7 @@ const AdminLogic = () => {
                   <span>{congestion}</span> {/* 현재 값 표시 */}
                 </label>
                 <div className="preset-text">
-                  <p>{getCongestionMessage(congestion)}</p>
+                  <p>{CongestionMessage}</p>
                 </div>
                 <label>
                   &nbsp;&nbsp;&nbsp;&nbsp;Width&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;

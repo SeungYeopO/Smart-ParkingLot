@@ -350,7 +350,9 @@ body {
 .nav-user-info {
   display: flex;
   align-items: center;
+  margin-right : 40px;
 }
+
 
 .user-avatar {
   width: 40px; /* 아바타 크기 조정이 필요할 수 있습니다 */
