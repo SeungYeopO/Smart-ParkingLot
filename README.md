@@ -63,7 +63,7 @@
 **Embedded / Simulation**
 
 [![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1707975598617?alt=media&token=fe70fb21-b626-43cc-9975-8724e30956ff)](https://github.com/msdio/stackticon)
-![애니로직로고](image.png){: width="100px" height="100px"}
+![애니로직로고](image.png){: width="100px" height="200px"}
 
 ## 5. 주요 기능 및 서비스 화면
 
