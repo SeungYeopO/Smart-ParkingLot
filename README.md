@@ -1,8 +1,8 @@
-# ![로고](./로고.png){: width="20px" height="20px"} 애쓰지마
+# ![로고](./로고.png){: width="30px" height="30px"} S지마
 
 ## 1. 프로젝트 개요
 
-- 서비스 명 : **애쓰지마**
+- 서비스 명 : **S지마**
   <br/>
   <br/>
 - 진행 기간 : 2024.01.08 ~ 2024.02.16 (6주)
@@ -47,11 +47,22 @@
 
 ## 🛠 4. 기술스택
 
-Frontend
+**Frontend**
 
-Backend + DevOps
+[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1707975907299?alt=media&token=25d47ece-8b95-4bf3-8d22-4d8f3884a4b3)](https://github.com/msdio/stackticon)
 
-Embedded
+**Backend / DevOps**
+
+[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1707975384097?alt=media&token=9bdf216f-3f16-41c5-89c4-f8d22f84028b)](https://github.com/msdio/stackticon)
+<br/>
+
+**Collaboration**
+
+[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1707975450873?alt=media&token=ca491ae6-5b3a-4e75-98d8-478c66494392)](https://github.com/msdio/stackticon)
+
+**Embedded / Simulation**
+
+[![stackticon](https://firebasestorage.googleapis.com/v0/b/stackticon-81399.appspot.com/o/images%2F1707975598617?alt=media&token=fe70fb21-b626-43cc-9975-8724e30956ff)](https://github.com/msdio/stackticon)
 
 ## 5. 주요 기능 및 서비스 화면
 
