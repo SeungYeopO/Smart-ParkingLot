@@ -46,7 +46,7 @@ const AdminLogic = () => {
   useEffect(() => {
     const fetchMyPresetData = async () => {
       if (selectedType === "myParkingSpace") {
-        const apiUrl = `http://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets/1`;
+        const apiUrl = `https://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets/1`;
 
         try {
           const response = await fetch(apiUrl);
@@ -68,7 +68,7 @@ const AdminLogic = () => {
 
   const handleSave = async () => {
     // 항상 myPreset 값을 사용합니다.
-    const apiUrl = `http://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets`;
+    const apiUrl = `https://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets`;
 
     try {
       const response = await fetch(apiUrl, {

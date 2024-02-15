@@ -5,7 +5,7 @@ import EndRouteInfoModal from './Modal/EndRouteInfoModal';
 
 const MapTest = () => {
   const [nowPosition, setNowPosition] = useState([]);
-  const updateInterval = 3000; // 업데이트 간격 설정
+  const updateInterval = 2000; // 업데이트 간격 설정
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const ratio = 1.3;
@@ -49,16 +49,16 @@ const MapTest = () => {
         ctx.stroke();
 
         // 마지막 점에 도달하지 않았을 때만 주차 자리까지의 점선 그리기
-        if (nowPosition.length > 1) { // 현재 위치 이후에 더 이동할 점이 있는지 확인
-            const lastPos = nowPosition[nowPosition.length - 1];
-            ctx.setLineDash([4, 10]); // 점선 패턴 설정
-            ctx.beginPath();
-            ctx.moveTo(lastPos.pos_x * ratio, lastPos.pos_y * ratio);
-            ctx.lineTo((Number(lastPos.pos_x) + 50) * ratio, lastPos.pos_y * ratio); // 길이 및 방향 조정 필요
-            ctx.strokeStyle = "green"; // 점선 색상
-            ctx.stroke();
-            ctx.setLineDash([]); 
-        }
+        // if (nowPosition.length > 1) { // 현재 위치 이후에 더 이동할 점이 있는지 확인
+        //     const lastPos = nowPosition[nowPosition.length - 1];
+        //     ctx.setLineDash([4, 10]); // 점선 패턴 설정
+        //     ctx.beginPath();
+        //     ctx.moveTo(lastPos.pos_x * ratio, lastPos.pos_y * ratio);
+        //     ctx.lineTo((Number(lastPos.pos_x) + 50) * ratio, lastPos.pos_y * ratio); // 길이 및 방향 조정 필요
+        //     ctx.strokeStyle = "green"; // 점선 색상
+        //     ctx.stroke();
+        //     ctx.setLineDash([]); 
+        // }
     }
 };
 
