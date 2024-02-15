@@ -307,12 +307,13 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
       }
     });
     end = min_point_num;
+
     const query = `
     UPDATE section_state
     SET is_reserved = 1 user_id = ?
     WHERE data_id = ?
     `;
-    await pool.query(query, [user_id, end]);
+    await pool.query(query, [user_id, Number(end)]);
   } else {
     console.log(data5);
     end = data5[0][0].data_id;
