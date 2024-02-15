@@ -11,9 +11,6 @@ const PORT = 3001;
 
 app.use(express.json());
 app.use(cors());
-
-
-
 app.get("/", (req, res) => {
   res.send("You need to request API");
 });
@@ -235,8 +232,6 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   `;
   const data1 = await pool.query(query1, [user_id]);
   const start = data1[0][0].point_num;
-  console.log(start);
-
   const query2 = `
   SELECT entry_exit, is_wide
   FROM lot_personal_presets
@@ -289,14 +284,14 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
     if (distance < min_distance) {
       min_distance = distance;
       min_point_num = element.data_id;
-      //min_pos_x = element.pos_x;
-      //min_pos_y = element.pos_y;
+      min_pos_x = element.pos_x;
+      min_pos_y = element.pos_y;
     }
   });
   const end = min_point_num;
   const results = [];
 
-  exec(
+  await exec(
     `cd ./map_data
     g++ -o root_finder ./mapalgorithm.cpp
     ./root_finder ${start} ${end}`,
@@ -332,6 +327,12 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
               });
             }
           }
+          results.push({
+            point_num: min_point_num,
+            pos_x: min_pos_x,
+            pos_y: min_pos_y,
+          });
+
           return res.json(results);
         } catch (error) {
           console.error("Error parsing JSON:", error);
@@ -339,7 +340,7 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
         }
       });
     }
- );
+  );
 });
 
 // 도움 요청 및 문의 업로드
