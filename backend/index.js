@@ -551,7 +551,7 @@ app.patch("/api/p_manager/section_states", async (req, res) => {
 
   try {
     const query = `
-      UPDATE section_states SET is_managed = ? 
+      UPDATE section_states SET is_managed = ?, is_reserved = 0, user_id = NULL
       WHERE data_id = ?
     `;
     const result = await pool.query(query, [is_managed, data_id]);
