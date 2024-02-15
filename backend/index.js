@@ -15,6 +15,11 @@ app.get("/", (req, res) => {
   res.send("You need to request API");
 });
 
+exec(`
+cd ./map_data
+g++ -o root_finder ./mapalgorithm.cpp
+`)
+
 // id 중복 체크 api
 app.post("/api/user/users/id_check", async (req, res) => {
   const loginId = req.body.login_id;
@@ -291,9 +296,8 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   const end = min_point_num;
   const results = [];
 
-  await exec(
+  exec(
     `cd ./map_data
-    g++ -o root_finder ./mapalgorithm.cpp
     ./root_finder ${start} ${end}`,
     (error, stdout, stderr) => {
       if (error) {
@@ -630,4 +634,4 @@ app.get("/api/update_RF", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`서버 기동중`));
+app.listen(PORT, () => console.log(`${PORT} 서버 기동중`));

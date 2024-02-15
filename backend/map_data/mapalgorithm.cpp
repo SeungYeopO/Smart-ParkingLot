@@ -3,94 +3,101 @@
 #include <iostream>
 #include <vector>
 #include <cstdlib>
+#include <mutex>
 
 using namespace std;
 
 vector<vector<int>> map0;
 vector<int> path;
 vector<int> short_path;
+mutex file_mutex;
 
 void dfs(int now, int end, vector<bool> visited) {
-	if (now == end) {
-		short_path = path;
-		return;
-	}
+    if (now == end) {
+        short_path = path;
+        return;
+    }
 
-	for (int i = 0; i < map0[now].size(); i++) {
-		int next = map0[now][i];
+    for (int i = 0; i < map0[now].size(); i++) {
+        int next = map0[now][i];
 
-		if (visited[next]) continue;
+        if (visited[next]) continue;
 
-		visited[next] = true;
-		path.push_back(next);
-		dfs(next, end, visited);
-		path.pop_back();
-	}
+        visited[next] = true;
+        path.push_back(next);
+        dfs(next, end, visited);
+        path.pop_back();
+    }
 }
 
 int main(int argc, char* argv[]) {
 
-	FILE* map_data = freopen("./map0.txt", "r", stdin);
+    FILE* map_data = nullptr;
 
-	if (map_data == nullptr) {
-		fprintf(stderr, "파일을 열 수 없습니다.\n");
-		return 1;
-	}
+    {
+        lock_guard<mutex> lock(file_mutex);
+        map_data = freopen("./map0.txt", "r", stdin);
 
-	int from, to;
-	while (cin >> from >> to) {
+        if (map_data == nullptr) {
+            fprintf(stderr, "파일을 열 수 없습니다.\n");
+            return 1;
+        }
 
-		if (map0.size() <= max(from, to)) {
-			map0.resize(max(from, to) + 1);
-		}
+        int from, to;
+        while (cin >> from >> to) {
 
-		map0[from].push_back(to);
-		if (from != to) map0[to].push_back(from);
-	}
+            if (map0.size() <= max(from, to)) {
+                map0.resize(max(from, to) + 1);
+            }
 
-	fclose(map_data);
+            map0[from].push_back(to);
+            if (from != to) map0[to].push_back(from);
+        }
 
-	for (int i = 0; i < map0.size(); i++) {
-		cout << i << " : ";
-		for (int j = 0; j < map0[i].size(); j++) {
-			cout << map0[i][j] << " ";
-		}
-		cout << endl;
-	}
+        fclose(map_data);
+    }
 
-	int map_vector_size = map0.size();
-	vector<bool> visited(map_vector_size, false);
+    for (int i = 0; i < map0.size(); i++) {
+        cout << i << " : ";
+        for (int j = 0; j < map0[i].size(); j++) {
+            cout << map0[i][j] << " ";
+        }
+        cout << endl;
+    }
 
-	const char* st = argv[1];
-	const char* ed = argv[2];
-	
-	int start = atoi(st);
-	int end = atoi(ed);
+    int map_vector_size = map0.size();
+    vector<bool> visited(map_vector_size, false);
 
-	path.push_back(start);
-	dfs(start, end, visited);
+    const char* st = argv[1];
+    const char* ed = argv[2];
 
-	for (int i = 0; i < short_path.size(); i++) {
-		cout << short_path[i] << " ";
-	}
+    int start = atoi(st);
+    int end = atoi(ed);
 
-	cout << endl;
+    path.push_back(start);
+    dfs(start, end, visited);
 
-	FILE* map_json = fopen("./short_path.json", "w");  
-	fprintf(map_json, "[\n");
+    for (int i = 0; i < short_path.size(); i++) {
+        cout << short_path[i] << " ";
+    }
 
-	for (int i = 0; i < short_path.size(); i++) {
-		int points = short_path[i];
-		if(i!=short_path.size()-1) 
-			fprintf(map_json, "%d,\n", short_path[i]);
-		else
-			fprintf(map_json, "%d\n", short_path[i]);
-	}
+    cout << endl;
 
-	fprintf(map_json, "]\n");
+    FILE* map_json = fopen("./short_path.json", "w");
+    fprintf(map_json, "[\n");
 
-	fclose(map_json); 
+    for (int i = 0; i < short_path.size(); i++) {
+        int points = short_path[i];
+        if (i != short_path.size() - 1)
+            fprintf(map_json, "%d,\n", short_path[i]);
+        else
+            fprintf(map_json, "%d\n", short_path[i]);
+    }
 
-	return 0;
+    fprintf(map_json, "]\n");
+
+    fclose(map_json);
+
+    return 0;
 
 }
