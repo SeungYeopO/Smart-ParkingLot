@@ -5,7 +5,7 @@ import EndRouteInfoModal from './Modal/EndRouteInfoModal';
 
 const MapTest = () => {
   const [nowPosition, setNowPosition] = useState([]);
-  const updateInterval = 2000; // 업데이트 간격 설정
+  const updateInterval = 1000; // 업데이트 간격 설정
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const ratio = 1.3;
@@ -41,7 +41,6 @@ const MapTest = () => {
         ctx.beginPath();
         ctx.moveTo(nowPosition[0].pos_x * ratio, nowPosition[0].pos_y * ratio);
         nowPosition.forEach((position) => {
-            console.log(position)
             ctx.lineTo(position.pos_x * ratio, position.pos_y * ratio);
         });
         ctx.lineWidth = 7; // 선의 너비 조정
