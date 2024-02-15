@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
-const { v4: uuidv4 } = require("uuid");
 
 const fs = require("fs");
 
@@ -16,9 +15,9 @@ app.get("/", (req, res) => {
 });
 
 exec(`
-cd ./map_data
-g++ -o root_finder ./mapalgorithm.cpp
-`)
+  cd ./map_data
+  g++ -o root_finder ./mapalgorithm.cpp
+`);
 
 // id 중복 체크 api
 app.post("/api/user/users/id_check", async (req, res) => {
