@@ -13,7 +13,7 @@ const MapTest = () => {
   // 데이터를 가져와서 상태를 업데이트하는 함수
   const fetchData = async () => {
       try { 
-        const response = await fetch("https://i10c102.p.ssafy.io:3001/api/user/short_path/2");
+        const response = await fetch("https://i10c102.p.ssafy.io:3001/api/user/short_path/1");
         const data = await response.json();
         console.log("데이터 수신 중:", data);
         setNowPosition(data); // 처음 데이터를 로드한 후 상태를 업데이트
