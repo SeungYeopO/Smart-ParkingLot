@@ -1,7 +1,6 @@
 const express = require("express");
 const cors = require("cors");
 const { exec } = require("child_process");
-const { v4: uuidv4 } = require("uuid");
 
 const fs = require("fs");
 
@@ -14,6 +13,11 @@ app.use(cors());
 app.get("/", (req, res) => {
   res.send("You need to request API");
 });
+
+exec(`
+  cd ./map_data
+  g++ -o root_finder ./mapalgorithm.cpp
+`);
 
 // id 중복 체크 api
 app.post("/api/user/users/id_check", async (req, res) => {
@@ -270,30 +274,99 @@ app.get("/api/user/short_path/:user_id", async (req, res) => {
   WHERE lfd.lot_id = ?
   AND lfd.floor = -1
   AND ss.is_filled = 0
-  AND ss.is_managed = 0;
+  AND ss.is_managed = 0
+  AND ss.is_reserved = 0;
+`;
+  const query5 = `
+  SELECT ps.data_id, ps.pos_x, ps.pos_y, ss.is_filled, ss.is_managed
+  FROM parking_sections ps
+  JOIN section_states ss ON ps.data_id = ss.data_id
+  JOIN lot_floor_data lfd ON ps.data_id = lfd.data_id
+  WHERE lfd.lot_id = ? 
+  AND lfd.floor = -1
+  AND ss.user_id = ?;
 `;
   let min_distance = 2e9;
   let min_pos_x;
   let min_pos_y;
   let min_point_num;
-  const data4 = await pool.query(query4, [lot_id]);
-  data4[0].forEach((element) => {
-    let distance = Math.sqrt(
-      (element.pos_x - entry_exit_x) ** 2 + (element.pos_y - entry_exit_y) ** 2
-    );
-    if (distance < min_distance) {
-      min_distance = distance;
-      min_point_num = element.data_id;
-      min_pos_x = element.pos_x;
-      min_pos_y = element.pos_y;
-    }
-  });
-  const end = min_point_num;
-  const results = [];
+  let end;
+  const data5 = await pool.query(query5, [lot_id, user_id]);
+  // if (data5[0].length === 0 ) {
+  //   const data4 = await pool.query(query4, [lot_id]);
+  //   data4[0].forEach((element) => {
+  //     let distance = Math.sqrt(
+  //       (element.pos_x - entry_exit_x) ** 2 +
+  //         (element.pos_y - entry_exit_y) ** 2
+  //     );
+  //     if (distance < min_distance) {
+  //       min_distance = distance;
+  //       min_point_num = element.data_id;
+  //       min_pos_x = element.pos_x;
+  //       min_pos_y = element.pos_y;
+  //     }
+  //   });
+  //   end = min_point_num;
 
-  await exec(
+  //   const query = `
+  //   UPDATE section_states
+  //   SET is_reserved = 1, user_id = ?
+  //   WHERE data_id = ?
+  //   `;
+  //   await pool.query(query, [user_id, end]);
+  // } else {
+  //   //console.log(data5);
+  //   end = data5[0][0].data_id;
+  //   min_point_num = end;
+  //   const query = `
+  //   SELECT pos_x, pos_y
+  //   FROM parking_sections
+  //   WHERE data_id = ?
+  //   `
+  //   const result = await pool.query(query, [min_point_num]);
+  //   min_pos_x = result[0][0].pos_x;
+  //   min_pos_y = result[0][0].pos_y;
+  // }
+  if(data5[0].length !== 0 && data5[0][0].is_filled === 0 && data5[0][0].is_managed === 0){
+    end = data5[0][0].data_id;
+    min_point_num = end;
+    const query = `
+    SELECT pos_x, pos_y
+    FROM parking_sections
+    WHERE data_id = ?
+    `
+    const result = await pool.query(query, [min_point_num]);
+    min_pos_x = result[0][0].pos_x;
+    min_pos_y = result[0][0].pos_y;
+  }
+
+  else {
+    const data4 = await pool.query(query4, [lot_id]);
+    data4[0].forEach((element) => {
+      let distance = Math.sqrt(
+        (element.pos_x - entry_exit_x) ** 2 +
+          (element.pos_y - entry_exit_y) ** 2
+      );
+      if (distance < min_distance) {
+        min_distance = distance;
+        min_point_num = element.data_id;
+        min_pos_x = element.pos_x;
+        min_pos_y = element.pos_y;
+      }
+    });
+    end = min_point_num;
+
+    const query = `
+    UPDATE section_states
+    SET is_reserved = 1, user_id = ?
+    WHERE data_id = ?
+    `;
+    await pool.query(query, [user_id, end]);
+  }
+  const results = [];
+  //console.log(end);
+  exec(
     `cd ./map_data
-    g++ -o root_finder ./mapalgorithm.cpp
     ./root_finder ${start} ${end}`,
     (error, stdout, stderr) => {
       if (error) {
@@ -454,7 +527,7 @@ app.get("/api/p_manager/section_stats/:lot_id/:floor", async (req, res) => {
   const lot_id = req.params.lot_id;
   const floor = req.params.floor;
   const query = `
-    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed
+    SELECT sst.data_id, sst.is_filled, sst.user_id, sst.is_managed, sst.is_reserved
     FROM parking_info.section_states sst
     JOIN parking_info.lot_floor_data lfd ON sst.data_id = lfd.data_id
     WHERE lfd.lot_id = ? AND lfd.floor = ?
@@ -478,7 +551,7 @@ app.patch("/api/p_manager/section_states", async (req, res) => {
 
   try {
     const query = `
-      UPDATE section_states SET is_managed = ? 
+      UPDATE section_states SET is_managed = ?, is_reserved = 0, user_id = NULL
       WHERE data_id = ?
     `;
     const result = await pool.query(query, [is_managed, data_id]);
@@ -630,4 +703,4 @@ app.get("/api/update_RF", async (req, res) => {
   }
 });
 
-app.listen(PORT, () => console.log(`서버 기동중`));
+app.listen(PORT, () => console.log(`${PORT} 서버 기동중`));

@@ -1266,6 +1266,17 @@ body {
   margin-right: 10px;
 }
 
+.videoEdge {
+  margin: 10px;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  width: 1000px;
+  height: 600px;
+  box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 수직 중앙 정렬 추가 */
+}
 /* 지도맵 위에 경로 띄우는중 (테스트)   */
 
 .map-container {
