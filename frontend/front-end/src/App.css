@@ -1,0 +1,1290 @@
+/* 상단 앱 */
+@font-face {
+  font-family: "BMJUA";
+  src: url("../public/font/BMJUA_ttf.ttf");
+}
+
+:root {
+  --background-color-light: #ffffff; /* 라이트 모드 배경색 */
+  --background-content-color-light: #fbfafa; /* 라이트 모드 배경색 */
+  --text-color-light: #000000; /* 라이트 모드 텍스트색 */
+  --label-color-light: #000000;
+  --border-color-light: #ccc; /* 라이트 모드 테두리 색상 */
+
+  --background-color-dark: #1d1e1f; /* 다크 모드 배경색 */
+  --background-content-color-dark: #373636; /* 다크 모드 배경색 */
+  --text-color-dark: #e0e0e0; /* 다크 모드 텍스트색 */
+  --label-color-dark: #e0e0e0;
+  --border-color-dark: #5f5f5f; /* 다크 모드 테두리 색상 */
+}
+
+/* 라이트 모드 스타일 */
+.light-mode {
+  --background-color: var(--background-color-light);
+  --background-content-color: var(--background-content-color-light);
+  --text-color: var(--text-color-light);
+  --label-color: var(--label-color-light);
+  --border-color: var(--border-color-light);
+}
+
+/* 다크 모드 스타일 */
+.dark-mode {
+  --background-color: var(--background-color-dark);
+  --background-content-color: var(--background-content-color-dark);
+  --text-color: var(--text-color-dark);
+  --label-color: var(--label-color-dark);
+  --border-color: var(--border-color-dark);
+}
+
+body {
+  background-color: var(--background-color);
+  color: var(--text-color);
+}
+
+/* form 내용 영역 스타일 */
+.form-content {
+  padding: 20px;
+  border-radius: 10px;
+}
+
+/* form 테두리 스타일 */
+.form-border {
+  background-color: var(
+    --background-content-color
+  ); 
+  border-radius: 30px; /* 둥근 테두리 */
+  margin-bottom: 20px;
+  padding: 20px;
+}
+.form-border1 {
+  background-color: var(
+    --background-content-color
+  ); 
+  border-radius: 30px; /* 둥근 테두리 */
+  margin-bottom: 20px;
+  padding: 20px;
+  width: 800px;
+  height: 400px;
+  display: flex;
+  flex-direction: column; 
+  justify-content: center;
+  align-items: center;
+}
+
+/* 라이트 모드 스타일 */
+.light-mode {
+  --border-color: #ccc; /* 라이트 모드 테두리 색상 */
+}
+
+/* 다크 모드 스타일 */
+.dark-mode {
+  --border-color: #5f5f5f; /* 다크 모드 테두리 색상 */
+}
+
+.App {
+  font-family: "BMJUA", sans-serif;
+  background-color: #1d1e1f;
+}
+.container {
+  width: 1300px;
+  height: 100%;
+}
+.sign-password {
+  font-family: sans-serif;
+}
+.navbar-brand img {
+  width: 80px;
+  margin-bottom: 50px;
+  margin-top: 20px;
+}
+.navbar-nav img {
+  width: 50px;
+  height: 50px;
+  margin-bottom: 30px;
+  margin-right: 20px;
+}
+
+/* 관리자 페이지 */
+
+/* 관리자 로그인 페이지 */
+.admin-login {
+  background-color: #6373e8;
+  min-width: 1500px;
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-border {
+  width: 1300px;
+  height: 600px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.login-logo {
+  background-color: #a1bbf4;
+  width: 400px;
+  height: 600px;
+  border-right: none;
+  border-top-right-radius: 20px;
+  border-bottom-right-radius: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-login {
+  background-color: white;
+  border-top-left-radius: 20px;
+  border-bottom-left-radius: 20px;
+  width: 900px;
+  height: 600px;
+  text-align: center;
+  /* 가로 기준 가운데 정렬 */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.login-login button {
+  width: 400px;
+  height: 40px;
+  background-color: #6373e8;
+  color: white;
+  border: none;
+  border-radius: 7px;
+  margin-top: 30px;
+}
+.input-no-border {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid #ccc; /* 예시로 하단
+  테두리를 얇은 회색 선으로 설정 */
+  width: 400px;
+  margin-bottom: 10px;
+}
+.user-id {
+  border-top: none;
+  border-right: none;
+  border-left: none;
+  border-bottom: 2px solid #ccc; /* 예시로 하단
+  테두리를 얇은 회색 선으로 설정 */
+  width: 320px;
+  margin-bottom: 10px;
+}
+/* 사용자 Accounts 페이지 */
+.user-login button {
+  width: 200px;
+}
+.signup-button button {
+  width: 100px;
+}
+.username-message {
+  color: red; /* 메시지 색상, 변경 가능 */
+  margin-top: 10px;
+}
+.password-error {
+  color: red;
+  color: #191a2b;
+  /* font-family: ; */
+  /* 수정하기 */
+}
+
+.login-login .signup-button {
+  width: 80px;
+  height: 22px;
+  font-size: 13px;
+}
+
+/* 사용자 페이지 */
+@keyframes drive {
+  0% {
+    top: 0%;
+    left: 80%;
+    transform: translateX(-10%);
+  }
+  20% {
+    top: 0%;
+    left: 30%;
+  }
+  40% {
+    top: 30%;
+    left: 30%;
+    transform: scaleX(-1);
+  }
+  60% {
+    top: 30%;
+    left: 50%;
+    transform: scaleX(-1);
+  }
+  80% {
+    top: 60%;
+    left: 50%;
+    transform: rotate(45deg);
+  }
+  100% {
+    top: 60%;
+    left: 25%;
+  }
+}
+
+.intro-back {
+  background-color: #0e1b1e;
+  position: relative;
+  overflow: hidden;
+  height: 100vh;
+}
+
+.intro-map {
+  position: absolute;
+  width: 700px;
+}
+
+.car-container {
+  height: 100%;
+}
+
+.car {
+  position: absolute;
+  animation: drive 5s ease-in-out;
+  animation-fill-mode: forwards;
+}
+
+#destinationMap {
+  flex: 1;
+  position: relative;
+  overflow: hidden;
+}
+
+.mapEdge {
+  margin: 10px;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  width: 1280px;
+  height: 590px;
+  box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
+}
+
+.adminmapEdge {
+  margin: 10px;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  width: 1000px;
+  height: 540px;
+  box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
+}
+.preset-text {
+  margin-left: 20px;
+  width: 270px;
+  height: 30px;
+  text-align: center;
+  word-break: keep-all;
+  overflow-wrap: break-word;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 15px;
+}
+.dotsinfo {
+  font-size: small;
+}
+
+.position-dot {
+  position: absolute;
+  display: flex;
+}
+
+.card-img-top {
+  width: 60px;
+  height: 250px;
+}
+
+.nav-bar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #2c3e50;
+  height: 60px;
+  padding: 10px 20px;
+  color: white;
+}
+
+.nav-bar2 {
+  display: flex;
+  justify-content: space-between;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  background-color: #2c3e50; /* 내비게이션 바의 배경색 설정 */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* 그림자 효과 추가 (선택 사항) */
+  z-index: 1000; /* 다른 요소 위에 표시되도록 z-index 설정 */
+  /* 필요한 스타일을 추가로 설정할 수 있습니다. */
+}
+
+/* 나머지 스타일은 유지 */
+
+.adminmode-bg {
+  background-color: #1b2431;
+  height: 100vh;
+  margin-top: 30px;
+}
+
+.nav-logo img {
+  width: 50px; /* 로고 크기 조정이 필요할 수 있습니다 */
+}
+
+.nav-title-date h1 {
+  margin: 0;
+  font-size: 1.5em;
+}
+
+.nav-title-date p {
+  margin: 0;
+  font-size: 0.9em;
+}
+
+.nav-user-info {
+  display: flex;
+  align-items: center;
+  margin-right : 40px;
+}
+
+
+.user-avatar {
+  width: 40px; /* 아바타 크기 조정이 필요할 수 있습니다 */
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+.user-name {
+  font-size: 1.1em;
+  color: #ececec;
+}
+
+.letter-function {
+  padding-left: 65px;
+  padding-top: 50px;
+  color: rgb(86, 86, 232);
+  font-size: 28px;
+}
+
+.mode-selection {
+  display: flex;
+}
+
+.cctvmode {
+  background-color: #273142;
+  width: 300px;
+  height: 300px;
+  margin-left: 175px;
+  font-size: 25px;
+  border-radius: 6%;
+}
+.cctvmode p {
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+  color: white;
+}
+
+.cctvmode img {
+  width: 240px;
+  height: 240px;
+  margin-left: 20px;
+  margin-top: 5px;
+}
+
+.statusmode {
+  background-color: #273142;
+  width: 300px;
+  height: 300px;
+  margin-left: 120px;
+  font-size: 25px;
+  border-radius: 6%;
+}
+
+.statusmode p {
+  color: white;
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.statusmode img {
+  width: 200px;
+  height: 180px;
+  margin-left: 45px;
+  margin-top: 30px;
+}
+
+.managemode {
+  border: solid 1px blue;
+  width: 280px;
+  height: 280px;
+  margin-left: 60px;
+  font-size: 25px;
+}
+.managemode p {
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.managemode img {
+  width: 210px;
+  height: 180px;
+  margin-top: 25px;
+  margin-left: 29px;
+}
+
+.logic-page {
+  margin-top: 100px;
+}
+
+.logicmode {
+  background-color: #273142;
+  width: 300px;
+  height: 300px;
+  margin-left: 120px;
+  font-size: 25px;
+  border-radius: 6%;
+}
+
+.logicmode p {
+  color: white;
+  text-align: center;
+  margin-bottom: 0px;
+  margin-top: 10px;
+}
+
+.logicmode img {
+  width: 190px;
+  height: 190px;
+  margin-top: 19px;
+  margin-left: 50px;
+}
+
+.save-preset {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 10px;
+  cursor: pointer;
+  font-weight: bold;
+  text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.save-preset:hover {
+  background: linear-gradient(to right, #00f2fe, #4facfe);
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.save-preset:active {
+  background: linear-gradient(to right, #4facfe, #00f2fe);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.save-preset:disabled {
+  background: #ccc;
+  color: #666;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.memo p {
+  margin-left: 90px;
+  margin-top: 40px;
+  color: rgb(86, 86, 232);
+  font-size: 28px;
+}
+
+.inputMemo {
+  background-color: #273142;
+  margin-left: 60px;
+  width: 1400px;
+  height: 160px;
+}
+
+.inputMemo p {
+  padding-top: 10px;
+  font-size: 18px;
+  color: white;
+}
+.inputMemo1 {
+  margin-top: 10px;
+  margin-left: 10px;
+}
+.inputMemo2 {
+  margin-left: 10px;
+}
+.inputMemo3 {
+  margin-left: 40px;
+}
+
+/* 홈 */
+.home-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1d1e1f;
+}
+.home-map {
+  background-image: url("../public/assets/homemap.png");
+  background-size: cover;
+  background-position: center;
+  width: 1300px;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.search-button {
+  background-color: #373636;
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+  margin-left: 7px;
+  margin-top: 17px;
+  transition: background-color 0.3s, opacity 0.3s;
+  border: none;
+  opacity: 0;
+}
+
+.search-button:hover {
+  background-color: #4a4a4a;
+  opacity: 0.4;
+}
+
+.option-button {
+  background-color: rgba(55, 54, 54, 0);
+  width: 90px;
+  height: 90px;
+  border-radius: 15px;
+  border: none;
+  margin-left: 10px;
+  margin-bottom: 65px;
+}
+
+.option-button:hover {
+  background-color: rgba(74, 74, 74, 1);
+  opacity: 0.2;
+}
+
+.home-time {
+  position: absolute;
+  top: 97.5%;
+  left: 30%;
+  transform: translate(-50%, -50%);
+  color: #000000;
+  font-size: 24px;
+}
+
+/* 검색 페이지 */
+.search-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: black;
+}
+
+.search-container form {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 800px;
+}
+
+.search-container input[type="text"] {
+  width: 800px;
+  padding: 10px;
+  margin-right: 10px;
+  /* margin-left: 70px; */
+  /* border: 2px solid #373636; */
+  font-size: 24px;
+  background-color: #000000;
+}
+
+.search-container button {
+  /* border: none; */
+  background-color: #1d1e1f;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 20px;
+  cursor: pointer;
+}
+.search-container button:hover {
+  filter: brightness(1.2);
+}
+
+.search-container button[type="button"] {
+  margin: 0px;
+  padding: 10px;
+  background-color: #373636;
+  border: none;
+}
+
+.search-container button[type="button"]:hover {
+  filter: none;
+}
+
+.search-container img {
+  width: 1200px;
+}
+
+/* 메뉴 페이지 */
+.menu-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  background-color: #1d1e1f;
+}
+
+.menu-page {
+  background-image: url("../public/assets/menu.png");
+  background-size: cover;
+  background-position: center;
+  width: 1300px;
+  height: 100vh;
+}
+.menu-time {
+  color: #ececec;
+  text-align: center;
+  height: 60px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40px;
+  width: 240px;
+  height: 60px;
+}
+.menu-times {
+  height: 50px;
+  margin-bottom: 10px;
+  margin-left: 272px;
+  background-color: black;
+}
+.back {
+  margin-left: 2200px;
+  border: none;
+  opacity: 0;
+}
+.back button {
+  width: 100px;
+  height: 60px;
+}
+
+.mycar {
+  margin-left: 80px;
+  margin-top: 120px;
+}
+
+.mycar button {
+  width: 80px;
+  height: 80px;
+  border: none;
+  opacity: 0;
+}
+.mycar button:hover {
+  background-color: rgba(74, 74, 74, 1);
+  opacity: 0.5;
+}
+
+/* 목적지 정보 */
+.destination-info {
+  background-image: url("../public/assets/destinations.png");
+  background-size: cover;
+  background-position: center;
+  width: 1300px;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+}
+
+.destination-info button {
+  background-color: rgba(55, 54, 54, 0);
+  width: 657px;
+  height: 160px;
+  border-radius: 15px;
+  border: none;
+  margin-right: 636px;
+  margin-top: 130px;
+}
+
+.destination-info button:hover {
+  background-color: rgba(74, 74, 74, 1);
+  opacity: 0.5;
+}
+
+/* 사용자 프로필 */
+.user-signup {
+  cursor: pointer;
+}
+.line {
+  border: 1px solid rgb(204, 204, 204);
+  width: 200px;
+  border-bottom: none;
+  border-top: none;
+  border-left: none;
+  /* border: none; */
+  padding: 40px;
+}
+.myprofile {
+  width: 1000px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+.rotate-image {
+  width: 300px;
+  height: 200px;
+  background-image: url("../public/assets/911.png");
+  background-size: cover;
+  animation: rotate 5s linear infinite; /* 5초 간격으로 무한 회전 */
+}
+
+@keyframes rotate {
+  from {
+    transform: rotateY(0deg); /* 0도 회전 시작 */
+  }
+  to {
+    transform: rotateY(360deg); /* 360도 회전 완료 */
+  }
+}
+
+.form-group {
+  width: 700px;
+  font-size: 30px;
+}
+.edit-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  padding: 20px;
+  font-family: "Arial", sans-serif;
+}
+
+.edit-profile {
+  background-color: #fff;
+  padding: 20px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  width: 100%;
+  max-width: 500px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.edit-profile h2 {
+  margin-bottom: 20px;
+  text-align: left;
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-size: 14px;
+  /* color: #333; */
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  color: #333;
+}
+
+.save-button {
+  background-color: #f60;
+  color: white;
+  padding: 10px 15px;
+  border: none;
+  border-radius: 10px;
+  font-size: 16px;
+  cursor: pointer;
+  display: inline-block;
+  margin-top: 10px;
+  width: 200px;
+  transition: background-color 0.3s ease; /* 호버 효과에 transition 추가 */
+}
+
+.save-button:hover {
+  background-color: #ff8533; /* 호버 시 배경색 변경 */
+}
+/* 다크모드 색상 */
+/* 배경 : #181818
+주요 컨텐츠 : #242424, #2A2A2A
+텍스트 : #E0E0E0, #FFFFFF */
+
+/* 목적지 페이지 */
+.bottom-navbar {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  background-color: #242424;
+  color: #e0e0e0;
+  font-size: 30px;
+  position: fixed;
+  bottom: 0;
+  width: 1300px;
+  height: 80px;
+  box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+}
+.bottom-navbar img {
+  width: 30px;
+  margin-right: 10px;
+  cursor: pointer;
+}
+
+.nav-item {
+  text-align: center;
+}
+
+.navbar-nav a {
+  color: white;
+}
+/*  */
+
+.testposition-dot {
+  position: absolute;
+  display: flex;
+  background-color: red;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  transition: left 1s ease-out, top 1s ease-out;
+}
+
+/* AdminSideNavbar css 속성 */
+
+.logo-letter {
+  color: white;
+  text-decoration-line: none;
+}
+
+.logo-letter img {
+  margin: 10px;
+}
+
+.mode1-cctv {
+  margin-top: 50px;
+  margin-left: 40px;
+}
+
+.mode1-cctv a {
+  color: white;
+  text-decoration-line: none;
+}
+
+.mode2-status {
+  margin-top: 50px;
+  margin-left: 40px;
+}
+.mode2-status a {
+  color: white;
+  text-decoration-line: none;
+}
+
+.mode3-manage {
+  margin-top: 50px;
+  margin-left: 40px;
+}
+.mode3-manage a {
+  color: white;
+  text-decoration: none;
+}
+.mode4-logic {
+  margin-top: 50px;
+  margin-left: 40px;
+}
+.mode4-logic a {
+  color: white;
+  text-decoration: none;
+}
+/* AdminSideNavbar css속성 끝! */
+
+/* adminstatus 페이지 css 속성*/
+/* .floor-status {
+  margin-bottom: 10px;
+  background-color: #273142 ;
+} */
+.admin-notify {
+  margin-left: 40px;
+  width: 1000px;
+  height: 50px;
+  margin-bottom: 30px;
+  background-color: #1b2431;
+}
+
+.admin-notify img {
+  width: 20px;
+  height: 20px;
+  margin-right: 10px;
+}
+/* 주차장 검색 페이지  */
+/* 빨간색 : #ff4800 */
+/* 노란색 : #ffcc00 */
+/* 초록색 : #4dff00 */
+.searchMap {
+  background-image: url("../public/assets/searchmap.jpg");
+  background-size: cover; /* 이미지가 잘리지 않고 전체적으로 보이도록 조정합니다. */
+  background-repeat: no-repeat; /* 이미지를 반복하지 않도록 설정합니다. */
+  height: 100vh;
+  width: 1300px;
+  color: black;
+}
+
+.logo-search img {
+  position: absolute;
+  width: 60px;
+  margin-left: 50px;
+}
+.balloonStatus1 {
+  position: relative;
+  width: 120px;
+  bottom: -420px;
+  left: 540px;
+  background-color: #ffcc00;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus1::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #ffcc00 transparent;
+  display: block;
+  width: 0;
+}
+.balloonStatus2 {
+  position: relative;
+  width: 120px;
+  bottom: -230px;
+  left: 720px;
+  /* background-color: #4dff00; */
+  background-color: #ff4800;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+.balloonStatus2::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #ff4800 transparent;
+  display: block;
+  width: 0;
+}
+.balloonStatus3 {
+  position: relative;
+  width: 120px;
+  top: 50px;
+  left: 650px;
+  background-color: #4dff00;
+  padding: 10px;
+  text-align: center;
+  border-radius: 10px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+.balloonStatus3::after {
+  content: "";
+  position: absolute;
+  bottom: -10px;
+  left: 50%;
+  transform: translateX(-50%);
+  border-width: 10px 10px 0;
+  border-style: solid;
+  border-color: #4dff00 transparent;
+  display: block;
+  width: 0;
+}
+
+.balloonContent {
+  font-size: 14px;
+}
+
+/* 호버 스타일을 추가합니다. */
+.balloonStatus2:hover {
+  background-color: #ff704d; /* 호버 시 배경색 변경 예시 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+.balloonStatus1:hover {
+  background-color: #ffdd00; /* 호버 시 배경색 변경 예시 */
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+.balloonStatus3:hover {
+  background-color: #80ff4d; /* 호버 시 배경색 변경 예시 */
+  
+  cursor: pointer; /* 마우스 커서를 포인터로 변경 */
+}
+
+/* 말풍선 주변을 도는 가상 요소를 위한 애니메이션 정의 */
+@keyframes circleAround {
+  0% {
+    transform: rotate(0deg) translateX(50px) rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg) translateX(50px) rotate(-360deg);
+  }
+}
+
+.balloonStatus1::before {
+  content: "+11";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  line-height: 30px; /* height와 동일한 값으로 설정 */
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(235, 74, 154);
+  animation: circleAround 5s infinite linear;
+  color: white; /* 텍스트 색상을 설정하려면 이 속성을 사용하세요 */
+  font-size: 14px; /* 텍스트 크기를 조정하려면 이 속성을 사용하세요 */
+  vertical-align: middle; /* 세로 중앙 정렬을 개선 */
+}
+.balloonStatus2::before {
+  content: "+13";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  line-height: 30px; /* height와 동일한 값으로 설정 */
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(235, 74, 154);
+  animation: circleAround 5s infinite linear;
+  color: white; /* 텍스트 색상을 설정하려면 이 속성을 사용하세요 */
+  font-size: 14px; /* 텍스트 크기를 조정하려면 이 속성을 사용하세요 */
+  vertical-align: middle; /* 세로 중앙 정렬을 개선 */
+}
+.balloonStatus3::before {
+  content: "+5";
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 30px;
+  height: 30px;
+  line-height: 30px; /* height와 동일한 값으로 설정 */
+  text-align: center;
+  border-radius: 50%;
+  background-color: rgb(235, 74, 154);
+  animation: circleAround 5s infinite linear;
+  color: white; /* 텍스트 색상을 설정하려면 이 속성을 사용하세요 */
+  font-size: 14px; /* 텍스트 크기를 조정하려면 이 속성을 사용하세요 */
+  vertical-align: middle; /* 세로 중앙 정렬을 개선 */
+}
+
+/* 모달 스타일 */
+.message-container {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5); /* 배경 어둡게 */
+  z-index: 999; /* 다른 요소 위에 모달 표시 */
+}
+
+.message {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  text-align: center;
+}
+
+/* 모달 내부 텍스트 스타일 */
+.message p {
+  margin: 0;
+  font-size: 18px;
+}
+
+/* help */
+
+
+/* AdminUpNavbar */
+.nav-title {
+  padding-top: 20px;
+  font-size: large;
+  color: #ececec;
+}
+
+/* CCTV페이지 */
+.camNum1 {
+  display: flex;
+  width: 220px;
+  height: 90px;
+  margin-top: 100px; /* Changed from 100px to 0 to remove the top margin */
+  margin-left: 20px;
+  /* border: solid 1px blue; */
+  background-color: #273142; /* Changed from transparent to match the .cctvbg background color */
+  border-radius: 5%;
+}
+
+.cctv-img {
+  margin-top: 2px;
+  width: 20px;
+  height: 20px;
+}
+
+.letter-cam1 {
+  font-size: large;
+  margin-top: 30px;
+  margin-left: 100px;
+}
+
+.real-cctv {
+  margin-top: 25px;
+  margin-left: 20px;
+  margin-right: 300px;
+}
+
+.cctvbg {
+  background-color: #1b2431;
+  height: 100vh;
+  /* Add overflow to hide any extra space that causes a scrollbar */
+  overflow: hidden;
+}
+
+.cctvImg_screen img {
+  width: 800px;
+  height: 500px;
+}
+
+/* adminstatus */
+.func-name {
+  margin-top: 100px;
+  font-size: x-large;
+  color: #5b86e5;
+  margin-left: 30px;
+}
+.func-name-logic {
+  /* margin-top: 100px; */
+  font-size: x-large;
+  color: #5b86e5;
+  margin-left: 30px;
+}
+.floor-select-box {
+  margin-left: 40px;
+  width: 100px;
+  height: 30px;
+  background-color: #273142;
+  color: white;
+}
+
+.status-box {
+  width: 175px;
+  height: 70px;
+  background-color: #273142;
+  margin-left: 50px;
+  margin-bottom: 10px;
+}
+
+.status-box img {
+  margin-left: 10px;
+  width: 55px;
+  height: 50px;
+}
+
+.status-notify {
+  margin-left: 30px;
+  margin-bottom: 30px;
+  background-color: #273142;
+  width: 450px;
+  height: 70px;
+}
+.status-notify p {
+  padding-top: 20px;
+  margin-left: 20px;
+}
+
+.status-notify img {
+  margin-top: 5px;
+  margin-left: 3px;
+  width: 25px;
+  height: 25px;
+}
+
+.floor-select {
+  margin-top: 100px;
+}
+.floor-select p {
+  font-size: x-large;
+}
+
+/* AdminLogic */
+
+.form-element {
+  margin-bottom: 10px;
+}
+.checkbox-group label {
+  /* display: block; */
+  margin: 10px;
+}
+.slider-group label {
+  display: flex;
+  align-items: center;
+  margin: 20px;
+}
+.slider-group input[type="range"] {
+  margin-right: 10px;
+}
+
+.videoEdge {
+  margin: 10px;
+  border: 1px solid #ececec;
+  border-radius: 20px;
+  width: 1000px;
+  height: 600px;
+  box-shadow: 3px 3px 80px 2px rgba(142, 146, 211, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center; /* 수직 중앙 정렬 추가 */
+}
+/* 지도맵 위에 경로 띄우는중 (테스트)   */
+
+.map-container {
+  position: relative; /* 자식 요소에 대해 절대 위치를 기준으로 함 */
+}
+
+.route-canvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+}
