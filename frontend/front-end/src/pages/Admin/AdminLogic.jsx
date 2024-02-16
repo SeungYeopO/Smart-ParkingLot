@@ -4,16 +4,16 @@ import AdminSideNavbar from "../../components/AdminSideNavbar";
 import AdminParkingLot from "./../../components/AdminParkingLot";
 import AdminUpNavbar from "../../components/AdminUpNavbar";
 import LogicParkingLot from "../../components/LogicParkingLot";
+import { viewport } from "@popperjs/core";
 
 const AdminLogic = () => {
   const [floorId, setFloorId] = useState("B1");
-  const [selectedType, setSelectedType] = useState("마트");
+  const [selectedType, setSelectedType] = useState("myParkingSpace");
   const [congestion, setCongestion] = useState(0);
   const [width, setWidth] = useState(0);
   const [entrance, setEntrance] = useState(0);
   const [penalty, setPenalty] = useState(0);
   const [presets, setPresets] = useState([]);
-  const [selectedVideoPath, setSelectedVideoPath] = useState("");
   const [presetMessages, setPresetMessages] = useState({
     congestion: "",
     width: "",
@@ -27,33 +27,7 @@ const AdminLogic = () => {
     penalty: false,
   });
 
-  useEffect(() => {
-    let videoPath = "";
-    switch (selectedType) {
-      case "마트":
-        videoPath = "../assets/A.mp4";
-        break;
-      case "아파트":
-        videoPath = "../assets/B.mp4";
-        break;
-      case "사업장":
-        videoPath = "../assets/C.mp4";
-        break;
-      case "myParkingSpace":
-        if (congestion === 50 && entrance === 1) {
-          videoPath = "../assets/A_my.mp4";
-        } else if (congestion === 80 && entrance === 0) {
-          videoPath = "../assets/B_my.mp4";
-        } else if (congestion === 30 && entrance === 1) {
-          videoPath = "../assets/C_my.mp4";
-        }
-        break;
-      default:
-        videoPath = "";
-    }
-
-    setSelectedVideoPath(videoPath);
-  }, [selectedType, entrance, congestion]); // 여기서 selectedVideoPath를 제거했습니다.
+  const [videoType, setvideoType] = useState(0);
 
   useEffect(() => {
     const fetchBasePresets = async () => {
@@ -95,6 +69,7 @@ const AdminLogic = () => {
   }, [selectedType]); // selectedType 변경 시 실행
 
   const handleSave = async () => {
+    // 항상 myPreset 값을 사용합니다.
     const apiUrl = `https://i10c102.p.ssafy.io:3001/api/p_manager/lot_personal_presets`;
 
     try {
@@ -105,7 +80,7 @@ const AdminLogic = () => {
         },
         body: JSON.stringify({
           lot_id: 1,
-          building_type: selectedType,
+          building_type: selectedType, // 실제로 선택된 타입을 사용합니다.
           congestion: congestion,
           entry_exit: entrance,
           is_wide: width,
@@ -120,16 +95,15 @@ const AdminLogic = () => {
       const responseData = await response.json();
       console.log("Save successful:", responseData);
 
-      // 변경된 값을 로컬 스토리지에 저장
+      // 변경된 값을 로컬 스토리지에 저장합니다.
       localStorage.setItem("selectedType", selectedType);
       localStorage.setItem("congestion", congestion);
       localStorage.setItem("width", width);
       localStorage.setItem("entrance", entrance);
       localStorage.setItem("penalty", penalty);
 
-      // 저장 후 사용자에게 알림을 주고 페이지를 새로고침
+      // 저장 후 사용자에게 알림
       alert("저장 되었습니다.");
-      window.location.reload(); // 페이지 새로고침
     } catch (error) {
       console.error("Failed to save data:", error);
       alert("Failed to save settings.");
@@ -199,15 +173,63 @@ const AdminLogic = () => {
     }));
   };
 
+  
   const getCongestionMessage = (value) => {
+    let message = '';
     if (value === 0) {
-      return "항상 혼잡 상태로 설정합니다.";
+      message = '항상 원활 상태로 설정합니다.';
+      return message
     } else if (value === 100) {
-      return "항상 원활 상태로 설정합니다.";
+      message = '항상 혼잡 상태로 설정합니다.';
+      return message
     } else {
-      return `${value}% 부터 혼잡 상태로 설정합니다.`;
+      message = `${value}% 부터 혼잡 상태로 설정합니다.`;
+      return message
     }
   };
+
+  const CongestionMessage = getCongestionMessage(congestion);
+  
+  
+      useEffect(() => {
+        let newVideoType = 0;
+
+        if(selectedType === '마트' && entrance === 0)
+          newVideoType = 1;
+        else if(selectedType === '아파트' && entrance === 1)
+          newVideoType = 3;
+        else if(selectedType === '사업장' && entrance === 0)
+          newVideoType = 5;
+        else if(selectedType === 'myParkingSpace'){
+          if(congestion === 50 && entrance === 1)
+            newVideoType = 2;
+          else if(congestion === 80 && entrance === 0)
+            newVideoType = 4;
+          else if(congestion === 30 && entrance === 1)
+            newVideoType = 6;
+        }
+
+    setvideoType(newVideoType);
+    },[selectedType, entrance])
+
+      const renderVideo = () => {
+        switch (videoType) {
+          case 1 : 
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/A.mp4"></video>
+          case 2 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/A_my.mp4"></video>
+          case 3 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/B.mp4"></video>
+          case 4 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/B_my.mp4"></video>
+          case 5 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/C.mp4"></video>
+          case 6 :
+            return <video autoPlay muted controls style={{width : '800px', height : '500px'}} src="/assets/C_my.mp4"></video>        
+          
+        }
+      }
+
 
   const getWidthMessage = (value) => {
     if (value === 0) {
@@ -308,16 +330,9 @@ const AdminLogic = () => {
           <div
             style={{ display: "flex", flexDirection: "row", margin: "20px" }}
           >
-            <div style={{ position: "relative" }}>
-              {/* <AdminParkingLot /> */}
-              <div className="videoEdge">
-              {selectedVideoPath && (
-                <video width="900" height="550" autoPlay muted controls>
-                  <source src={selectedVideoPath} type="video/mp4" />
-                  Your browser does not support the video tag.
-                </video>
-              )}
-              </div>
+            <div style={{ position: "relative", border : '1px solid white', borderRadius: '5%', width : '800px', height : '550px' }}>
+              <div>{renderVideo()}</div>
+
             </div>
             {/* <MapTest /> */}
             <div
@@ -331,7 +346,7 @@ const AdminLogic = () => {
                 boxShadow: "3px 3px 80px 2px rgba(142, 146, 211, 0.5)",
                 borderRadius: "20px",
                 width: "350px",
-                height: "600px",
+                height: "540px",
               }}
             >
               {/* Floor Selector */}
@@ -414,7 +429,7 @@ const AdminLogic = () => {
                   <span>{congestion}</span> {/* 현재 값 표시 */}
                 </label>
                 <div className="preset-text">
-                  <p>{getCongestionMessage(congestion)}</p>
+                  <p>{CongestionMessage}</p>
                 </div>
                 <label>
                   &nbsp;&nbsp;&nbsp;&nbsp;Width&nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;

@@ -25,11 +25,16 @@ const MapTest = () => {
   };
 
   useEffect(() => {
-    if(nowPosition.length === 1){
-      setIsModalOpen(true);
+    if (nowPosition.length === 1) {
+      setIsModalOpen(true); // 모달 열기
+  
+      const timer = setTimeout(() => {
+        setIsModalOpen(false);
+      }, 5000); 
+  
+      return () => clearTimeout(timer);
     }
-  }, [nowPosition])
-
+  }, [nowPosition]);
   // Canvas에 경로를 그리는 함수
   const drawPath = () => {
     const canvas = document.getElementById("mapCanvas");
@@ -44,7 +49,7 @@ const MapTest = () => {
             ctx.lineTo(position.pos_x * ratio, position.pos_y * ratio);
         });
         ctx.lineWidth = 7; // 선의 너비 조정
-        ctx.strokeStyle = "green"; // 경로 색상
+        ctx.strokeStyle = "rgb(51,138,122)" ; // 경로 색상
         ctx.stroke();
 
         // 마지막 점에 도달하지 않았을 때만 주차 자리까지의 점선 그리기

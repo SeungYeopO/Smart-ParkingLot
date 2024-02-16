@@ -51,6 +51,7 @@ const AdminParkingLot = () => {
             [curr.data_id]: {
               is_managed: curr.is_managed,
               is_filled: curr.is_filled,
+              is_reserved : curr.is_reserved,
             },
           }),
           {}
@@ -134,19 +135,21 @@ const AdminParkingLot = () => {
 
   useEffect(() => {
     const newColors = {};
-
     Object.keys(parkingStatus).forEach((lotnum) => {
       const status = parkingStatus[lotnum];
       if (!status) {
         newColors[lotnum] = "defaultColor";
       } else {
-        if (status.is_managed === 1 && status.is_filled === 0) {
-          newColors[lotnum] = "yellow"; // 관리자가 막고, 차있지 않은 자리 색표시 => 파란색
+        if (status.is_reserved === 1) {
+          newColors[lotnum] = "yellow"; // 예약된 자리는 하얀색으로 표시
+        } else if (status.is_managed === 1 && status.is_filled === 0) {
+          newColors[lotnum] = "red"; // 관리자가 막으면 빨간색
         } else if (status.is_managed === 0 && status.is_filled === 0) {
-          newColors[lotnum] = "#66e166"; // 빈자리  => 초록색
+          newColors[lotnum] = "#66e166"; // 관리 중이지 않고 비어있는 자리는 초록색으로 표시
         } else {
-          newColors[lotnum] = "rgb(2, 24, 45)"; // 주차 되어있는 자리  => 빨간색 11 01
+          newColors[lotnum] = "rgb(2, 24, 45)"; // 그 외의 경우(주차되어 있는 경우 등)는 진한 색으로 표시
         }
+        
         // parkingStatus[space.id] === 1 ? "rgb(2, 24, 45)" : "#66e166",
       }
     });
